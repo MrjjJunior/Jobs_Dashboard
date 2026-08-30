@@ -1,0 +1,6 @@
+{
+  "name": "Job Application Dashboard",
+  "description": "A comprehensive job application dashboard and tracker with resume creator studio, ATS ranking masterclass, A/B testing analytics, and real-time match calculator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
