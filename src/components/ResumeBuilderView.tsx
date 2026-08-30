@@ -23,7 +23,8 @@ import {
   RefreshCw,
   Eye,
   Printer,
-  ChevronDown
+  ChevronDown,
+  RotateCcw
 } from 'lucide-react';
 import { ResumeItem } from '../types';
 
@@ -61,77 +62,36 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<'builder' | 'guide' | 'verbs' | 'examples'>('builder');
 
-  // Resume builder state
-  const [fullName, setFullName] = useState('Alex Rivera');
-  const [targetTitle, setTargetTitle] = useState('Senior Full-Stack Engineer');
-  const [email, setEmail] = useState('alex.rivera@example.com');
-  const [phone, setPhone] = useState('+1 (555) 234-5678');
-  const [location, setLocation] = useState('San Francisco, CA');
-  const [linkedin, setLinkedin] = useState('linkedin.com/in/alexrivera-dev');
-  const [github, setGithub] = useState('github.com/alexrivera');
-  const [portfolio, setPortfolio] = useState('alexrivera.io');
+  // Resume builder state - Default to blank for clean user input
+  const [fullName, setFullName] = useState('');
+  const [targetTitle, setTargetTitle] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [location, setLocation] = useState('');
+  const [linkedin, setLinkedin] = useState('');
+  const [github, setGithub] = useState('');
+  const [portfolio, setPortfolio] = useState('');
 
   // Professional Summary (Replaces outdated Objective)
-  const [summary, setSummary] = useState(
-    'Performance-driven Full-Stack Engineer with 5+ years of experience architecting high-throughput distributed web applications and modern React/Node.js systems. Proven track record of accelerating page load times by 40% and leading high-velocity agile sprints that improved deployment frequency by 65% across 500k+ active users.'
-  );
+  const [summary, setSummary] = useState('');
 
   // Work Experience
-  const [experiences, setExperiences] = useState<WorkExperience[]>([
-    {
-      id: 'exp-1',
-      company: 'TechFlow Systems',
-      role: 'Senior Full-Stack Engineer',
-      location: 'San Francisco, CA',
-      startDate: '2023-03',
-      endDate: 'Present',
-      isCurrent: true,
-      bullets: [
-        'Architected real-time WebSocket dashboard handling 25,000+ concurrent connections, reducing client synchronization latency by 45%.',
-        'Spearheaded migration of legacy monolith to micro-frontends using React 18, TypeScript, and Vite, cutting initial bundle size by 38% and accelerating deployment cycles from 2 weeks to daily releases.',
-        'Engineered automated CI/CD pipeline with comprehensive end-to-end Playwright tests, decreasing production escape defects by 52% across 6 core product domains.',
-      ],
-    },
-    {
-      id: 'exp-2',
-      company: 'Nexus Digital Labs',
-      role: 'Software Engineer',
-      location: 'San Jose, CA',
-      startDate: '2021-06',
-      endDate: '2023-02',
-      isCurrent: false,
-      bullets: [
-        'Developed high-conversion checkout flows using React, Tailwind CSS, and Stripe API, elevating user checkout completion rate by 18.5% ($1.2M incremental ARR).',
-        'Optimized PostgreSQL database queries and implemented Redis caching layer, decreasing average server response time from 420ms to 95ms.',
-        'Mentored 4 junior engineers on modern React hooks architecture, code review standards, and automated unit testing practices.',
-      ],
-    },
-  ]);
+  const [experiences, setExperiences] = useState<WorkExperience[]>([]);
 
   // Skills
-  const [languages, setLanguages] = useState('TypeScript, JavaScript (ES6+), Python, SQL, HTML5, CSS3');
-  const [frameworks, setFrameworks] = useState('React, Next.js, Node.js, Express, Tailwind CSS, GraphQL, Redux Toolkit');
-  const [cloudTools, setCloudTools] = useState('AWS (S3, Lambda, CloudFront), Docker, PostgreSQL, Redis, Git, GitHub Actions, Jest, Vite');
-  const [methodologies, setMethodologies] = useState('Agile/Scrum, CI/CD, Microservices, Test-Driven Development (TDD), RESTful APIs');
+  const [languages, setLanguages] = useState('');
+  const [frameworks, setFrameworks] = useState('');
+  const [cloudTools, setCloudTools] = useState('');
+  const [methodologies, setMethodologies] = useState('');
 
   // Education
-  const [education, setEducation] = useState<EducationItem[]>([
-    {
-      id: 'edu-1',
-      school: 'University of California, Berkeley',
-      degree: 'Bachelor of Science',
-      field: 'Computer Science',
-      graduationYear: '2021',
-      gpa: '3.8/4.0',
-      honors: 'Dean’s Honors List',
-    },
-  ]);
+  const [education, setEducation] = useState<EducationItem[]>([]);
 
   // Interactive Google X-Y-Z Bullet Generator State
   const [xyzRoleIndex, setXyzRoleIndex] = useState(0);
-  const [xyzAccomplished, setXyzAccomplished] = useState('Accelerated mobile application performance');
-  const [xyzMeasured, setXyzMeasured] = useState('by 42% from 3.8s to 2.2s load time');
-  const [xyzDoing, setXyzDoing] = useState('by implementing code splitting, lazy asset loading, and server caching');
+  const [xyzAccomplished, setXyzAccomplished] = useState('');
+  const [xyzMeasured, setXyzMeasured] = useState('');
+  const [xyzDoing, setXyzDoing] = useState('');
   const [selectedVerb, setSelectedVerb] = useState('Engineered');
 
   // Action verb search
@@ -139,6 +99,94 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
   const [verbSearch, setVerbSearch] = useState('');
   const [copiedVerb, setCopiedVerb] = useState<string | null>(null);
   const [saveSuccessMessage, setSaveSuccessMessage] = useState<string | null>(null);
+
+  // Template loader & Clear handlers
+  const handleLoadSampleTemplate = () => {
+    setFullName('Alex Rivera');
+    setTargetTitle('Senior Full-Stack Engineer');
+    setEmail('alex.rivera@example.com');
+    setPhone('+1 (555) 234-5678');
+    setLocation('San Francisco, CA');
+    setLinkedin('linkedin.com/in/alexrivera-dev');
+    setGithub('github.com/alexrivera');
+    setPortfolio('alexrivera.io');
+    setSummary('Performance-driven Full-Stack Engineer with 5+ years of experience architecting high-throughput distributed web applications and modern React/Node.js systems. Proven track record of accelerating page load times by 40% and leading high-velocity agile sprints.');
+    setLanguages('TypeScript, JavaScript (ES6+), Python, SQL, HTML5, CSS3');
+    setFrameworks('React, Next.js, Node.js, Express, Tailwind CSS, GraphQL, Redux Toolkit');
+    setCloudTools('AWS (S3, Lambda, CloudFront), Docker, PostgreSQL, Redis, Git, GitHub Actions, Jest, Vite');
+    setMethodologies('Agile/Scrum, CI/CD, Microservices, Test-Driven Development (TDD), RESTful APIs');
+    setExperiences([
+      {
+        id: 'exp-1',
+        company: 'TechFlow Systems',
+        role: 'Senior Full-Stack Engineer',
+        location: 'San Francisco, CA',
+        startDate: '2023-03',
+        endDate: 'Present',
+        isCurrent: true,
+        bullets: [
+          'Architected real-time WebSocket dashboard handling 25,000+ concurrent connections, reducing client synchronization latency by 45%.',
+          'Spearheaded migration of legacy monolith to micro-frontends using React 18, TypeScript, and Vite, cutting initial bundle size by 38% and accelerating deployment cycles from 2 weeks to daily releases.',
+          'Engineered automated CI/CD pipeline with comprehensive end-to-end Playwright tests, decreasing production escape defects by 52% across 6 core product domains.',
+        ],
+      },
+      {
+        id: 'exp-2',
+        company: 'Nexus Digital Labs',
+        role: 'Software Engineer',
+        location: 'San Jose, CA',
+        startDate: '2021-06',
+        endDate: '2023-02',
+        isCurrent: false,
+        bullets: [
+          'Developed high-conversion checkout flows using React, Tailwind CSS, and Stripe API, elevating user checkout completion rate by 18.5% ($1.2M incremental ARR).',
+          'Optimized PostgreSQL database queries and implemented Redis caching layer, decreasing average server response time from 420ms to 95ms.',
+          'Mentored 4 junior engineers on modern React hooks architecture, code review standards, and automated unit testing practices.',
+        ],
+      },
+    ]);
+    setEducation([
+      {
+        id: 'edu-1',
+        school: 'University of California, Berkeley',
+        degree: 'Bachelor of Science',
+        field: 'Computer Science',
+        graduationYear: '2021',
+        gpa: '3.8/4.0',
+        honors: 'Dean’s Honors List',
+      },
+    ]);
+    setXyzAccomplished('Accelerated mobile application performance');
+    setXyzMeasured('by 42% from 3.8s to 2.2s load time');
+    setXyzDoing('by implementing code splitting, lazy asset loading, and server caching');
+    setSaveSuccessMessage('Sample template loaded for reference!');
+    setTimeout(() => setSaveSuccessMessage(null), 3000);
+  };
+
+  const handleClearForm = () => {
+    if (confirm('Clear all resume fields to a blank canvas?')) {
+      setFullName('');
+      setTargetTitle('');
+      setEmail('');
+      setPhone('');
+      setLocation('');
+      setLinkedin('');
+      setGithub('');
+      setPortfolio('');
+      setSummary('');
+      setLanguages('');
+      setFrameworks('');
+      setCloudTools('');
+      setMethodologies('');
+      setExperiences([]);
+      setEducation([]);
+      setXyzAccomplished('');
+      setXyzMeasured('');
+      setXyzDoing('');
+      setSaveSuccessMessage('Resume canvas cleared!');
+      setTimeout(() => setSaveSuccessMessage(null), 3000);
+    }
+  };
 
   // Formatted Resume Content for Preview / ATS
   const fullResumeText = useMemo(() => {
@@ -306,6 +354,22 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
     const updated = [...experiences];
     updated[expIndex].bullets = updated[expIndex].bullets.filter((_, i) => i !== bulletIndex);
     setExperiences(updated);
+  };
+
+  const handleAddEducation = () => {
+    const newEdu = {
+      id: `edu-${Date.now()}`,
+      degree: '',
+      field: '',
+      school: '',
+      graduationYear: '',
+      honors: '',
+    };
+    setEducation([...education, newEdu]);
+  };
+
+  const handleRemoveEducation = (id: string) => {
+    setEducation(education.filter((e) => e.id !== id));
   };
 
   // Google X-Y-Z generated bullet
@@ -480,7 +544,7 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
         </div>
 
         {/* Global Quick Action Buttons */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {saveSuccessMessage && (
             <span className="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-lg flex items-center gap-1.5 animate-fadeIn">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
@@ -489,11 +553,31 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
           )}
 
           <button
+            type="button"
+            onClick={handleLoadSampleTemplate}
+            className="px-3 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors"
+            title="Populate builder with high-impact senior engineer sample data"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+            <span>Load Sample Template</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={handleClearForm}
+            className="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors"
+            title="Reset all fields to a blank canvas"
+          >
+            <RotateCcw className="w-3.5 h-3.5 text-slate-500" />
+            <span>Clear Form</span>
+          </button>
+
+          <button
             onClick={handleSaveToLibrary}
             className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-colors"
           >
             <Save className="w-3.5 h-3.5" />
-            <span>Save to Resume Library</span>
+            <span>Save to Library</span>
           </button>
 
           <button
@@ -532,6 +616,7 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                     type="text"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
+                    placeholder="e.g. Alex Rivera"
                     className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 font-bold focus:bg-white focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
@@ -542,7 +627,7 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                     type="text"
                     value={targetTitle}
                     onChange={(e) => setTargetTitle(e.target.value)}
-                    placeholder="e.g. Senior Frontend Engineer"
+                    placeholder="e.g. Senior Full-Stack Engineer"
                     className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 font-semibold focus:bg-white focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
@@ -553,6 +638,7 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    placeholder="e.g. alex.rivera@example.com"
                     className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 font-mono"
                   />
                 </div>
@@ -563,6 +649,7 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                     type="text"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
+                    placeholder="e.g. +1 (555) 234-5678"
                     className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 font-mono"
                   />
                 </div>
@@ -573,7 +660,7 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                     type="text"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    placeholder="City, State (e.g. Austin, TX)"
+                    placeholder="e.g. San Francisco, CA"
                     className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900"
                   />
                 </div>
@@ -584,6 +671,7 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                     type="text"
                     value={linkedin}
                     onChange={(e) => setLinkedin(e.target.value)}
+                    placeholder="e.g. linkedin.com/in/alexrivera-dev"
                     className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 font-mono"
                   />
                 </div>
@@ -594,6 +682,7 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                     type="text"
                     value={github}
                     onChange={(e) => setGithub(e.target.value)}
+                    placeholder="e.g. github.com/alexrivera"
                     className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 font-mono"
                   />
                 </div>
@@ -604,6 +693,7 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                     type="text"
                     value={portfolio}
                     onChange={(e) => setPortfolio(e.target.value)}
+                    placeholder="e.g. alexrivera.io"
                     className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 font-mono"
                   />
                 </div>
@@ -628,6 +718,7 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                 rows={3}
                 value={summary}
                 onChange={(e) => setSummary(e.target.value)}
+                placeholder="e.g. Performance-driven Full-Stack Engineer with 5+ years of experience architecting high-throughput distributed web applications and modern React/Node.js systems. Proven track record of accelerating page load times by 40% and leading high-velocity agile sprints."
                 className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500 leading-relaxed font-sans"
               />
             </div>
@@ -772,153 +863,175 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                 </button>
               </div>
 
-              {experiences.map((exp, expIdx) => (
-                <div
-                  key={exp.id}
-                  className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3 relative group"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] uppercase tracking-wider font-extrabold text-slate-400">
-                      Position #{expIdx + 1} (Reverse-Chronological)
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveExperience(exp.id)}
-                      className="p-1 text-slate-400 hover:text-rose-600 transition-colors"
-                      title="Remove this role"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                    <div>
-                      <label className="block font-bold text-slate-700 mb-1">Role Title</label>
-                      <input
-                        type="text"
-                        value={exp.role}
-                        onChange={(e) => {
-                          const updated = [...experiences];
-                          updated[expIdx].role = e.target.value;
-                          setExperiences(updated);
-                        }}
-                        className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900 font-semibold"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block font-bold text-slate-700 mb-1">Company Name</label>
-                      <input
-                        type="text"
-                        value={exp.company}
-                        onChange={(e) => {
-                          const updated = [...experiences];
-                          updated[expIdx].company = e.target.value;
-                          setExperiences(updated);
-                        }}
-                        className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900 font-semibold"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block font-bold text-slate-700 mb-1">Location</label>
-                      <input
-                        type="text"
-                        value={exp.location}
-                        onChange={(e) => {
-                          const updated = [...experiences];
-                          updated[expIdx].location = e.target.value;
-                          setExperiences(updated);
-                        }}
-                        className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900"
-                      />
-                    </div>
-
-                    <div className="flex gap-2">
-                      <div className="flex-1">
-                        <label className="block font-bold text-slate-700 mb-1">Start Date</label>
-                        <input
-                          type="text"
-                          placeholder="YYYY-MM"
-                          value={exp.startDate}
-                          onChange={(e) => {
-                            const updated = [...experiences];
-                            updated[expIdx].startDate = e.target.value;
-                            setExperiences(updated);
-                          }}
-                          className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900 font-mono text-xs"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <label className="block font-bold text-slate-700 mb-1">End Date</label>
-                        <input
-                          type="text"
-                          placeholder="Present or YYYY-MM"
-                          value={exp.endDate}
-                          onChange={(e) => {
-                            const updated = [...experiences];
-                            updated[expIdx].endDate = e.target.value;
-                            setExperiences(updated);
-                          }}
-                          className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900 font-mono text-xs"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Bullet Points */}
-                  <div className="space-y-2 pt-2 border-t border-slate-200">
+              {experiences.length === 0 ? (
+                <div className="text-center py-6 px-4 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50 space-y-2">
+                  <FileText className="w-6 h-6 text-slate-400 mx-auto" />
+                  <p className="text-xs font-semibold text-slate-700">No work experience entries added yet</p>
+                  <p className="text-[11px] text-slate-500 max-w-sm mx-auto">
+                    Add your work history in reverse-chronological order or load the sample template.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={handleAddExperience}
+                    className="mt-1 inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg shadow-2xs transition-colors"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    Add First Position
+                  </button>
+                </div>
+              ) : (
+                experiences.map((exp, expIdx) => (
+                  <div
+                    key={exp.id}
+                    className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3 relative group"
+                  >
                     <div className="flex items-center justify-between">
-                      <label className="text-[11px] font-bold text-slate-700">
-                        Achievement Bullet Points ({exp.bullets.length})
-                      </label>
+                      <span className="text-[10px] uppercase tracking-wider font-extrabold text-slate-400">
+                        Position #{expIdx + 1} (Reverse-Chronological)
+                      </span>
                       <button
                         type="button"
-                        onClick={() => handleAddBullet(expIdx)}
-                        className="text-[11px] font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1"
+                        onClick={() => handleRemoveExperience(exp.id)}
+                        className="p-1 text-slate-400 hover:text-rose-600 transition-colors"
+                        title="Remove this role"
                       >
-                        <Plus className="w-3 h-3" /> Add Bullet
+                        <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     </div>
 
-                    {exp.bullets.map((bullet, bIdx) => {
-                      const hasMetric = /(\d+%)|(\$\d+)|(\d+\+)|(\d+ms)|(\d+s)/i.test(bullet);
-                      const isPassive = /responsible for|helped with|worked on/i.test(bullet);
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">Role Title</label>
+                        <input
+                          type="text"
+                          value={exp.role}
+                          onChange={(e) => {
+                            const updated = [...experiences];
+                            updated[expIdx].role = e.target.value;
+                            setExperiences(updated);
+                          }}
+                          placeholder="e.g. Senior Software Engineer"
+                          className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900 font-semibold"
+                        />
+                      </div>
 
-                      return (
-                        <div key={bIdx} className="space-y-1">
-                          <div className="flex items-start gap-2">
-                            <span className="text-slate-400 font-bold text-xs pt-1.5">•</span>
-                            <textarea
-                              rows={2}
-                              value={bullet}
-                              onChange={(e) => handleUpdateBullet(expIdx, bIdx, e.target.value)}
-                              className="flex-1 p-2 bg-white border border-slate-200 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-blue-500 leading-relaxed font-sans"
-                            />
-                            <button
-                              type="button"
-                              onClick={() => handleRemoveBullet(expIdx, bIdx)}
-                              className="p-1 text-slate-400 hover:text-rose-600 pt-2"
-                            >
-                              <Trash2 className="w-3 h-3" />
-                            </button>
-                          </div>
-                          {isPassive && (
-                            <p className="text-[10px] text-rose-600 font-bold pl-4 flex items-center gap-1">
-                              <ShieldAlert className="w-2.5 h-2.5" /> Weak phrasing detected: Replace "Responsible for" with an active verb (e.g. Engineered, Spearheaded).
-                            </p>
-                          )}
-                          {!hasMetric && !isPassive && (
-                            <p className="text-[10px] text-amber-600 font-medium pl-4">
-                              💡 Tip: Quantify this bullet with a metric (e.g., % improvement, $ saved, latency cut).
-                            </p>
-                          )}
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">Company Name</label>
+                        <input
+                          type="text"
+                          value={exp.company}
+                          onChange={(e) => {
+                            const updated = [...experiences];
+                            updated[expIdx].company = e.target.value;
+                            setExperiences(updated);
+                          }}
+                          placeholder="e.g. TechFlow Systems"
+                          className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900 font-semibold"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">Location</label>
+                        <input
+                          type="text"
+                          value={exp.location}
+                          onChange={(e) => {
+                            const updated = [...experiences];
+                            updated[expIdx].location = e.target.value;
+                            setExperiences(updated);
+                          }}
+                          placeholder="e.g. San Francisco, CA"
+                          className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900"
+                        />
+                      </div>
+
+                      <div className="flex gap-2">
+                        <div className="flex-1">
+                          <label className="block font-bold text-slate-700 mb-1">Start Date</label>
+                          <input
+                            type="text"
+                            placeholder="e.g. 2023-03"
+                            value={exp.startDate}
+                            onChange={(e) => {
+                              const updated = [...experiences];
+                              updated[expIdx].startDate = e.target.value;
+                              setExperiences(updated);
+                            }}
+                            className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900 font-mono text-xs"
+                          />
                         </div>
-                      );
-                    })}
+                        <div className="flex-1">
+                          <label className="block font-bold text-slate-700 mb-1">End Date</label>
+                          <input
+                            type="text"
+                            placeholder="e.g. Present"
+                            value={exp.endDate}
+                            onChange={(e) => {
+                              const updated = [...experiences];
+                              updated[expIdx].endDate = e.target.value;
+                              setExperiences(updated);
+                            }}
+                            className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900 font-mono text-xs"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Bullet Points */}
+                    <div className="space-y-2 pt-2 border-t border-slate-200">
+                      <div className="flex items-center justify-between">
+                        <label className="text-[11px] font-bold text-slate-700">
+                          Achievement Bullet Points ({exp.bullets.length})
+                        </label>
+                        <button
+                          type="button"
+                          onClick={() => handleAddBullet(expIdx)}
+                          className="text-[11px] font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1"
+                        >
+                          <Plus className="w-3 h-3" /> Add Bullet
+                        </button>
+                      </div>
+
+                      {exp.bullets.map((bullet, bIdx) => {
+                        const hasMetric = /(\d+%)|(\$\d+)|(\d+\+)|(\d+ms)|(\d+s)/i.test(bullet);
+                        const isPassive = /responsible for|helped with|worked on/i.test(bullet);
+
+                        return (
+                          <div key={bIdx} className="space-y-1">
+                            <div className="flex items-start gap-2">
+                              <span className="text-slate-400 font-bold text-xs pt-1.5">•</span>
+                              <textarea
+                                rows={2}
+                                value={bullet}
+                                onChange={(e) => handleUpdateBullet(expIdx, bIdx, e.target.value)}
+                                placeholder="e.g. Architected real-time WebSocket dashboard handling 25,000+ connections, reducing latency by 45%."
+                                className="flex-1 p-2 bg-white border border-slate-200 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-blue-500 leading-relaxed font-sans"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveBullet(expIdx, bIdx)}
+                                className="p-1 text-slate-400 hover:text-rose-600 pt-2"
+                              >
+                                <Trash2 className="w-3 h-3" />
+                              </button>
+                            </div>
+                            {isPassive && (
+                              <p className="text-[10px] text-rose-600 font-bold pl-4 flex items-center gap-1">
+                                <ShieldAlert className="w-2.5 h-2.5" /> Weak phrasing detected: Replace "Responsible for" with an active verb (e.g. Engineered, Spearheaded).
+                              </p>
+                            )}
+                            {!hasMetric && !isPassive && (
+                              <p className="text-[10px] text-amber-600 font-medium pl-4">
+                                💡 Tip: Quantify this bullet with a metric (e.g., % improvement, $ saved, latency cut).
+                              </p>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
 
             {/* Section 5: Technical Skills */}
@@ -937,6 +1050,7 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                     type="text"
                     value={languages}
                     onChange={(e) => setLanguages(e.target.value)}
+                    placeholder="e.g. TypeScript, JavaScript, Python, SQL, HTML5, CSS3"
                     className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900"
                   />
                 </div>
@@ -946,6 +1060,7 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                     type="text"
                     value={frameworks}
                     onChange={(e) => setFrameworks(e.target.value)}
+                    placeholder="e.g. React, Next.js, Node.js, Express, Tailwind CSS, GraphQL"
                     className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900"
                   />
                 </div>
@@ -955,6 +1070,7 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                     type="text"
                     value={cloudTools}
                     onChange={(e) => setCloudTools(e.target.value)}
+                    placeholder="e.g. AWS (S3, Lambda), Docker, PostgreSQL, Redis, Git, GitHub Actions"
                     className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900"
                   />
                 </div>
@@ -964,6 +1080,7 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                     type="text"
                     value={methodologies}
                     onChange={(e) => setMethodologies(e.target.value)}
+                    placeholder="e.g. Agile/Scrum, CI/CD, Microservices, TDD, RESTful APIs"
                     className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900"
                   />
                 </div>
@@ -977,82 +1094,118 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                   <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center">6</span>
                   <h3 className="font-bold text-slate-900 text-sm">Education & Credentials</h3>
                 </div>
+                <button
+                  type="button"
+                  onClick={handleAddEducation}
+                  className="px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 font-bold text-xs rounded-lg flex items-center gap-1 border border-blue-200 transition-colors"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  Add Education
+                </button>
               </div>
 
-              {education.map((edu, idx) => (
-                <div key={edu.id} className="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs p-3 bg-slate-50 rounded-xl border border-slate-200">
-                  <div className="md:col-span-2">
-                    <label className="block font-bold text-slate-700 mb-1">School / University</label>
-                    <input
-                      type="text"
-                      value={edu.school}
-                      onChange={(e) => {
-                        const updated = [...education];
-                        updated[idx].school = e.target.value;
-                        setEducation(updated);
-                      }}
-                      className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900 font-semibold"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">Graduation Year</label>
-                    <input
-                      type="text"
-                      value={edu.graduationYear}
-                      onChange={(e) => {
-                        const updated = [...education];
-                        updated[idx].graduationYear = e.target.value;
-                        setEducation(updated);
-                      }}
-                      className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900 font-mono"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">Degree</label>
-                    <input
-                      type="text"
-                      value={edu.degree}
-                      onChange={(e) => {
-                        const updated = [...education];
-                        updated[idx].degree = e.target.value;
-                        setEducation(updated);
-                      }}
-                      className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">Major / Field</label>
-                    <input
-                      type="text"
-                      value={edu.field}
-                      onChange={(e) => {
-                        const updated = [...education];
-                        updated[idx].field = e.target.value;
-                        setEducation(updated);
-                      }}
-                      className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">Honors / GPA</label>
-                    <input
-                      type="text"
-                      value={edu.honors || ''}
-                      onChange={(e) => {
-                        const updated = [...education];
-                        updated[idx].honors = e.target.value;
-                        setEducation(updated);
-                      }}
-                      placeholder="e.g. Magna Cum Laude"
-                      className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900"
-                    />
-                  </div>
+              {education.length === 0 ? (
+                <div className="text-center py-5 px-4 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50 space-y-2">
+                  <p className="text-xs font-semibold text-slate-700">No education credentials added yet</p>
+                  <button
+                    type="button"
+                    onClick={handleAddEducation}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-xs font-bold rounded-lg"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    Add Education Credential
+                  </button>
                 </div>
-              ))}
+              ) : (
+                education.map((edu, idx) => (
+                  <div key={edu.id} className="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs p-3 bg-slate-50 rounded-xl border border-slate-200">
+                    <div className="md:col-span-2">
+                      <label className="block font-bold text-slate-700 mb-1">School / University</label>
+                      <input
+                        type="text"
+                        value={edu.school}
+                        onChange={(e) => {
+                          const updated = [...education];
+                          updated[idx].school = e.target.value;
+                          setEducation(updated);
+                        }}
+                        placeholder="e.g. University of California, Berkeley"
+                        className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900 font-semibold"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-slate-700 mb-1">Graduation Year</label>
+                      <input
+                        type="text"
+                        value={edu.graduationYear}
+                        onChange={(e) => {
+                          const updated = [...education];
+                          updated[idx].graduationYear = e.target.value;
+                          setEducation(updated);
+                        }}
+                        placeholder="e.g. 2022"
+                        className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900 font-mono"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-slate-700 mb-1">Degree</label>
+                      <input
+                        type="text"
+                        value={edu.degree}
+                        onChange={(e) => {
+                          const updated = [...education];
+                          updated[idx].degree = e.target.value;
+                          setEducation(updated);
+                        }}
+                        placeholder="e.g. Bachelor of Science"
+                        className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-slate-700 mb-1">Major / Field</label>
+                      <input
+                        type="text"
+                        value={edu.field}
+                        onChange={(e) => {
+                          const updated = [...education];
+                          updated[idx].field = e.target.value;
+                          setEducation(updated);
+                        }}
+                        placeholder="e.g. Computer Science"
+                        className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900"
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex-1">
+                        <label className="block font-bold text-slate-700 mb-1">Honors / GPA</label>
+                        <input
+                          type="text"
+                          value={edu.honors || ''}
+                          onChange={(e) => {
+                            const updated = [...education];
+                            updated[idx].honors = e.target.value;
+                            setEducation(updated);
+                          }}
+                          placeholder="e.g. Dean's Honors List | GPA: 3.8"
+                          className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900"
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveEducation(edu.id)}
+                        className="p-1.5 text-slate-400 hover:text-rose-600 self-end mb-1 transition-colors"
+                        title="Remove education"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
           </div>
 

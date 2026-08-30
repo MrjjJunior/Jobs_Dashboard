@@ -3,26 +3,24 @@ import { INITIAL_JOBS } from '../data/initialJobs';
 import { INITIAL_RESUMES } from '../data/initialResumes';
 import { calculateAtsMatch } from './atsCalculator';
 
-const JOBS_STORAGE_KEY = 'job_tracker_applications_v1';
-const RESUMES_STORAGE_KEY = 'job_tracker_resumes_v1';
+const JOBS_STORAGE_KEY = 'job_tracker_applications_v4';
+const RESUMES_STORAGE_KEY = 'job_tracker_resumes_v4';
 
 export function loadStoredJobs(): JobApplication[] {
   try {
     const raw = localStorage.getItem(JOBS_STORAGE_KEY);
     if (!raw) {
-      const enriched = enrichInitialJobs(INITIAL_JOBS);
-      localStorage.setItem(JOBS_STORAGE_KEY, JSON.stringify(enriched));
-      return enriched;
+      localStorage.setItem(JOBS_STORAGE_KEY, JSON.stringify([]));
+      return [];
     }
     const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed) && parsed.length > 0) {
-      // Ensure existing items have resume mapping & default descriptions if missing
-      return enrichInitialJobs(parsed);
+    if (Array.isArray(parsed)) {
+      return parsed;
     }
-    return enrichInitialJobs(INITIAL_JOBS);
+    return [];
   } catch (err) {
-    console.error('Failed to parse stored jobs, using initial sample data', err);
-    return enrichInitialJobs(INITIAL_JOBS);
+    console.error('Failed to parse stored jobs, starting fresh', err);
+    return [];
   }
 }
 
@@ -38,17 +36,17 @@ export function loadStoredResumes(): ResumeItem[] {
   try {
     const raw = localStorage.getItem(RESUMES_STORAGE_KEY);
     if (!raw) {
-      localStorage.setItem(RESUMES_STORAGE_KEY, JSON.stringify(INITIAL_RESUMES));
-      return INITIAL_RESUMES;
+      localStorage.setItem(RESUMES_STORAGE_KEY, JSON.stringify([]));
+      return [];
     }
     const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed) && parsed.length > 0) {
+    if (Array.isArray(parsed)) {
       return parsed;
     }
-    return INITIAL_RESUMES;
+    return [];
   } catch (err) {
     console.error('Failed to parse stored resumes', err);
-    return INITIAL_RESUMES;
+    return [];
   }
 }
 
@@ -57,6 +55,17 @@ export function saveStoredResumes(resumes: ResumeItem[]): void {
     localStorage.setItem(RESUMES_STORAGE_KEY, JSON.stringify(resumes));
   } catch (err) {
     console.error('Failed to save resumes to localStorage', err);
+  }
+}
+
+export function clearAllStoredData(): void {
+  try {
+    localStorage.setItem(JOBS_STORAGE_KEY, JSON.stringify([]));
+    localStorage.setItem(RESUMES_STORAGE_KEY, JSON.stringify([]));
+    localStorage.removeItem('job_tracker_applications_v1');
+    localStorage.removeItem('job_tracker_resumes_v1');
+  } catch (err) {
+    console.error('Failed to clear storage', err);
   }
 }
 
