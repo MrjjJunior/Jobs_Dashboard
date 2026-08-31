@@ -17,11 +17,14 @@ import {
   Plus,
   Building2,
   Sliders,
-  Check
+  Check,
+  Upload,
+  Loader2
 } from 'lucide-react';
 import { JobApplication, ResumeItem, AtsMatchResult } from '../types';
 import { calculateAtsMatch, extractKeywords } from '../utils/atsCalculator';
 import { getCompanyInitials } from '../utils/storage';
+import { parseResumeFile } from '../utils/fileParser';
 
 interface AtsCalculatorViewProps {
   jobs: JobApplication[];
@@ -56,6 +59,51 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
 
   // Comparison Mode
   const [comparisonMode, setComparisonMode] = useState<boolean>(false);
+  const [isParsingResume, setIsParsingResume] = useState(false);
+  const [isParsingJob, setIsParsingJob] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState<string | null>(null);
+
+  const handleUploadResumeFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsParsingResume(true);
+    setUploadStatus('Extracting text from resume...');
+
+    try {
+      const parsed = await parseResumeFile(file);
+      setIsParsingResume(false);
+      if (parsed.text.trim()) {
+        setResumeText(parsed.text);
+        setUploadStatus(`Extracted ${parsed.wordCount} words from ${file.name}`);
+        setTimeout(() => setUploadStatus(null), 3000);
+      } else {
+        alert(parsed.error || 'Could not extract text from this document.');
+        setUploadStatus(null);
+      }
+    } catch (err: any) {
+      setIsParsingResume(false);
+      setUploadStatus(null);
+      alert('Failed to parse file: ' + (err.message || 'Unknown error'));
+    }
+  };
+
+  const handleUploadJobFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsParsingJob(true);
+    try {
+      const parsed = await parseResumeFile(file);
+      setIsParsingJob(false);
+      if (parsed.text.trim()) {
+        setJobDescriptionText(parsed.text);
+      }
+    } catch (err: any) {
+      setIsParsingJob(false);
+      alert('Failed to parse job file: ' + (err.message || 'Unknown error'));
+    }
+  };
 
   // Sync state when resume selection changes
   useEffect(() => {
@@ -272,14 +320,35 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
             </select>
 
             <div>
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
                   Resume Content (Editable)
                 </span>
-                <span className="text-[10px] text-slate-400">
-                  {atsResult.wordCountResume} words
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] text-slate-400">
+                    {atsResult.wordCountResume} words
+                  </span>
+                  <label className="text-[11px] font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 cursor-pointer bg-blue-50 hover:bg-blue-100 px-2 py-0.5 rounded border border-blue-200 transition-colors">
+                    {isParsingResume ? (
+                      <Loader2 className="w-3 h-3 animate-spin" />
+                    ) : (
+                      <Upload className="w-3 h-3" />
+                    )}
+                    <span>{isParsingResume ? 'Parsing...' : 'Upload File'}</span>
+                    <input
+                      type="file"
+                      accept=".pdf,.docx,.doc,.txt,.md,.rtf"
+                      onChange={handleUploadResumeFile}
+                      className="hidden"
+                    />
+                  </label>
+                </div>
               </div>
+              {uploadStatus && (
+                <p className="text-[10px] text-emerald-600 font-semibold mb-1 animate-fadeIn flex items-center gap-1">
+                  <Check className="w-3 h-3" /> {uploadStatus}
+                </p>
+              )}
               <textarea
                 rows={8}
                 value={resumeText}

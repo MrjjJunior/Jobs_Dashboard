@@ -14,18 +14,21 @@ import {
   Edit, 
   Eye, 
   Sparkles, 
-  ExternalLink,
-  ChevronRight,
-  Calculator,
-  Briefcase,
-  Star,
-  FileCode,
-  Tag,
-  BookOpen
+  ExternalLink, 
+  ChevronRight, 
+  Calculator, 
+  Briefcase, 
+  Star, 
+  FileCode, 
+  Tag, 
+  BookOpen,
+  Loader2,
+  Check
 } from 'lucide-react';
 import { JobApplication, ResumeItem } from '../types';
 import { getResumePerformanceStats, ResumePerformanceStats, getCompanyInitials } from '../utils/storage';
 import { extractKeywords } from '../utils/atsCalculator';
+import { parseResumeFile } from '../utils/fileParser';
 
 interface ResumePerformanceViewProps {
   jobs: JobApplication[];
@@ -60,13 +63,16 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
   const [fileName, setFileName] = useState('');
   const [fileSize, setFileSize] = useState('');
   const [isDragOver, setIsDragOver] = useState(false);
+  const [isParsing, setIsParsing] = useState(false);
+  const [parseStatus, setParseStatus] = useState<string | null>(null);
+  const [parseError, setParseError] = useState<string | null>(null);
 
   const statsList = getResumePerformanceStats(jobs, resumes);
 
   // Highest performing resume
   const topPerformer = statsList.find((s) => s.isTopPerformer) || statsList[0];
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement> | DragEvent) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement> | DragEvent) => {
     let file: File | null = null;
     if ('dataTransfer' in e) {
       file = e.dataTransfer?.files?.[0] || null;
@@ -78,22 +84,52 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
 
     setFileName(file.name);
     setFileSize(`${Math.round(file.size / 1024)} KB`);
+    setParseError(null);
+    setParseStatus(null);
+    setIsParsing(true);
 
     if (!name) {
-      setName(file.name.replace(/\.[^/.]+$/, ''));
+      const cleanName = file.name.replace(/\.[^/.]+$/, '');
+      setName(cleanName);
     }
 
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const rawText = (event.target?.result as string) || '';
-      setContent(rawText);
-      // Auto-extract detected skills
-      const detected = extractKeywords(rawText);
+    try {
+      const parsed = await parseResumeFile(file);
+      setIsParsing(false);
+
+      if (parsed.error || !parsed.text.trim()) {
+        setParseError(parsed.error || 'Could not extract text. Please ensure the document is not an image-only scan.');
+        return;
+      }
+
+      setContent(parsed.text);
+      setParseStatus(`Extracted ${parsed.wordCount} words cleanly from ${parsed.fileType}`);
+
+      // Auto-extract detected skills from cleanly extracted text
+      const detected = extractKeywords(parsed.text);
       if (detected.length > 0) {
         setSkillsInput(detected.join(', '));
       }
-    };
-    reader.readAsText(file);
+
+      // Auto-suggest target role if empty
+      if (!targetRole) {
+        if (/frontend|react|ui\/ux/i.test(parsed.text)) {
+          setTargetRole('Frontend Engineer');
+        } else if (/fullstack|full-stack/i.test(parsed.text)) {
+          setTargetRole('Full-Stack Engineer');
+        } else if (/backend|node|python|java|go/i.test(parsed.text)) {
+          setTargetRole('Backend Engineer');
+        } else if (/devops|cloud|aws|kubernetes/i.test(parsed.text)) {
+          setTargetRole('DevOps / Cloud Engineer');
+        } else if (/data|analytics|machine learning|ai/i.test(parsed.text)) {
+          setTargetRole('Data / AI Engineer');
+        }
+      }
+    } catch (err: any) {
+      console.error('Upload processing error:', err);
+      setIsParsing(false);
+      setParseError(err.message || 'Failed to process file.');
+    }
   };
 
   const handleSaveResume = (e: React.FormEvent) => {
@@ -473,28 +509,54 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
                   setIsDragOver(false);
                   handleFileUpload(e.nativeEvent as any);
                 }}
-                className={`p-6 border-2 border-dashed rounded-xl text-center transition-all ${
+                className={`p-5 border-2 border-dashed rounded-xl text-center transition-all ${
                   isDragOver
                     ? 'border-blue-500 bg-blue-50/50'
                     : 'border-slate-200 bg-slate-50 hover:bg-slate-100/50'
                 }`}
               >
-                <Upload className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-                <p className="font-bold text-slate-800 text-xs">
-                  {fileName ? `Loaded: ${fileName} (${fileSize})` : 'Drag and drop your Resume (.pdf, .docx, .txt, .md)'}
-                </p>
-                <p className="text-[11px] text-slate-400 mt-0.5 mb-3">
-                  Or click below to browse your computer
-                </p>
-                <label className="px-3 py-1.5 bg-white text-blue-600 border border-blue-200 font-bold rounded-lg cursor-pointer hover:bg-blue-50 inline-block">
-                  Browse File
-                  <input
-                    type="file"
-                    accept=".pdf,.docx,.doc,.txt,.md"
-                    onChange={handleFileUpload}
-                    className="hidden"
-                  />
-                </label>
+                {isParsing ? (
+                  <div className="py-3 flex flex-col items-center justify-center space-y-2">
+                    <Loader2 className="w-7 h-7 text-blue-600 animate-spin" />
+                    <p className="font-bold text-slate-800 text-xs">Parsing Document & Extracting Clean Text...</p>
+                    <p className="text-[10px] text-slate-500">Decoding PDF/DOCX structure into ATS plain text</p>
+                  </div>
+                ) : (
+                  <>
+                    <Upload className="w-7 h-7 text-blue-600 mx-auto mb-1.5" />
+                    <p className="font-bold text-slate-800 text-xs">
+                      {fileName ? `Loaded: ${fileName} (${fileSize})` : 'Drag and drop your Resume (.pdf, .docx, .txt, .md)'}
+                    </p>
+                    <p className="text-[11px] text-slate-400 mt-0.5 mb-2.5">
+                      Or click below to browse from your computer
+                    </p>
+                    <label className="px-3.5 py-1.5 bg-white text-blue-600 border border-blue-200 font-bold rounded-lg cursor-pointer hover:bg-blue-50 inline-flex items-center gap-1.5 shadow-2xs">
+                      <FileText className="w-3.5 h-3.5 text-blue-600" />
+                      <span>Browse Resume File</span>
+                      <input
+                        type="file"
+                        accept=".pdf,.docx,.doc,.txt,.md,.rtf"
+                        onChange={handleFileUpload}
+                        className="hidden"
+                      />
+                    </label>
+                  </>
+                )}
+
+                {/* Parsing Status or Error Badges */}
+                {parseStatus && !isParsing && (
+                  <div className="mt-3 py-1 px-2.5 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>{parseStatus}</span>
+                  </div>
+                )}
+
+                {parseError && !isParsing && (
+                  <div className="mt-3 py-1.5 px-3 bg-rose-50 border border-rose-200 text-rose-700 rounded-lg text-[11px] font-medium flex items-center justify-center gap-1.5">
+                    <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+                    <span>{parseError}</span>
+                  </div>
+                )}
               </div>
 
               {/* Name & Role */}

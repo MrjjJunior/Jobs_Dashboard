@@ -21,7 +21,8 @@ import {
   AlertCircle,
   Upload,
   Layers,
-  Award
+  Award,
+  Loader2
 } from 'lucide-react';
 import { 
   JobApplication, 
@@ -38,7 +39,8 @@ import {
 } from '../types';
 import { STAGES_CONFIG } from '../data/initialJobs';
 import { getCompanyColor } from '../utils/storage';
-import { calculateAtsMatch } from '../utils/atsCalculator';
+import { calculateAtsMatch, extractKeywords } from '../utils/atsCalculator';
+import { parseResumeFile } from '../utils/fileParser';
 
 interface JobModalProps {
   isOpen: boolean;
@@ -96,6 +98,35 @@ export const JobModal: React.FC<JobModalProps> = ({
   const [newResumeName, setNewResumeName] = useState('');
   const [newResumeRole, setNewResumeRole] = useState('');
   const [newResumeContent, setNewResumeContent] = useState('');
+  const [isParsingQuickResume, setIsParsingQuickResume] = useState(false);
+
+  const handleQuickFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!newResumeName) {
+      setNewResumeName(file.name);
+    }
+
+    setIsParsingQuickResume(true);
+    try {
+      const parsed = await parseResumeFile(file);
+      setIsParsingQuickResume(false);
+      if (parsed.text.trim()) {
+        setNewResumeContent(parsed.text);
+        if (!newResumeRole) {
+          if (/frontend|react/i.test(parsed.text)) setNewResumeRole('Frontend Engineer');
+          else if (/fullstack/i.test(parsed.text)) setNewResumeRole('Full-Stack Engineer');
+          else if (/backend|python|java/i.test(parsed.text)) setNewResumeRole('Backend Engineer');
+        }
+      } else {
+        alert(parsed.error || 'Could not extract text from this file.');
+      }
+    } catch (err: any) {
+      setIsParsingQuickResume(false);
+      alert('Failed to parse file: ' + (err.message || 'Unknown error'));
+    }
+  };
 
   // Contacts
   const [contacts, setContacts] = useState<ContactPerson[]>([]);
@@ -484,9 +515,25 @@ export const JobModal: React.FC<JobModalProps> = ({
                 {/* Quick Upload Form */}
                 {showQuickUpload && (
                   <div className="p-3 bg-white rounded-xl border border-blue-300 space-y-2.5 animate-fadeIn shadow-xs">
-                    <div className="font-bold text-slate-800 text-[11px] flex items-center gap-1">
-                      <Upload className="w-3.5 h-3.5 text-blue-600" />
-                      Add a New Resume Version to Your Library
+                    <div className="flex items-center justify-between">
+                      <div className="font-bold text-slate-800 text-[11px] flex items-center gap-1">
+                        <Upload className="w-3.5 h-3.5 text-blue-600" />
+                        Add a New Resume Version to Your Library
+                      </div>
+                      <label className="px-2 py-0.5 bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 rounded text-[11px] font-bold cursor-pointer flex items-center gap-1 transition-colors">
+                        {isParsingQuickResume ? (
+                          <Loader2 className="w-3 h-3 animate-spin" />
+                        ) : (
+                          <FileText className="w-3 h-3" />
+                        )}
+                        <span>{isParsingQuickResume ? 'Parsing...' : 'Upload PDF / DOCX'}</span>
+                        <input
+                          type="file"
+                          accept=".pdf,.docx,.doc,.txt,.md,.rtf"
+                          onChange={handleQuickFileUpload}
+                          className="hidden"
+                        />
+                      </label>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <input
