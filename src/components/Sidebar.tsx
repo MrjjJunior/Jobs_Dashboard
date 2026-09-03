@@ -8,9 +8,10 @@ import {
   Target, 
   FileText, 
   Calculator,
-  BookOpen
+  BookOpen,
+  Pencil
 } from 'lucide-react';
-import { ViewMode, JobApplication, ResumeItem } from '../types';
+import { ViewMode, JobApplication, ResumeItem, UserGoals } from '../types';
 
 interface SidebarProps {
   viewMode: ViewMode;
@@ -19,6 +20,8 @@ interface SidebarProps {
   resumes?: ResumeItem[];
   onOpenNewJobModal: () => void;
   onOpenAiDraftModal?: () => void;
+  goals?: UserGoals;
+  onOpenGoalsModal?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -28,10 +31,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
   resumes = [],
   onOpenNewJobModal,
   onOpenAiDraftModal,
+  goals,
+  onOpenGoalsModal,
 }) => {
   const offerCount = jobs.filter((j) => j.stage === 'offer').length;
   const appliedCount = jobs.filter((j) => j.stage !== 'wishlist').length;
-  const monthlyTarget = 20;
+  const monthlyTarget = goals?.monthlyApplicationsTarget || 20;
   const targetPercent = Math.min(Math.round((appliedCount / monthlyTarget) * 100), 100);
 
   const navItems: { id: ViewMode; label: string; icon: React.FC<{ className?: string }>; badge?: number | string; badgeColor?: string }[] = [
@@ -113,26 +118,55 @@ export const Sidebar: React.FC<SidebarProps> = ({
         )}
       </div>
 
-      {/* Monthly Target Card */}
+      {/* Monthly Target Card - Clickable to set goals */}
       <div className="p-4 mt-auto border-t border-slate-100">
-        <div className="bg-slate-900 rounded-xl p-4 text-white shadow-xs">
-          <div className="flex items-center justify-between text-xs font-medium text-slate-400 mb-1">
-            <span className="text-[10px] uppercase tracking-wider font-bold">Monthly Target</span>
-            <Target className="w-3.5 h-3.5 text-slate-400" />
+        <div 
+          onClick={onOpenGoalsModal}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              onOpenGoalsModal?.();
+            }
+          }}
+          title="Click to set monthly application, interview, and offer goals"
+          className="bg-slate-900 hover:bg-slate-800 rounded-xl p-4 text-white shadow-xs cursor-pointer transition-all duration-200 group border border-slate-800 hover:border-slate-700 hover:shadow-md focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+        >
+          <div className="flex items-center justify-between text-xs font-medium text-slate-400 mb-1.5">
+            <span className="text-[10px] uppercase tracking-wider font-bold group-hover:text-blue-400 transition-colors flex items-center gap-1">
+              <span>Monthly Target</span>
+              <Pencil className="w-2.5 h-2.5 opacity-60 group-hover:opacity-100 transition-opacity" />
+            </span>
+            <div className="flex items-center gap-1">
+              <span className="text-[9px] font-semibold text-slate-300 bg-slate-800 px-1.5 py-0.5 rounded group-hover:bg-blue-900 group-hover:text-blue-200 transition-colors border border-slate-700">
+                Set Goals
+              </span>
+              <Target className="w-3.5 h-3.5 text-blue-400" />
+            </div>
           </div>
-          <p className="text-lg font-bold text-white tracking-tight">
-            {appliedCount} <span className="text-xs font-normal text-slate-400">/ {monthlyTarget} Apps</span>
-          </p>
+          <div className="flex items-baseline justify-between">
+            <p className="text-lg font-bold text-white tracking-tight">
+              {appliedCount} <span className="text-xs font-normal text-slate-400">/ {monthlyTarget} Apps</span>
+            </p>
+            <span className="text-xs font-bold text-blue-400">{targetPercent}%</span>
+          </div>
           <div className="w-full bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
             <div
-              className="bg-blue-500 h-full rounded-full transition-all duration-500"
+              className={`h-full rounded-full transition-all duration-500 ${
+                targetPercent >= 100 ? 'bg-emerald-500' : 'bg-blue-500'
+              }`}
               style={{ width: `${targetPercent}%` }}
             />
           </div>
-          <p className="text-[10px] text-slate-400 mt-1.5 flex justify-between font-medium">
-            <span>{targetPercent}% Completed</span>
-            <span>{monthlyTarget - appliedCount > 0 ? `${monthlyTarget - appliedCount} remaining` : 'Target reached!'}</span>
-          </p>
+          <div className="text-[10px] text-slate-400 mt-2 flex items-center justify-between font-medium">
+            <span className="group-hover:text-slate-300 transition-colors">
+              {monthlyTarget - appliedCount > 0 ? `${monthlyTarget - appliedCount} remaining` : 'Target reached! 🎉'}
+            </span>
+            <span className="text-blue-400 group-hover:underline text-[10px] font-semibold">
+              Edit ➔
+            </span>
+          </div>
         </div>
       </div>
     </aside>

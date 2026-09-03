@@ -1,10 +1,91 @@
-import { JobApplication, JobStage, Priority, ResumeItem } from '../types';
+import { JobApplication, JobStage, Priority, ResumeItem, UserProfile, UserGoals } from '../types';
 import { INITIAL_JOBS } from '../data/initialJobs';
 import { INITIAL_RESUMES } from '../data/initialResumes';
 import { calculateAtsMatch } from './atsCalculator';
 
 const JOBS_STORAGE_KEY = 'job_tracker_applications_v4';
 const RESUMES_STORAGE_KEY = 'job_tracker_resumes_v4';
+const USER_PROFILE_STORAGE_KEY = 'job_tracker_user_profile_v1';
+const USER_GOALS_STORAGE_KEY = 'job_tracker_user_goals_v1';
+
+export const DEFAULT_USER_PROFILE: UserProfile = {
+  id: 'user-1',
+  name: 'Alex Rivera',
+  email: 'alex.rivera@example.com',
+  role: 'Senior Software Engineer',
+  avatarUrl: null,
+  location: 'San Francisco, CA',
+  phone: '+1 (555) 382-9012',
+  linkedin: 'https://linkedin.com/in/alex-rivera-tech',
+  github: 'https://github.com/alexrivera-dev',
+  bio: 'Experienced engineer specializing in React, TypeScript, cloud services, and developer tooling.',
+  isLoggedIn: true,
+};
+
+export const DEFAULT_USER_GOALS: UserGoals = {
+  monthlyApplicationsTarget: 20,
+  weeklyApplicationsTarget: 5,
+  monthlyInterviewsTarget: 4,
+  monthlyOffersTarget: 1,
+  targetMinSalary: 145000,
+  salaryCurrency: 'USD',
+  focusNotes: 'Prioritize modern tech stacks, strong engineering culture, and competitive compensation.',
+  targetMonth: new Date().toISOString().slice(0, 7),
+};
+
+export function loadStoredUserProfile(): UserProfile {
+  try {
+    const raw = localStorage.getItem(USER_PROFILE_STORAGE_KEY);
+    if (!raw || raw === 'undefined' || raw === 'null') {
+      localStorage.setItem(USER_PROFILE_STORAGE_KEY, JSON.stringify(DEFAULT_USER_PROFILE));
+      return DEFAULT_USER_PROFILE;
+    }
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') {
+      return DEFAULT_USER_PROFILE;
+    }
+    return { ...DEFAULT_USER_PROFILE, ...parsed };
+  } catch (err) {
+    console.error('Failed to load user profile from storage', err);
+    return DEFAULT_USER_PROFILE;
+  }
+}
+
+export function saveStoredUserProfile(profile: UserProfile): void {
+  try {
+    if (!profile) return;
+    localStorage.setItem(USER_PROFILE_STORAGE_KEY, JSON.stringify(profile));
+  } catch (err) {
+    console.error('Failed to save user profile to localStorage', err);
+  }
+}
+
+export function loadStoredUserGoals(): UserGoals {
+  try {
+    const raw = localStorage.getItem(USER_GOALS_STORAGE_KEY);
+    if (!raw || raw === 'undefined' || raw === 'null') {
+      localStorage.setItem(USER_GOALS_STORAGE_KEY, JSON.stringify(DEFAULT_USER_GOALS));
+      return DEFAULT_USER_GOALS;
+    }
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') {
+      return DEFAULT_USER_GOALS;
+    }
+    return { ...DEFAULT_USER_GOALS, ...parsed };
+  } catch (err) {
+    console.error('Failed to load user goals from storage', err);
+    return DEFAULT_USER_GOALS;
+  }
+}
+
+export function saveStoredUserGoals(goals: UserGoals): void {
+  try {
+    if (!goals) return;
+    localStorage.setItem(USER_GOALS_STORAGE_KEY, JSON.stringify(goals));
+  } catch (err) {
+    console.error('Failed to save user goals to localStorage', err);
+  }
+}
 
 export function loadStoredJobs(): JobApplication[] {
   try {
@@ -231,6 +312,67 @@ export function getResumePerformanceStats(
   }));
 }
 
+export interface CurrencyInfo {
+  code: string;
+  symbol: string;
+  name: string;
+  region: string;
+  exampleMinSalary: number;
+}
+
+export const SUPPORTED_CURRENCIES: CurrencyInfo[] = [
+  { code: 'ZAR', symbol: 'R', name: 'South African Rand', region: 'South Africa', exampleMinSalary: 650000 },
+  { code: 'USD', symbol: '$', name: 'US Dollar', region: 'United States', exampleMinSalary: 140000 },
+  { code: 'EUR', symbol: '€', name: 'Euro', region: 'European Union', exampleMinSalary: 85000 },
+  { code: 'GBP', symbol: '£', name: 'British Pound', region: 'United Kingdom', exampleMinSalary: 75000 },
+  { code: 'CAD', symbol: 'CA$', name: 'Canadian Dollar', region: 'Canada', exampleMinSalary: 120000 },
+  { code: 'AUD', symbol: 'A$', name: 'Australian Dollar', region: 'Australia', exampleMinSalary: 135000 },
+  { code: 'INR', symbol: '₹', name: 'Indian Rupee', region: 'India', exampleMinSalary: 2000000 },
+  { code: 'JPY', symbol: '¥', name: 'Japanese Yen', region: 'Japan', exampleMinSalary: 8000000 },
+  { code: 'CHF', symbol: 'CHF', name: 'Swiss Franc', region: 'Switzerland', exampleMinSalary: 110000 },
+  { code: 'SGD', symbol: 'S$', name: 'Singapore Dollar', region: 'Singapore', exampleMinSalary: 100000 },
+  { code: 'NZD', symbol: 'NZ$', name: 'New Zealand Dollar', region: 'New Zealand', exampleMinSalary: 120000 },
+  { code: 'BRL', symbol: 'R$', name: 'Brazilian Real', region: 'Brazil', exampleMinSalary: 180000 },
+  { code: 'NGN', symbol: '₦', name: 'Nigerian Naira', region: 'Nigeria', exampleMinSalary: 15000000 },
+  { code: 'KES', symbol: 'KSh', name: 'Kenyan Shilling', region: 'Kenya', exampleMinSalary: 3000000 },
+];
+
+export function getCurrencySymbol(currencyCode: string = 'USD'): string {
+  const code = (currencyCode || 'USD').toUpperCase().trim();
+  switch (code) {
+    case 'ZAR':
+      return 'R ';
+    case 'USD':
+      return '$';
+    case 'EUR':
+      return '€';
+    case 'GBP':
+      return '£';
+    case 'CAD':
+      return 'CA$';
+    case 'AUD':
+      return 'A$';
+    case 'INR':
+      return '₹';
+    case 'JPY':
+      return '¥';
+    case 'CHF':
+      return 'CHF ';
+    case 'SGD':
+      return 'S$';
+    case 'NZD':
+      return 'NZ$';
+    case 'BRL':
+      return 'R$ ';
+    case 'NGN':
+      return '₦';
+    case 'KES':
+      return 'KSh ';
+    default:
+      return `${code} `;
+  }
+}
+
 export function formatSalary(
   min?: number,
   max?: number,
@@ -239,7 +381,7 @@ export function formatSalary(
 ): string {
   if (!min && !max) return 'Not disclosed';
   
-  const symbol = currency === 'USD' ? '$' : currency === 'EUR' ? '€' : currency === 'GBP' ? '£' : `${currency} `;
+  const symbol = getCurrencySymbol(currency);
   const periodLabel = period === 'year' ? '/yr' : period === 'month' ? '/mo' : '/hr';
 
   const fmt = (num: number) => {
@@ -261,7 +403,7 @@ export function formatSalary(
 }
 
 export function formatSalaryNum(val: number, currency: string = 'USD'): string {
-  const symbol = currency === 'USD' ? '$' : currency === 'EUR' ? '€' : currency === 'GBP' ? '£' : `${currency} `;
+  const symbol = getCurrencySymbol(currency);
   return `${symbol}${val.toLocaleString()}`;
 }
 

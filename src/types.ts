@@ -140,4 +140,29 @@ export interface StageConfig {
   };
 }
 
+export interface UserProfile {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  avatarUrl?: string | null;
+  location?: string;
+  phone?: string;
+  linkedin?: string;
+  github?: string;
+  bio?: string;
+  isLoggedIn: boolean;
+}
+
+export interface UserGoals {
+  monthlyApplicationsTarget: number;
+  weeklyApplicationsTarget: number;
+  monthlyInterviewsTarget: number;
+  monthlyOffersTarget: number;
+  targetMinSalary?: number;
+  salaryCurrency?: string; // e.g. 'ZAR', 'USD', 'EUR', 'GBP', etc.
+  focusNotes?: string;
+  targetMonth?: string; // YYYY-MM
+}
+
 export type ViewMode = 'kanban' | 'table' | 'analytics' | 'offers' | 'resumes' | 'ats-calculator' | 'builder';

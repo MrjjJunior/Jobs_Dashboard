@@ -38,7 +38,7 @@ import {
   AtsMatchResult 
 } from '../types';
 import { STAGES_CONFIG } from '../data/initialJobs';
-import { getCompanyColor } from '../utils/storage';
+import { getCompanyColor, SUPPORTED_CURRENCIES } from '../utils/storage';
 import { calculateAtsMatch, extractKeywords } from '../utils/atsCalculator';
 import { parseResumeFile } from '../utils/fileParser';
 
@@ -48,6 +48,7 @@ interface JobModalProps {
   onSave: (job: JobApplication) => void;
   initialJob?: JobApplication | null;
   defaultStage?: JobStage;
+  defaultCurrency?: string;
   resumes?: ResumeItem[];
   onAddResume?: (resume: ResumeItem) => void;
   onOpenAtsCalculator?: (resumeId?: string, jobId?: string) => void;
@@ -59,6 +60,7 @@ export const JobModal: React.FC<JobModalProps> = ({
   onSave,
   initialJob,
   defaultStage = 'applied',
+  defaultCurrency = 'USD',
   resumes = [],
   onAddResume,
   onOpenAtsCalculator,
@@ -190,7 +192,7 @@ export const JobModal: React.FC<JobModalProps> = ({
 
       setSalaryMin('');
       setSalaryMax('');
-      setSalaryCurrency('USD');
+      setSalaryCurrency(defaultCurrency || 'USD');
       setSalaryPeriod('year');
       setEquityBonus('');
       setBenefits('');
@@ -832,12 +834,11 @@ export const JobModal: React.FC<JobModalProps> = ({
                       onChange={(e) => setSalaryCurrency(e.target.value)}
                       className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg font-medium"
                     >
-                      <option value="USD">USD ($)</option>
-                      <option value="EUR">EUR (€)</option>
-                      <option value="GBP">GBP (£)</option>
-                      <option value="CAD">CAD ($)</option>
-                      <option value="AUD">AUD ($)</option>
-                      <option value="ZAR">ZAR (R)</option>
+                      {SUPPORTED_CURRENCIES.map((c) => (
+                        <option key={c.code} value={c.code}>
+                          {c.code} ({c.symbol.trim()}) - {c.name}
+                        </option>
+                      ))}
                     </select>
                   </div>
 

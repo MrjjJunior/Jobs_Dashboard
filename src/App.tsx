@@ -5,7 +5,9 @@ import {
   Priority, 
   WorkplaceType, 
   ViewMode,
-  ResumeItem
+  ResumeItem,
+  UserProfile,
+  UserGoals
 } from './types';
 import { INITIAL_JOBS } from './data/initialJobs';
 import { INITIAL_RESUMES } from './data/initialResumes';
@@ -13,7 +15,11 @@ import {
   loadStoredJobs, 
   saveStoredJobs, 
   loadStoredResumes, 
-  saveStoredResumes 
+  saveStoredResumes,
+  loadStoredUserProfile,
+  saveStoredUserProfile,
+  loadStoredUserGoals,
+  saveStoredUserGoals
 } from './utils/storage';
 import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
@@ -30,12 +36,20 @@ import { ResumeBuilderView } from './components/ResumeBuilderView';
 import { JobModal } from './components/JobModal';
 import { JobDetailDrawer } from './components/JobDetailDrawer';
 import { AiCoachModal } from './components/AiCoachModal';
+import { GoalsModal } from './components/GoalsModal';
+import { ProfileModal } from './components/ProfileModal';
 
 export default function App() {
   // Main jobs and resumes state
   const [jobs, setJobs] = useState<JobApplication[]>(() => loadStoredJobs());
   const [resumes, setResumes] = useState<ResumeItem[]>(() => loadStoredResumes());
   const [viewMode, setViewMode] = useState<ViewMode>('kanban');
+
+  // User profile and goals state
+  const [userProfile, setUserProfile] = useState<UserProfile>(() => loadStoredUserProfile());
+  const [userGoals, setUserGoals] = useState<UserGoals>(() => loadStoredUserGoals());
+  const [isGoalsModalOpen, setIsGoalsModalOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
   // Pre-selected parameters for ATS calculator view
   const [atsPreselectedResumeId, setAtsPreselectedResumeId] = useState<string | undefined>(undefined);
@@ -55,7 +69,7 @@ export default function App() {
   const [modalDefaultStage, setModalDefaultStage] = useState<JobStage>('applied');
   const [isAiCoachOpen, setIsAiCoachOpen] = useState(false);
 
-  // Save to localStorage whenever jobs or resumes change
+  // Save to localStorage whenever jobs, resumes, userProfile, or userGoals change
   useEffect(() => {
     saveStoredJobs(jobs);
   }, [jobs]);
@@ -63,6 +77,38 @@ export default function App() {
   useEffect(() => {
     saveStoredResumes(resumes);
   }, [resumes]);
+
+  useEffect(() => {
+    saveStoredUserProfile(userProfile);
+  }, [userProfile]);
+
+  useEffect(() => {
+    saveStoredUserGoals(userGoals);
+  }, [userGoals]);
+
+  const handleUpdateProfile = (updated: UserProfile) => {
+    setUserProfile(updated);
+  };
+
+  const handleUpdateGoals = (updated: UserGoals) => {
+    setUserGoals(updated);
+  };
+
+  const handleLogout = () => {
+    setUserProfile((prev) => ({
+      ...prev,
+      isLoggedIn: false,
+    }));
+  };
+
+  const handleLogin = (email: string, name: string) => {
+    setUserProfile((prev) => ({
+      ...prev,
+      email,
+      name,
+      isLoggedIn: true,
+    }));
+  };
 
   // Extract all distinct tags
   const availableTags = useMemo(() => {
@@ -234,6 +280,8 @@ export default function App() {
         resumes={resumes}
         onOpenNewJobModal={() => handleOpenNewModal('applied')}
         onOpenAiDraftModal={() => setIsAiCoachOpen(true)}
+        goals={userGoals}
+        onOpenGoalsModal={() => setIsGoalsModalOpen(true)}
       />
 
       {/* Main Content Area */}
@@ -246,6 +294,10 @@ export default function App() {
           onImportJobs={(imported) => setJobs(imported)}
           onResetDemoData={handleResetDemoData}
           onOpenAiDraftModal={() => setIsAiCoachOpen(true)}
+          userProfile={userProfile}
+          onOpenProfileModal={() => setIsProfileModalOpen(true)}
+          onOpenGoalsModal={() => setIsGoalsModalOpen(true)}
+          onLogout={handleLogout}
         />
 
         {/* Scrollable Dashboard View Body */}
@@ -361,7 +413,11 @@ export default function App() {
             )}
 
             {viewMode === 'analytics' && (
-              <AnalyticsView jobs={jobs} />
+              <AnalyticsView 
+                jobs={jobs} 
+                goals={userGoals}
+                onOpenGoalsModal={() => setIsGoalsModalOpen(true)}
+              />
             )}
 
             {viewMode === 'offers' && (
@@ -400,6 +456,7 @@ export default function App() {
         onSave={handleAddOrUpdateJob}
         initialJob={modalJob}
         defaultStage={modalDefaultStage}
+        defaultCurrency={userGoals.salaryCurrency || 'USD'}
         resumes={resumes}
         onAddResume={handleAddResume}
         onOpenAtsCalculator={handleNavigateToAts}
@@ -410,6 +467,30 @@ export default function App() {
         isOpen={isAiCoachOpen}
         onClose={() => setIsAiCoachOpen(false)}
         jobs={jobs}
+      />
+
+      {/* Monthly Goals & Search Targets Modal */}
+      <GoalsModal
+        isOpen={isGoalsModalOpen}
+        onClose={() => setIsGoalsModalOpen(false)}
+        goals={userGoals}
+        onSaveGoals={handleUpdateGoals}
+        jobs={jobs}
+      />
+
+      {/* User Profile & Photo & Auth Modal */}
+      <ProfileModal
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+        userProfile={userProfile}
+        profile={userProfile}
+        onSaveProfile={handleUpdateProfile}
+        onLogout={handleLogout}
+        onLogin={handleLogin}
+        onOpenGoalsModal={() => {
+          setIsProfileModalOpen(false);
+          setIsGoalsModalOpen(true);
+        }}
       />
     </div>
   );
