@@ -38,11 +38,13 @@ import { JobDetailDrawer } from './components/JobDetailDrawer';
 import { AiCoachModal } from './components/AiCoachModal';
 import { GoalsModal } from './components/GoalsModal';
 import { ProfileModal } from './components/ProfileModal';
+import { MobileBottomNav } from './components/MobileBottomNav';
 
 export default function App() {
   // Main jobs and resumes state
   const [jobs, setJobs] = useState<JobApplication[]>(() => loadStoredJobs());
   const [resumes, setResumes] = useState<ResumeItem[]>(() => loadStoredResumes());
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [viewMode, setViewMode] = useState<ViewMode>('kanban');
 
   // User profile and goals state
@@ -272,7 +274,7 @@ export default function App() {
 
   return (
     <div className="h-screen w-full flex bg-slate-50 font-sans text-slate-900 overflow-hidden">
-      {/* High Density Left Sidebar */}
+      {/* High Density Left Sidebar (Desktop & Mobile Drawer) */}
       <Sidebar
         viewMode={viewMode}
         onViewModeChange={setViewMode}
@@ -282,6 +284,8 @@ export default function App() {
         onOpenAiDraftModal={() => setIsAiCoachOpen(true)}
         goals={userGoals}
         onOpenGoalsModal={() => setIsGoalsModalOpen(true)}
+        isOpenMobile={isMobileMenuOpen}
+        onCloseMobile={() => setIsMobileMenuOpen(false)}
       />
 
       {/* Main Content Area */}
@@ -298,11 +302,12 @@ export default function App() {
           onOpenProfileModal={() => setIsProfileModalOpen(true)}
           onOpenGoalsModal={() => setIsGoalsModalOpen(true)}
           onLogout={handleLogout}
+          onOpenMobileMenu={() => setIsMobileMenuOpen(true)}
         />
 
         {/* Scrollable Dashboard View Body */}
-        <main className="flex-1 overflow-y-auto p-6 lg:p-8 space-y-6">
-          <div className="max-w-7xl mx-auto space-y-6">
+        <main className="flex-1 overflow-y-auto p-3.5 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 pb-24 lg:pb-8">
+          <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6">
             {/* Top 4-Column Metric Summary (Show on Kanban, Table, Offers, Analytics) */}
             {viewMode !== 'resumes' && viewMode !== 'ats-calculator' && viewMode !== 'builder' && (
               <>
@@ -432,6 +437,15 @@ export default function App() {
           </div>
         </main>
       </div>
+
+      {/* Mobile Bottom Navigation Bar */}
+      <MobileBottomNav
+        viewMode={viewMode}
+        onViewModeChange={setViewMode}
+        onOpenNewJobModal={() => handleOpenNewModal('applied')}
+        onOpenMobileMenu={() => setIsMobileMenuOpen(true)}
+        activeJobsCount={jobs.length}
+      />
 
       {/* Slide-over Detail Drawer */}
       <JobDetailDrawer

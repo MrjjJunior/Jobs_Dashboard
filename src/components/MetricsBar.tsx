@@ -61,7 +61,7 @@ export const MetricsBar: React.FC<MetricsBarProps> = ({ jobs, onFilterChange, ac
   ];
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 mb-4 sm:mb-6">
       {cards.map((card) => {
         const isSelected = activeFilter === card.filterKey && card.filterKey !== null;
 
@@ -74,17 +74,17 @@ export const MetricsBar: React.FC<MetricsBarProps> = ({ jobs, onFilterChange, ac
                 onFilterChange(isSelected ? null : card.filterKey);
               }
             }}
-            className={`bg-white p-4 rounded-xl border border-slate-200 shadow-xs transition-all ${
+            className={`bg-white p-3 sm:p-4 rounded-xl border border-slate-200 shadow-xs transition-all ${
               card.filterKey ? 'cursor-pointer hover:border-slate-300 hover:shadow-sm' : ''
             } ${isSelected ? 'ring-2 ring-blue-500 border-blue-500' : ''}`}
           >
-            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <p className="text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider truncate">
               {card.label}
             </p>
-            <h2 className="text-2xl font-extrabold text-slate-900 mt-1 tracking-tight">
+            <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-0.5 sm:mt-1 tracking-tight">
               {card.value}
             </h2>
-            <p className={`text-xs font-medium mt-1 ${card.subtextColor}`}>
+            <p className={`text-[11px] sm:text-xs font-medium mt-0.5 sm:mt-1 truncate ${card.subtextColor}`}>
               {card.subtext}
             </p>
           </div>

@@ -41,6 +41,8 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({
   onQuickMoveStage,
   onAddNewInStage,
 }) => {
+  const [mobileStageFilter, setMobileStageFilter] = React.useState<JobStage | 'all'>('all');
+
   const getNextStage = (current: JobStage): JobStage | null => {
     const idx = STAGES_ORDER.indexOf(current);
     if (idx !== -1 && idx < STAGES_ORDER.length - 1) {
@@ -57,18 +59,64 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({
     return null;
   };
 
-  return (
-    <div className="flex gap-4 overflow-x-auto pb-6 pt-1 items-start min-h-[580px] scrollbar-thin scrollbar-thumb-slate-300">
-      {STAGES_ORDER.map((stageKey) => {
-        const stageConfig = STAGES_CONFIG[stageKey];
-        const stageJobs = jobs.filter((j) => j.stage === stageKey);
+  const visibleStages = mobileStageFilter === 'all' 
+    ? STAGES_ORDER 
+    : STAGES_ORDER.filter(s => s === mobileStageFilter);
 
-        return (
-          <div
-            key={stageKey}
-            id={`kanban-col-${stageKey}`}
-            className="flex-shrink-0 w-80 bg-slate-100/70 rounded-xl p-3 border border-slate-200/90 flex flex-col max-h-[calc(100vh-250px)]"
-          >
+  return (
+    <div className="space-y-3">
+      {/* Mobile Stage Selector Quick Pills (visible on phones and tablets) */}
+      <div className="lg:hidden flex items-center gap-1.5 overflow-x-auto pb-2 px-1 scrollbar-none -mx-1">
+        <button
+          onClick={() => setMobileStageFilter('all')}
+          className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all shrink-0 ${
+            mobileStageFilter === 'all'
+              ? 'bg-blue-600 text-white shadow-xs'
+              : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+          }`}
+        >
+          All Stages ({jobs.length})
+        </button>
+        {STAGES_ORDER.map((stageKey) => {
+          const config = STAGES_CONFIG[stageKey];
+          const count = jobs.filter((j) => j.stage === stageKey).length;
+          const isSelected = mobileStageFilter === stageKey;
+          return (
+            <button
+              key={stageKey}
+              onClick={() => setMobileStageFilter(stageKey)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all shrink-0 ${
+                isSelected
+                  ? 'bg-slate-900 text-white shadow-xs'
+                  : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
+              }`}
+            >
+              <span className={`w-2 h-2 rounded-full ${config.color.dot}`} />
+              <span>{config.label}</span>
+              <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                isSelected ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500'
+              }`}>
+                {count}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Columns Container with Snap Scrolling */}
+      <div className="flex gap-3 sm:gap-4 overflow-x-auto pb-6 pt-1 items-start min-h-[500px] snap-x snap-mandatory scrollbar-thin scrollbar-thumb-slate-300 px-0.5">
+        {(mobileStageFilter === 'all' ? STAGES_ORDER : visibleStages).map((stageKey) => {
+          const stageConfig = STAGES_CONFIG[stageKey];
+          const stageJobs = jobs.filter((j) => j.stage === stageKey);
+
+          return (
+            <div
+              key={stageKey}
+              id={`kanban-col-${stageKey}`}
+              className={`flex-shrink-0 bg-slate-100/70 rounded-xl p-3 border border-slate-200/90 flex flex-col max-h-[calc(100vh-220px)] snap-center ${
+                mobileStageFilter !== 'all' ? 'w-full max-w-lg mx-auto sm:w-80' : 'w-[84vw] max-w-[320px] sm:w-80'
+              }`}
+            >
             {/* Column Header */}
             <div className="flex items-center justify-between mb-3 px-1">
               <div className="flex items-center gap-2">
@@ -279,6 +327,7 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({
           </div>
         );
       })}
+      </div>
     </div>
   );
 };

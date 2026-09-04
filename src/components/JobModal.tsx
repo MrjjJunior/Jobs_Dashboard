@@ -383,43 +383,44 @@ export const JobModal: React.FC<JobModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fadeIn">
-      <div className="bg-white rounded-2xl max-w-3xl w-full border border-slate-200 shadow-2xl overflow-hidden flex flex-col max-h-[92vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-900/60 backdrop-blur-xs animate-fadeIn">
+      <div className="bg-white rounded-xl sm:rounded-2xl max-w-3xl w-full border border-slate-200 shadow-2xl overflow-hidden flex flex-col max-h-[96vh] sm:max-h-[92vh]">
         {/* Header */}
-        <div className="px-6 py-4 bg-slate-900 text-white flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold">
+        <div className="px-4 sm:px-6 py-3 sm:py-4 bg-slate-900 text-white flex items-center justify-between">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold shrink-0">
               <Briefcase className="w-4 h-4 text-white" />
             </div>
-            <div>
-              <h3 className="font-bold text-sm">
+            <div className="min-w-0">
+              <h3 className="font-bold text-xs sm:text-sm truncate">
                 {initialJob ? `Edit Application: ${initialJob.company}` : 'Log New Job Opportunity'}
               </h3>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[10px] sm:text-[11px] text-slate-400 truncate">
                 Select your tailored resume, check live ATS match scoring, and track pipeline progress.
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-white p-1 rounded-lg transition-colors"
+            className="text-slate-400 hover:text-white p-1 rounded-lg transition-colors shrink-0 ml-2"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-slate-200 px-6 bg-slate-50/70 text-xs font-semibold">
+        <div className="flex overflow-x-auto scrollbar-none border-b border-slate-200 px-3 sm:px-6 bg-slate-50/70 text-xs font-semibold whitespace-nowrap">
           {[
-            { id: 'basic', label: '1. Role & Resume Match' },
-            { id: 'comp', label: '2. Compensation & Dates' },
-            { id: 'interviews', label: '3. Recruiter & Contacts' },
+            { id: 'basic', label: '1. Role & ATS' },
+            { id: 'comp', label: '2. Compensation' },
+            { id: 'interviews', label: '3. Contacts' },
             { id: 'notes', label: '4. Checklist & Notes' },
           ].map((tab) => (
             <button
               key={tab.id}
+              type="button"
               onClick={() => setActiveTab(tab.id as any)}
-              className={`py-3 px-3 border-b-2 transition-colors flex items-center gap-1.5 ${
+              className={`py-2.5 sm:py-3 px-2.5 sm:px-3 border-b-2 transition-colors flex items-center gap-1.5 shrink-0 ${
                 activeTab === tab.id
                   ? 'border-blue-600 text-blue-600 font-bold'
                   : 'border-transparent text-slate-500 hover:text-slate-800'
@@ -432,7 +433,7 @@ export const JobModal: React.FC<JobModalProps> = ({
                     ? 'bg-emerald-100 text-emerald-800' 
                     : 'bg-blue-100 text-blue-800'
                 }`}>
-                  {currentSelectedAts.score}% ATS
+                  {currentSelectedAts.score}%
                 </span>
               )}
             </button>
@@ -440,7 +441,7 @@ export const JobModal: React.FC<JobModalProps> = ({
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-5 text-xs">
+        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 sm:space-y-5 text-xs">
           {/* TAB 1: ROLE & RESUME SELECTION (ATS) */}
           {activeTab === 'basic' && (
             <div className="space-y-5">

@@ -147,29 +147,29 @@ export const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({
         className="absolute inset-0 bg-slate-900/50 backdrop-blur-2xs transition-opacity" 
       />
 
-      <div className="absolute inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-xl bg-white shadow-2xl flex flex-col justify-between border-l border-slate-200">
+      <div className="absolute inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
+        <div className="w-screen max-w-full sm:max-w-xl bg-white shadow-2xl flex flex-col justify-between border-l border-slate-200">
           {/* Header */}
-          <div className="p-6 border-b border-slate-200 bg-slate-50/80">
-            <div className="flex items-start justify-between gap-3 mb-4">
-              <div className="flex items-center gap-3.5">
+          <div className="p-4 sm:p-6 border-b border-slate-200 bg-slate-50/80">
+            <div className="flex items-start justify-between gap-2.5 sm:gap-3 mb-3.5 sm:mb-4">
+              <div className="flex items-center gap-3">
                 <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center font-bold text-base text-white shadow-xs"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center font-bold text-sm sm:text-base text-white shadow-xs shrink-0"
                   style={{ backgroundColor: job.color || '#3B82F6' }}
                 >
                   {getCompanyInitials(job.company)}
                 </div>
-                <div>
-                  <h2 className="text-xl font-bold text-slate-900 leading-tight">
+                <div className="min-w-0">
+                  <h2 className="text-lg sm:text-xl font-bold text-slate-900 leading-tight truncate">
                     {job.company}
                   </h2>
-                  <p className="text-sm font-semibold text-slate-600">
+                  <p className="text-xs sm:text-sm font-semibold text-slate-600 truncate">
                     {job.role}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1 shrink-0">
                 <button
                   id="drawer-edit-btn"
                   onClick={() => onEditJob(job)}
@@ -214,7 +214,7 @@ export const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({
           </div>
 
           {/* Body Content */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-6 text-xs">
+          <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 sm:space-y-6 text-xs">
             {/* Linked Resume & ATS Match Card */}
             <div className="bg-gradient-to-r from-blue-50 to-indigo-50/60 p-4 rounded-xl border border-blue-200/80 space-y-3">
               <div className="flex items-center justify-between">

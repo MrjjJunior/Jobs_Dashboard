@@ -8,7 +8,8 @@ import {
   Target, 
   FileText, 
   Calculator,
-  BookOpen
+  BookOpen,
+  X
 } from 'lucide-react';
 import { ViewMode, JobApplication, ResumeItem, UserGoals } from '../types';
 
@@ -21,6 +22,8 @@ interface SidebarProps {
   onOpenAiDraftModal?: () => void;
   goals?: UserGoals;
   onOpenGoalsModal?: () => void;
+  isOpenMobile?: boolean;
+  onCloseMobile?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -32,6 +35,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onOpenAiDraftModal,
   goals,
   onOpenGoalsModal,
+  isOpenMobile,
+  onCloseMobile,
 }) => {
   const offerCount = jobs.filter((j) => j.stage === 'offer').length;
   const appliedCount = jobs.filter((j) => j.stage !== 'wishlist').length;
@@ -48,10 +53,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'offers', label: 'Offers & Matrix', icon: Trophy, badge: offerCount > 0 ? offerCount : undefined, badgeColor: 'bg-emerald-600' },
   ];
 
-  return (
-    <aside className="w-64 bg-white border-r border-slate-200 flex flex-col h-full shrink-0 select-none">
+  const handleNavClick = (mode: ViewMode) => {
+    onViewModeChange(mode);
+    onCloseMobile?.();
+  };
+
+  const renderSidebarContent = (isMobile: boolean) => (
+    <>
       {/* Brand Header */}
-      <div className="p-5 border-b border-slate-100">
+      <div className="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-extrabold text-base shadow-xs">
             J
@@ -65,6 +75,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </span>
           </div>
         </div>
+
+        {isMobile && (
+          <button
+            onClick={onCloseMobile}
+            aria-label="Close navigation menu"
+            className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        )}
       </div>
 
       {/* Navigation */}
@@ -80,9 +100,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
               return (
                 <button
                   key={item.id}
-                  id={`sidebar-nav-${item.id}`}
-                  onClick={() => onViewModeChange(item.id)}
-                  className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors text-left ${
+                  id={`sidebar-nav-${item.id}${isMobile ? '-mobile' : ''}`}
+                  onClick={() => handleNavClick(item.id)}
+                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-semibold transition-colors text-left ${
                     isActive
                       ? 'bg-blue-50 text-blue-700 font-bold'
                       : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
@@ -107,8 +127,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {onOpenAiDraftModal && (
           <div className="pt-2 border-t border-slate-100">
             <button
-              onClick={onOpenAiDraftModal}
-              className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-blue-700 bg-blue-50/70 hover:bg-blue-100/70 border border-blue-200/60 rounded-lg transition-colors"
+              onClick={() => {
+                onOpenAiDraftModal();
+                onCloseMobile?.();
+              }}
+              className="w-full flex items-center gap-2.5 px-3 py-2.5 text-xs font-semibold text-blue-700 bg-blue-50/70 hover:bg-blue-100/70 border border-blue-200/60 rounded-lg transition-colors"
             >
               <Sparkles className="w-3.5 h-3.5 text-blue-600" />
               <span>Career Coach Assistant</span>
@@ -120,13 +143,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Monthly Target Card - Clickable to set goals */}
       <div className="p-3 mt-auto border-t border-slate-100">
         <div 
-          onClick={onOpenGoalsModal}
+          onClick={() => {
+            onOpenGoalsModal?.();
+            onCloseMobile?.();
+          }}
           role="button"
           tabIndex={0}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
               onOpenGoalsModal?.();
+              onCloseMobile?.();
             }
           }}
           title="Click to adjust monthly targets"
@@ -161,6 +188,30 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
         </div>
       </div>
-    </aside>
+    </>
+  );
+
+  return (
+    <>
+      {/* Desktop Persistent Sidebar */}
+      <aside className="hidden lg:flex w-64 bg-white border-r border-slate-200 flex-col h-full shrink-0 select-none">
+        {renderSidebarContent(false)}
+      </aside>
+
+      {/* Mobile Slide-Over Drawer */}
+      {isOpenMobile && (
+        <div className="fixed inset-0 z-50 lg:hidden flex">
+          <div 
+            className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity"
+            onClick={onCloseMobile}
+            aria-hidden="true"
+          />
+          <aside className="relative w-72 max-w-[85vw] bg-white h-full shadow-2xl flex flex-col z-10 animate-slideRight">
+            {renderSidebarContent(true)}
+          </aside>
+        </div>
+      )}
+    </>
   );
 };
+
