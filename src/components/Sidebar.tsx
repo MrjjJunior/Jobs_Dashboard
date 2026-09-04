@@ -8,8 +8,7 @@ import {
   Target, 
   FileText, 
   Calculator,
-  BookOpen,
-  Pencil
+  BookOpen
 } from 'lucide-react';
 import { ViewMode, JobApplication, ResumeItem, UserGoals } from '../types';
 
@@ -119,7 +118,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Monthly Target Card - Clickable to set goals */}
-      <div className="p-4 mt-auto border-t border-slate-100">
+      <div className="p-3 mt-auto border-t border-slate-100">
         <div 
           onClick={onOpenGoalsModal}
           role="button"
@@ -130,42 +129,35 @@ export const Sidebar: React.FC<SidebarProps> = ({
               onOpenGoalsModal?.();
             }
           }}
-          title="Click to set monthly application, interview, and offer goals"
-          className="bg-slate-900 hover:bg-slate-800 rounded-xl p-4 text-white shadow-xs cursor-pointer transition-all duration-200 group border border-slate-800 hover:border-slate-700 hover:shadow-md focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+          title="Click to adjust monthly targets"
+          className="group rounded-xl p-3 bg-slate-50/80 hover:bg-slate-100/90 border border-slate-200/80 transition-all cursor-pointer"
         >
-          <div className="flex items-center justify-between text-xs font-medium text-slate-400 mb-1.5">
-            <span className="text-[10px] uppercase tracking-wider font-bold group-hover:text-blue-400 transition-colors flex items-center gap-1">
-              <span>Monthly Target</span>
-              <Pencil className="w-2.5 h-2.5 opacity-60 group-hover:opacity-100 transition-opacity" />
+          <div className="flex items-center justify-between text-xs text-slate-500 mb-1.5">
+            <span className="font-semibold text-slate-700 flex items-center gap-1.5 text-xs">
+              <Target className="w-3.5 h-3.5 text-blue-600" />
+              Monthly Target
             </span>
-            <div className="flex items-center gap-1">
-              <span className="text-[9px] font-semibold text-slate-300 bg-slate-800 px-1.5 py-0.5 rounded group-hover:bg-blue-900 group-hover:text-blue-200 transition-colors border border-slate-700">
-                Set Goals
-              </span>
-              <Target className="w-3.5 h-3.5 text-blue-400" />
+            <span className="text-[11px] font-bold text-slate-500 font-mono">
+              {targetPercent}%
+            </span>
+          </div>
+
+          <div className="flex items-baseline justify-between mb-2">
+            <div className="text-sm font-bold text-slate-900">
+              {appliedCount} <span className="text-xs font-normal text-slate-400">/ {monthlyTarget} apps</span>
             </div>
+            <span className="text-[11px] text-slate-400 group-hover:text-blue-600 transition-colors">
+              {monthlyTarget - appliedCount > 0 ? `${monthlyTarget - appliedCount} left` : 'Done'}
+            </span>
           </div>
-          <div className="flex items-baseline justify-between">
-            <p className="text-lg font-bold text-white tracking-tight">
-              {appliedCount} <span className="text-xs font-normal text-slate-400">/ {monthlyTarget} Apps</span>
-            </p>
-            <span className="text-xs font-bold text-blue-400">{targetPercent}%</span>
-          </div>
-          <div className="w-full bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
+
+          <div className="w-full bg-slate-200/80 h-1.5 rounded-full overflow-hidden">
             <div
-              className={`h-full rounded-full transition-all duration-500 ${
-                targetPercent >= 100 ? 'bg-emerald-500' : 'bg-blue-500'
+              className={`h-full rounded-full transition-all duration-300 ${
+                targetPercent >= 100 ? 'bg-emerald-500' : 'bg-blue-600'
               }`}
-              style={{ width: `${targetPercent}%` }}
+              style={{ width: `${Math.min(100, targetPercent)}%` }}
             />
-          </div>
-          <div className="text-[10px] text-slate-400 mt-2 flex items-center justify-between font-medium">
-            <span className="group-hover:text-slate-300 transition-colors">
-              {monthlyTarget - appliedCount > 0 ? `${monthlyTarget - appliedCount} remaining` : 'Target reached! 🎉'}
-            </span>
-            <span className="text-blue-400 group-hover:underline text-[10px] font-semibold">
-              Edit ➔
-            </span>
           </div>
         </div>
       </div>
