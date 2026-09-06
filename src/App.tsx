@@ -21,6 +21,7 @@ import {
   loadStoredUserGoals,
   saveStoredUserGoals
 } from './utils/storage';
+import { api } from './services/api';
 import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
 import { MetricsBar } from './components/MetricsBar';
@@ -43,7 +44,8 @@ export default function App() {
   // Main jobs and resumes state
   const [jobs, setJobs] = useState<JobApplication[]>(() => loadStoredJobs());
   const [resumes, setResumes] = useState<ResumeItem[]>(() => loadStoredResumes());
-  const [viewMode, setViewMode] = useState<ViewMode>('kanban');
+  const [viewMode, setViewMode] = useState<ViewMode>('table');
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   // User profile and goals state
   const [userProfile, setUserProfile] = useState<UserProfile>(() => loadStoredUserProfile());
@@ -69,6 +71,36 @@ export default function App() {
   const [modalDefaultStage, setModalDefaultStage] = useState<JobStage>('applied');
   const [isAiCoachOpen, setIsAiCoachOpen] = useState(false);
 
+  // Load from Python API on initial mount (with local storage as instant cache)
+  useEffect(() => {
+    async function loadDataFromApi() {
+      try {
+        const [jobsRes, resumesRes, profileRes, goalsRes] = await Promise.allSettled([
+          api.getJobs(),
+          api.getResumes(),
+          api.getProfile(),
+          api.getGoals(),
+        ]);
+
+        if (jobsRes.status === 'fulfilled' && Array.isArray(jobsRes.value) && jobsRes.value.length > 0) {
+          setJobs(jobsRes.value);
+        }
+        if (resumesRes.status === 'fulfilled' && Array.isArray(resumesRes.value) && resumesRes.value.length > 0) {
+          setResumes(resumesRes.value);
+        }
+        if (profileRes.status === 'fulfilled' && profileRes.value) {
+          setUserProfile(profileRes.value);
+        }
+        if (goalsRes.status === 'fulfilled' && goalsRes.value) {
+          setUserGoals(goalsRes.value);
+        }
+      } catch (err) {
+        console.warn('Backend API connection notice (using cached state):', err);
+      }
+    }
+    loadDataFromApi();
+  }, []);
+
   // Save to localStorage whenever jobs, resumes, userProfile, or userGoals change
   useEffect(() => {
     saveStoredJobs(jobs);
@@ -88,26 +120,32 @@ export default function App() {
 
   const handleUpdateProfile = (updated: UserProfile) => {
     setUserProfile(updated);
+    api.saveProfile(updated).catch((e) => console.warn('Could not sync profile to backend:', e));
   };
 
   const handleUpdateGoals = (updated: UserGoals) => {
     setUserGoals(updated);
+    api.saveGoals(updated).catch((e) => console.warn('Could not sync goals to backend:', e));
   };
 
   const handleLogout = () => {
-    setUserProfile((prev) => ({
-      ...prev,
+    const updated = {
+      ...userProfile,
       isLoggedIn: false,
-    }));
+    };
+    setUserProfile(updated);
+    api.saveProfile(updated).catch((e) => console.warn('Could not sync logout to backend:', e));
   };
 
   const handleLogin = (email: string, name: string) => {
-    setUserProfile((prev) => ({
-      ...prev,
+    const updated = {
+      ...userProfile,
       email,
       name,
       isLoggedIn: true,
-    }));
+    };
+    setUserProfile(updated);
+    api.saveProfile(updated).catch((e) => console.warn('Could not sync login to backend:', e));
   };
 
   // Extract all distinct tags
@@ -174,6 +212,7 @@ export default function App() {
       }
       return [jobToSave, ...prev];
     });
+    api.createOrUpdateJob(jobToSave).catch((err) => console.warn('Sync job error:', err));
   };
 
   const handleDeleteJob = (id: string) => {
@@ -181,10 +220,12 @@ export default function App() {
     if (activeDrawerJobId === id) {
       setActiveDrawerJobId(null);
     }
+    api.deleteJob(id).catch((err) => console.warn('Delete job error:', err));
   };
 
   const handleBatchDelete = (ids: string[]) => {
     setJobs((prev) => prev.filter((j) => !ids.includes(j.id)));
+    api.batchDeleteJobs(ids).catch((err) => console.warn('Batch delete error:', err));
   };
 
   const handleBatchUpdateStage = (ids: string[], newStage: JobStage) => {
@@ -192,6 +233,7 @@ export default function App() {
     setJobs((prev) =>
       prev.map((j) => (ids.includes(j.id) ? { ...j, stage: newStage, lastActivityDate: today } : j))
     );
+    api.batchUpdateStage(ids, newStage).catch((err) => console.warn('Batch stage update error:', err));
   };
 
   const handleQuickMoveStage = (jobId: string, newStage: JobStage) => {
@@ -199,12 +241,14 @@ export default function App() {
     setJobs((prev) =>
       prev.map((j) => (j.id === jobId ? { ...j, stage: newStage, lastActivityDate: today } : j))
     );
+    api.quickMoveStage(jobId, newStage).catch((err) => console.warn('Quick move stage error:', err));
   };
 
   const handleUpdateRating = (jobId: string, rating: number) => {
     setJobs((prev) =>
       prev.map((j) => (j.id === jobId ? { ...j, rating } : j))
     );
+    api.updateRating(jobId, rating).catch((err) => console.warn('Update rating error:', err));
   };
 
   const handleMarkInterviewComplete = (jobId: string, interviewId: string) => {
@@ -221,19 +265,23 @@ export default function App() {
         };
       })
     );
+    api.markInterviewComplete(jobId, interviewId).catch((err) => console.warn('Mark interview complete error:', err));
   };
 
   // Handlers for Resumes
   const handleAddResume = (resume: ResumeItem) => {
     setResumes((prev) => [resume, ...prev]);
+    api.createOrUpdateResume(resume).catch((err) => console.warn('Save resume error:', err));
   };
 
   const handleUpdateResume = (resume: ResumeItem) => {
     setResumes((prev) => prev.map((r) => (r.id === resume.id ? resume : r)));
+    api.createOrUpdateResume(resume).catch((err) => console.warn('Update resume error:', err));
   };
 
   const handleDeleteResume = (id: string) => {
     setResumes((prev) => prev.filter((r) => r.id !== id));
+    api.deleteResume(id).catch((err) => console.warn('Delete resume error:', err));
   };
 
   const handleOpenNewModal = (defaultStage: JobStage = 'applied') => {
@@ -261,11 +309,16 @@ export default function App() {
     setSelectedTag('all');
   };
 
-  const handleResetDemoData = () => {
+  const handleResetDemoData = async () => {
     setJobs(INITIAL_JOBS);
     saveStoredJobs(INITIAL_JOBS);
     setResumes(INITIAL_RESUMES);
     saveStoredResumes(INITIAL_RESUMES);
+    try {
+      await api.resetDemoData();
+    } catch (err) {
+      console.warn('API reset demo error:', err);
+    }
   };
 
   const activeDrawerJob = jobs.find((j) => j.id === activeDrawerJobId) || null;
@@ -282,10 +335,14 @@ export default function App() {
         onOpenAiDraftModal={() => setIsAiCoachOpen(true)}
         goals={userGoals}
         onOpenGoalsModal={() => setIsGoalsModalOpen(true)}
+        userProfile={userProfile}
+        onOpenProfileModal={() => setIsProfileModalOpen(true)}
+        mobileOpen={mobileSidebarOpen}
+        onCloseMobile={() => setMobileSidebarOpen(false)}
       />
 
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col h-full overflow-hidden">
+      {/* Main Content Area (Scrolls naturally without sticky header) */}
+      <div className="flex-1 h-full overflow-y-auto flex flex-col">
         {/* Top Header */}
         <Header
           viewMode={viewMode}
@@ -298,13 +355,16 @@ export default function App() {
           onOpenProfileModal={() => setIsProfileModalOpen(true)}
           onOpenGoalsModal={() => setIsGoalsModalOpen(true)}
           onLogout={handleLogout}
+          onToggleMobileSidebar={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
         />
 
-        {/* Scrollable Dashboard View Body */}
-        <main className="flex-1 overflow-y-auto p-6 lg:p-8 space-y-6">
+        {/* Dashboard View Body */}
+        <main className="flex-1 p-6 lg:p-8 space-y-6">
           <div className="max-w-7xl mx-auto space-y-6">
-            {/* Top 4-Column Metric Summary (Show on Kanban, Table, Offers, Analytics) */}
-            {viewMode !== 'resumes' && viewMode !== 'ats-calculator' && viewMode !== 'builder' && (
+            {/* Top 4-Column Metric Summary & Reminders (Only on main Applications Table Dashboard) */}
+            {viewMode === 'table' && (
               <>
                 <MetricsBar
                   jobs={jobs}
@@ -317,7 +377,6 @@ export default function App() {
                   }}
                 />
 
-                {/* Up Next & Career Coach AI Banner */}
                 <UpcomingReminders
                   jobs={jobs}
                   onSelectJob={(job) => setActiveDrawerJobId(job.id)}
@@ -417,16 +476,6 @@ export default function App() {
                 jobs={jobs} 
                 goals={userGoals}
                 onOpenGoalsModal={() => setIsGoalsModalOpen(true)}
-              />
-            )}
-
-            {viewMode === 'offers' && (
-              <OfferComparisonView
-                jobs={jobs}
-                onAcceptOffer={(job) => {
-                  handleQuickMoveStage(job.id, 'offer');
-                }}
-                onSelectJob={(job) => setActiveDrawerJobId(job.id)}
               />
             )}
           </div>

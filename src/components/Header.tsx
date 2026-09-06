@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import { 
+  Search, 
+  Bell, 
+  Plus, 
   Download, 
   Upload, 
   RotateCcw, 
   FileSpreadsheet, 
   ChevronDown,
-  Plus,
-  Sparkles,
-  Search,
   User,
   LogOut,
-  LogIn,
   Target,
-  Camera,
-  CheckCircle2
+  Menu
 } from 'lucide-react';
 import { ViewMode, JobApplication, UserProfile } from '../types';
 import { exportJobsToJson, exportJobsToCsv, DEFAULT_USER_PROFILE } from '../utils/storage';
@@ -29,6 +27,9 @@ interface HeaderProps {
   onOpenProfileModal: () => void;
   onOpenGoalsModal: () => void;
   onLogout: () => void;
+  onToggleMobileSidebar?: () => void;
+  searchQuery?: string;
+  onSearchChange?: (q: string) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -37,25 +38,55 @@ export const Header: React.FC<HeaderProps> = ({
   jobs,
   onImportJobs,
   onResetDemoData,
-  onOpenAiDraftModal,
   userProfile,
   onOpenProfileModal,
   onOpenGoalsModal,
   onLogout,
+  onToggleMobileSidebar,
+  searchQuery = '',
+  onSearchChange,
 }) => {
   const profile = userProfile || DEFAULT_USER_PROFILE;
   const [showDataMenu, setShowDataMenu] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
 
-  const viewTitles: Record<ViewMode, string> = {
-    kanban: 'Pipeline Dashboard',
-    table: 'Application Dashboard',
-    analytics: 'Analytics & Funnel Overview',
-    offers: 'Offer Comparison Matrix',
-    resumes: 'Resume Performance & A/B Tracking',
-    'ats-calculator': 'ATS Resume & Job Match Calculator',
-    builder: 'Resume Studio, Creator & ATS Guide',
+  const activeCount = jobs.filter((j) => !['rejected', 'withdrawn', 'wishlist'].includes(j.stage)).length;
+  const interviewCount = jobs.filter((j) => ['screening', 'technical', 'interview'].includes(j.stage)).length;
+  const offerCount = jobs.filter((j) => j.stage === 'offer').length;
+
+  const viewTitles: Record<ViewMode, { title: string; subtitle: string }> = {
+    table: {
+      title: 'Job Applications',
+      subtitle: `Managing ${jobs.length} applications • ${activeCount} active in progress • ${offerCount} offers received`,
+    },
+    kanban: {
+      title: 'Application Pipeline',
+      subtitle: 'Track your progress from applied to interview and offer stages.',
+    },
+    resumes: {
+      title: 'Resumes & Documents',
+      subtitle: 'Manage your tailored resume versions and track where you used each one.',
+    },
+    analytics: {
+      title: 'Activity & Stats',
+      subtitle: 'Overview of your application progress, response rates, and milestones.',
+    },
+    'ats-calculator': {
+      title: 'Job Match Helper',
+      subtitle: 'Check how well your resume matches a specific job description.',
+    },
+    builder: {
+      title: 'Resume Studio',
+      subtitle: 'Create and polish your resume with high-impact bullet points.',
+    },
+    offers: {
+      title: 'Offer Comparison',
+      subtitle: 'Compare compensation, benefits, and working conditions side-by-side.',
+    },
   };
+
+  const currentMeta = viewTitles[viewMode] || viewTitles.table;
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -69,10 +100,10 @@ export const Header: React.FC<HeaderProps> = ({
           onImportJobs(parsed);
           alert(`Successfully imported ${parsed.length} applications!`);
         } else {
-          alert('Invalid backup file format. Expected an array of job applications.');
+          alert('Invalid file format. Expected a JSON list of applications.');
         }
-      } catch (err) {
-        alert('Failed to parse backup JSON file.');
+      } catch {
+        alert('Failed to parse the uploaded file.');
       }
     };
     reader.readAsText(file);
@@ -80,237 +111,228 @@ export const Header: React.FC<HeaderProps> = ({
     setShowDataMenu(false);
   };
 
-  // Get initials for profile fallback
-  const initials = (profile.name || 'User')
-    .split(' ')
-    .map((n) => n[0])
-    .join('')
-    .toUpperCase()
-    .slice(0, 2);
-
   return (
-    <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 shrink-0 z-20">
-      {/* Title */}
-      <div>
-        <h1 className="text-lg font-bold text-slate-900 tracking-tight">
-          {viewTitles[viewMode]}
-        </h1>
-        <p className="text-xs text-slate-500 font-medium">
-          {jobs.length} total tracked applications • {jobs.filter(j => j.stage === 'offer').length} offers
-        </p>
-      </div>
-
-      {/* Actions */}
-      <div className="flex items-center gap-3">
-        {/* Backup / Export Dropdown */}
-        <div className="relative">
+    <div className="bg-white border-b border-slate-200 shrink-0">
+      {/* Top Navbar */}
+      <div className="h-16 px-4 lg:px-8 flex items-center justify-between gap-4 border-b border-slate-100">
+        <div className="flex items-center gap-3 flex-1 max-w-md">
+          {/* Mobile Menu Toggle */}
           <button
-            id="data-menu-btn"
-            onClick={() => setShowDataMenu(!showDataMenu)}
-            className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg transition-colors"
+            onClick={onToggleMobileSidebar}
+            className="p-2 -ml-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 lg:hidden focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-hidden"
+            aria-label="Open Navigation"
           >
-            <Download className="w-3.5 h-3.5 text-slate-500" />
-            <span>Export / Sync</span>
-            <ChevronDown className="w-3 h-3 text-slate-400" />
+            <Menu className="w-5 h-5" />
           </button>
 
-          {showDataMenu && (
-            <div 
-              className="absolute right-0 mt-1.5 w-52 bg-white rounded-xl shadow-xl border border-slate-200 py-1.5 z-40 text-xs font-medium text-slate-700 animate-fadeIn"
-              onMouseLeave={() => setShowDataMenu(false)}
-            >
-              <button
-                onClick={() => {
-                  exportJobsToJson(jobs);
-                  setShowDataMenu(false);
-                }}
-                className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2"
-              >
-                <Download className="w-3.5 h-3.5 text-blue-600" />
-                Export Backup (JSON)
-              </button>
-
-              <button
-                onClick={() => {
-                  exportJobsToCsv(jobs);
-                  setShowDataMenu(false);
-                }}
-                className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2"
-              >
-                <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />
-                Export to CSV (Excel)
-              </button>
-
-              <label className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2 cursor-pointer">
-                <Upload className="w-3.5 h-3.5 text-purple-600" />
-                Restore from JSON
-                <input
-                  type="file"
-                  accept=".json"
-                  onChange={handleFileUpload}
-                  className="hidden"
-                />
-              </label>
-
-              <div className="my-1 border-t border-slate-100" />
-
-              <button
-                onClick={() => {
-                  if (confirm('Reset application list to standard sample demo data?')) {
-                    onResetDemoData();
-                    setShowDataMenu(false);
-                  }
-                }}
-                className="w-full px-3.5 py-2 text-left hover:bg-rose-50 text-rose-600 flex items-center gap-2"
-              >
-                <RotateCcw className="w-3.5 h-3.5" />
-                Reset to Demo Data
-              </button>
+          {/* Quick Search */}
+          {onSearchChange && (
+            <div className="relative w-full">
+              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Search by role, company, or location..."
+                value={searchQuery}
+                onChange={(e) => onSearchChange(e.target.value)}
+                className="w-full bg-slate-50 hover:bg-slate-100/70 focus:bg-white text-xs text-slate-900 placeholder:text-slate-400 pl-9 pr-3 py-2 rounded-lg border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all focus-visible:outline-hidden"
+              />
             </div>
           )}
         </div>
 
-        {/* Primary Add New Application Button */}
-        <button
-          id="new-application-btn"
-          onClick={onOpenNewJobModal}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow-xs transition-colors flex items-center gap-1.5"
-        >
-          <Plus className="w-4 h-4" />
-          <span>+ Add New Application</span>
-        </button>
+        {/* Right Actions: Export/Sync, Notifications, User Menu */}
+        <div className="flex items-center gap-2">
+          {/* Export / Sync Menu */}
+          <div className="relative">
+            <button
+              onClick={() => setShowDataMenu(!showDataMenu)}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-hidden"
+              aria-label="Data Options"
+            >
+              <Download className="w-3.5 h-3.5 text-slate-500" />
+              <span className="hidden sm:inline">Export</span>
+              <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+            </button>
 
-        {/* Interactive User Profile Icon / Dropdown */}
-        <div className="relative">
-          <button
-            id="user-profile-btn"
-            onClick={() => setShowProfileMenu(!showProfileMenu)}
-            title={profile.isLoggedIn ? `${profile.name} - Click for profile & settings` : 'Click to Sign In'}
-            className="flex items-center gap-1.5 p-0.5 rounded-full hover:ring-2 hover:ring-blue-500/50 transition-all cursor-pointer relative"
-          >
-            {profile.isLoggedIn ? (
-              profile.avatarUrl ? (
-                <img
-                  src={profile.avatarUrl}
-                  alt={profile.name}
-                  className="w-8 h-8 rounded-full object-cover border border-slate-300 shadow-2xs"
-                />
-              ) : (
-                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-700 text-white font-bold text-xs flex items-center justify-center border border-white shadow-2xs">
-                  {initials}
-                </div>
-              )
-            ) : (
-              <div className="w-8 h-8 rounded-full bg-slate-100 text-slate-600 font-medium text-xs flex items-center justify-center border border-slate-300 hover:bg-slate-200">
-                <User className="w-4 h-4" />
+            {showDataMenu && (
+              <div 
+                className="absolute right-0 mt-1.5 w-48 bg-white rounded-lg shadow-lg border border-slate-200 py-1 z-40 text-xs font-medium text-slate-700"
+                onMouseLeave={() => setShowDataMenu(false)}
+              >
+                <button
+                  onClick={() => {
+                    exportJobsToJson(jobs);
+                    setShowDataMenu(false);
+                  }}
+                  className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2"
+                >
+                  <Download className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Export as JSON</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    exportJobsToCsv(jobs);
+                    setShowDataMenu(false);
+                  }}
+                  className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2"
+                >
+                  <FileSpreadsheet className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Export as Excel (CSV)</span>
+                </button>
+
+                <label className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2 cursor-pointer">
+                  <Upload className="w-3.5 h-3.5 text-slate-600" />
+                  <span>Import Backup</span>
+                  <input
+                    type="file"
+                    accept=".json"
+                    onChange={handleFileUpload}
+                    className="hidden"
+                  />
+                </label>
+
+                <div className="my-1 border-t border-slate-100" />
+
+                <button
+                  onClick={() => {
+                    if (confirm('Reset to sample demo data?')) {
+                      onResetDemoData();
+                      setShowDataMenu(false);
+                    }
+                  }}
+                  className="w-full px-3.5 py-2 text-left hover:bg-rose-50 text-rose-600 flex items-center gap-2"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>Reset Sample Data</span>
+                </button>
               </div>
             )}
+          </div>
 
-            {/* Online / Active Indicator */}
-            {profile.isLoggedIn && (
-              <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-white rounded-full"></span>
-            )}
-          </button>
-
-          {/* Profile Dropdown Menu */}
-          {showProfileMenu && (
-            <div 
-              className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-200 py-2 z-50 animate-fadeIn"
-              onMouseLeave={() => setShowProfileMenu(false)}
+          {/* Notifications */}
+          <div className="relative">
+            <button
+              onClick={() => setShowNotifications(!showNotifications)}
+              className="p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg relative focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-hidden"
+              aria-label="Notifications"
             >
-              {profile.isLoggedIn ? (
-                <>
-                  {/* User Profile Header */}
-                  <div className="px-4 py-3 border-b border-slate-100 flex items-center gap-3">
-                    {profile.avatarUrl ? (
-                      <img
-                        src={profile.avatarUrl}
-                        alt={profile.name}
-                        className="w-10 h-10 rounded-full object-cover border border-slate-200 shrink-0"
-                      />
-                    ) : (
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-700 text-white font-bold text-sm flex items-center justify-center shrink-0">
-                        {initials}
-                      </div>
-                    )}
-                    <div className="min-w-0 flex-1">
-                      <div className="text-xs font-bold text-slate-900 truncate">
-                        {profile.name}
-                      </div>
-                      <div className="text-[11px] text-slate-500 truncate">
-                        {profile.email}
-                      </div>
-                      <div className="text-[10px] text-blue-600 font-semibold truncate mt-0.5">
-                        {profile.role}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Menu Options */}
-                  <div className="py-1">
-                    <button
-                      onClick={() => {
-                        setShowProfileMenu(false);
-                        onOpenProfileModal();
-                      }}
-                      className="w-full px-4 py-2 text-left hover:bg-slate-50 flex items-center gap-2.5 text-xs font-medium text-slate-700 transition-colors"
-                    >
-                      <Camera className="w-4 h-4 text-blue-600" />
-                      <span>Edit Profile & Photo</span>
-                    </button>
-
-                    <button
-                      onClick={() => {
-                        setShowProfileMenu(false);
-                        onOpenGoalsModal();
-                      }}
-                      className="w-full px-4 py-2 text-left hover:bg-slate-50 flex items-center gap-2.5 text-xs font-medium text-slate-700 transition-colors"
-                    >
-                      <Target className="w-4 h-4 text-purple-600" />
-                      <span>Monthly Targets & Goals</span>
-                    </button>
-                  </div>
-
-                  <div className="border-t border-slate-100 my-1" />
-
-                  {/* Logout Button */}
-                  <button
-                    onClick={() => {
-                      setShowProfileMenu(false);
-                      onLogout();
-                    }}
-                    className="w-full px-4 py-2 text-left hover:bg-rose-50 flex items-center gap-2.5 text-xs font-semibold text-rose-600 transition-colors"
-                  >
-                    <LogOut className="w-4 h-4" />
-                    <span>Log Out</span>
-                  </button>
-                </>
-              ) : (
-                /* Logged Out State Dropdown */
-                <div className="p-3 text-center">
-                  <div className="w-10 h-10 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center mx-auto mb-2">
-                    <User className="w-5 h-5" />
-                  </div>
-                  <div className="text-xs font-bold text-slate-900 mb-0.5">Guest Mode</div>
-                  <p className="text-[11px] text-slate-500 mb-3">
-                    Sign in to customize your profile, upload your photo, and save your search goals.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setShowProfileMenu(false);
-                      onOpenProfileModal();
-                    }}
-                    className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-2xs transition-colors"
-                  >
-                    <LogIn className="w-3.5 h-3.5" />
-                    <span>Sign In / Create Profile</span>
-                  </button>
-                </div>
+              <Bell className="w-4 h-4" />
+              {interviewCount > 0 && (
+                <span className="w-2 h-2 rounded-full bg-blue-600 absolute top-1.5 right-1.5" />
               )}
-            </div>
-          )}
+            </button>
+
+            {showNotifications && (
+              <div 
+                className="absolute right-0 mt-1.5 w-72 bg-white rounded-lg shadow-lg border border-slate-200 p-3 z-40 text-xs"
+                onMouseLeave={() => setShowNotifications(false)}
+              >
+                <div className="font-bold text-slate-900 mb-1.5 flex items-center justify-between">
+                  <span>Upcoming Reminders</span>
+                  <span className="text-[10px] font-semibold text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-100">
+                    {interviewCount} Active
+                  </span>
+                </div>
+                {interviewCount > 0 ? (
+                  <p className="text-slate-600 text-[11px] leading-relaxed">
+                    You have <span className="font-semibold text-slate-900">{interviewCount} interview rounds</span> in progress. Check the interview panel for schedules.
+                  </p>
+                ) : (
+                  <p className="text-slate-500 text-[11px]">
+                    No urgent reminders. Everything is up to date.
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* User Profile */}
+          <div className="relative">
+            <button
+              onClick={() => setShowProfileMenu(!showProfileMenu)}
+              className="flex items-center gap-2 p-1 rounded-lg hover:bg-slate-100 transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-hidden"
+              aria-label="User Account"
+            >
+              <div className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-xs shrink-0 border border-emerald-200 overflow-hidden">
+                {profile.avatarUrl ? (
+                  <img src={profile.avatarUrl} alt="" className="w-full h-full object-cover" />
+                ) : (
+                  (profile.name || 'A')[0].toUpperCase()
+                )}
+              </div>
+              <span className="hidden md:inline text-xs font-semibold text-slate-800">
+                {profile.name}
+              </span>
+              <ChevronDown className="w-3.5 h-3.5 text-slate-400 hidden md:inline" />
+            </button>
+
+            {showProfileMenu && (
+              <div 
+                className="absolute right-0 mt-1.5 w-52 bg-white rounded-lg shadow-lg border border-slate-200 py-1.5 z-50 text-xs"
+                onMouseLeave={() => setShowProfileMenu(false)}
+              >
+                <div className="px-3.5 py-2 border-b border-slate-100">
+                  <p className="font-bold text-slate-900 truncate">{profile.name}</p>
+                  <p className="text-[11px] text-slate-500 truncate">{profile.email}</p>
+                </div>
+                <button
+                  onClick={() => {
+                    setShowProfileMenu(false);
+                    onOpenProfileModal();
+                  }}
+                  className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2 text-slate-700"
+                >
+                  <User className="w-3.5 h-3.5 text-slate-500" />
+                  <span>Profile & Bio</span>
+                </button>
+                <button
+                  onClick={() => {
+                    setShowProfileMenu(false);
+                    onOpenGoalsModal();
+                  }}
+                  className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2 text-slate-700"
+                >
+                  <Target className="w-3.5 h-3.5 text-slate-500" />
+                  <span>Application Goals</span>
+                </button>
+                <div className="my-1 border-t border-slate-100" />
+                <button
+                  onClick={() => {
+                    setShowProfileMenu(false);
+                    onLogout();
+                  }}
+                  className="w-full px-3.5 py-2 text-left hover:bg-rose-50 text-rose-600 flex items-center gap-2 font-medium"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  <span>Log Out</span>
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </header>
+
+      {/* Page Header */}
+      <div className="px-4 lg:px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-xl font-bold text-slate-900 tracking-tight">
+            {currentMeta.title}
+          </h1>
+          <p className="text-xs text-slate-500 mt-0.5">
+            {currentMeta.subtitle}
+          </p>
+        </div>
+
+        <button
+          id="header-post-job-btn"
+          onClick={onOpenNewJobModal}
+          className="flex items-center justify-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:outline-hidden self-start sm:self-auto"
+        >
+          <Plus className="w-4 h-4" />
+          <span>Add Application</span>
+        </button>
+      </div>
+    </div>
   );
 };

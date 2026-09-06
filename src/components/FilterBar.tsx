@@ -1,19 +1,19 @@
 import React from 'react';
-import { Search, SlidersHorizontal, X, Tag, DollarSign, MapPin, Briefcase } from 'lucide-react';
+import { Search, RotateCcw, X } from 'lucide-react';
 import { JobStage, Priority, WorkplaceType } from '../types';
 import { STAGES_CONFIG } from '../data/initialJobs';
 
 interface FilterBarProps {
   searchQuery: string;
-  onSearchChange: (q: string) => void;
+  onSearchChange: (query: string) => void;
   selectedStage: JobStage | 'all' | 'active';
   onStageChange: (stage: JobStage | 'all' | 'active') => void;
   selectedPriority: Priority | 'all';
-  onPriorityChange: (p: Priority | 'all') => void;
+  onPriorityChange: (priority: Priority | 'all') => void;
   selectedWorkplace: WorkplaceType | 'all';
-  onWorkplaceChange: (w: WorkplaceType | 'all') => void;
+  onWorkplaceChange: (workplace: WorkplaceType | 'all') => void;
   selectedTag: string | 'all';
-  onTagChange: (t: string | 'all') => void;
+  onTagChange: (tag: string | 'all') => void;
   availableTags: string[];
   totalFiltered: number;
   totalAll: number;
@@ -37,115 +37,95 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   onResetFilters,
 }) => {
   const hasActiveFilters =
-    searchQuery !== '' ||
+    Boolean(searchQuery.trim()) ||
     selectedStage !== 'all' ||
     selectedPriority !== 'all' ||
     selectedWorkplace !== 'all' ||
     selectedTag !== 'all';
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200/80 p-3.5 mb-5 shadow-xs">
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+    <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-xs mb-4">
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
         {/* Search Input */}
-        <div className="relative flex-1 min-w-[240px]">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+        <div className="relative flex-1 min-w-[200px]">
+          <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
-            id="job-search-input"
             type="text"
-            placeholder="Search by company, role, notes, interviewers..."
+            placeholder="Search by role, company, or location..."
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full pl-9 pr-8 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white text-slate-900 placeholder:text-slate-400 transition-all"
+            className="w-full pl-8 pr-8 py-1.5 text-xs text-slate-900 placeholder:text-slate-400 bg-slate-50 hover:bg-slate-100/70 focus:bg-white border border-slate-200 rounded-md focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus-visible:outline-hidden transition-all"
           />
           {searchQuery && (
             <button
               onClick={() => onSearchChange('')}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5 rounded"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5"
+              aria-label="Clear search"
             >
-              <X className="w-3.5 h-3.5" />
+              <X className="w-3 h-3" />
             </button>
           )}
         </div>
 
         {/* Dropdown Filters */}
-        <div className="flex flex-wrap items-center gap-2">
-          {/* Stage filter */}
+        <div className="flex items-center flex-wrap gap-2 text-xs">
+          {/* Stage Filter */}
           <select
-            id="filter-stage-select"
             value={selectedStage}
             onChange={(e) => onStageChange(e.target.value as any)}
-            aria-label="Filter by Stage"
-            className="px-2.5 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-medium text-slate-700 hover:bg-slate-100/70 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+            aria-label="Filter by stage"
+            className="px-2.5 py-1.5 bg-slate-50 hover:bg-slate-100/70 border border-slate-200 rounded-md font-medium text-slate-700 cursor-pointer focus:border-emerald-500 focus-visible:outline-hidden"
           >
-            <option value="all">All Stages</option>
-            <option value="active">Active Only (In Progress)</option>
-            <option value="wishlist">Wishlist</option>
-            <option value="applied">Applied</option>
-            <option value="screening">Screening</option>
-            <option value="technical">Assessment</option>
-            <option value="interview">Interviews</option>
-            <option value="offer">Offer</option>
-            <option value="rejected">Rejected</option>
-            <option value="withdrawn">Withdrawn</option>
+            <option value="all">All Statuses</option>
+            <option value="active">Active Only</option>
+            {Object.entries(STAGES_CONFIG).map(([key, config]) => (
+              <option key={key} value={key}>
+                {config.label}
+              </option>
+            ))}
           </select>
 
-          {/* Priority filter */}
+          {/* Priority Filter */}
           <select
-            id="filter-priority-select"
             value={selectedPriority}
             onChange={(e) => onPriorityChange(e.target.value as any)}
-            aria-label="Filter by Priority"
-            className="px-2.5 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-medium text-slate-700 hover:bg-slate-100/70 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+            aria-label="Filter by priority"
+            className="px-2.5 py-1.5 bg-slate-50 hover:bg-slate-100/70 border border-slate-200 rounded-md font-medium text-slate-700 cursor-pointer focus:border-emerald-500 focus-visible:outline-hidden"
           >
             <option value="all">All Priorities</option>
-            <option value="high">High Priority</option>
-            <option value="medium">Medium Priority</option>
-            <option value="low">Low Priority</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
           </select>
 
-          {/* Workplace filter */}
+          {/* Workplace Filter */}
           <select
-            id="filter-workplace-select"
             value={selectedWorkplace}
             onChange={(e) => onWorkplaceChange(e.target.value as any)}
-            aria-label="Filter by Workplace Type"
-            className="px-2.5 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-medium text-slate-700 hover:bg-slate-100/70 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+            aria-label="Filter by workplace type"
+            className="px-2.5 py-1.5 bg-slate-50 hover:bg-slate-100/70 border border-slate-200 rounded-md font-medium text-slate-700 cursor-pointer focus:border-emerald-500 focus-visible:outline-hidden"
           >
-            <option value="all">All Locations / Types</option>
-            <option value="remote">Remote Only</option>
+            <option value="all">All Workplaces</option>
+            <option value="remote">Remote</option>
             <option value="hybrid">Hybrid</option>
-            <option value="onsite">On-site</option>
+            <option value="onsite">Onsite</option>
           </select>
-
-          {/* Tag filter */}
-          {availableTags.length > 0 && (
-            <select
-              id="filter-tag-select"
-              value={selectedTag}
-              onChange={(e) => onTagChange(e.target.value)}
-              aria-label="Filter by Tag"
-              className="px-2.5 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-medium text-slate-700 hover:bg-slate-100/70 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
-            >
-              <option value="all">All Tags</option>
-              {availableTags.map((tag) => (
-                <option key={tag} value={tag}>
-                  #{tag}
-                </option>
-              ))}
-            </select>
-          )}
 
           {/* Reset Filters */}
           {hasActiveFilters && (
             <button
-              id="reset-filters-btn"
               onClick={onResetFilters}
-              className="flex items-center gap-1 px-2.5 py-2 text-xs font-medium text-rose-600 bg-rose-50 border border-rose-200 rounded-lg hover:bg-rose-100 transition-colors"
+              className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-md border border-slate-200 transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500"
             >
-              <X className="w-3.5 h-3.5" />
-              Reset ({totalFiltered}/{totalAll})
+              <RotateCcw className="w-3 h-3" />
+              <span>Reset</span>
             </button>
           )}
+
+          {/* Counter Badge */}
+          <span className="text-[11px] font-semibold text-slate-500 ml-auto md:ml-2">
+            Showing <span className="text-slate-900">{totalFiltered}</span> of {totalAll}
+          </span>
         </div>
       </div>
     </div>
