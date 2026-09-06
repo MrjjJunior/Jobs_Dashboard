@@ -1,18 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { 
   X, 
-  Target, 
-  TrendingUp, 
-  Calendar, 
-  Award, 
-  DollarSign, 
   CheckCircle2, 
-  Sparkles,
-  Zap,
-  Sliders,
-  RotateCcw,
-  Coins,
-  Globe
+  RotateCcw
 } from 'lucide-react';
 import { UserGoals, JobApplication } from '../types';
 import { 
@@ -174,140 +164,83 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
   const currentMonthName = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(new Date());
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs animate-fadeIn">
       <div 
-        className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-xl overflow-hidden flex flex-col max-h-[90vh]"
+        className="bg-white rounded-2xl shadow-xl border border-slate-200/90 w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
-        <div className="px-6 py-4 bg-slate-900 text-white flex items-center justify-between shrink-0">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-blue-600/30 border border-blue-400/30 flex items-center justify-center text-blue-400">
-              <Target className="w-5 h-5" />
-            </div>
-            <div>
-              <h2 className="text-base font-bold tracking-tight text-white flex items-center gap-2">
-                Monthly Targets & Search Goals
-                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
-                  {currentMonthName}
-                </span>
-              </h2>
-              <p className="text-xs text-slate-400">
-                Set realistic application, interview, and compensation goals to maintain search momentum.
-              </p>
-            </div>
+        {/* Minimal Header */}
+        <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between shrink-0">
+          <div>
+            <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              Monthly Targets
+              <span className="text-xs font-normal text-slate-400">· {currentMonthName}</span>
+            </h2>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Set application volume, pipeline milestones, and compensation goals.
+            </p>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
+            className="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Live Progress Preview Banner */}
-        <div className="bg-slate-50 border-b border-slate-200 px-6 py-3.5">
-          <div className="grid grid-cols-3 gap-3">
-            {/* Applications Metric */}
-            <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs">
-              <div className="flex items-center justify-between text-[11px] font-semibold text-slate-500 mb-1">
-                <span>Applications</span>
-                <span className="font-bold text-slate-900">{appliedCount}/{monthlyApps}</span>
-              </div>
-              <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                <div 
-                  className="bg-blue-600 h-full rounded-full transition-all duration-300"
-                  style={{ width: `${appsProgress}%` }}
-                />
-              </div>
-              <p className="text-[10px] text-slate-400 mt-1 flex justify-between">
-                <span>{appsProgress}% done</span>
-                <span>{monthlyApps - appliedCount > 0 ? `${monthlyApps - appliedCount} to go` : 'Goal met!'}</span>
-              </p>
-            </div>
-
-            {/* Interviews Metric */}
-            <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs">
-              <div className="flex items-center justify-between text-[11px] font-semibold text-slate-500 mb-1">
-                <span>Interviews</span>
-                <span className="font-bold text-slate-900">{interviewCount}/{monthlyInterviews}</span>
-              </div>
-              <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                <div 
-                  className="bg-purple-600 h-full rounded-full transition-all duration-300"
-                  style={{ width: `${interviewProgress}%` }}
-                />
-              </div>
-              <p className="text-[10px] text-slate-400 mt-1 flex justify-between">
-                <span>{interviewProgress}% done</span>
-                <span>{monthlyInterviews - interviewCount > 0 ? `${monthlyInterviews - interviewCount} to go` : 'Goal met!'}</span>
-              </p>
-            </div>
-
-            {/* Offers Metric */}
-            <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs">
-              <div className="flex items-center justify-between text-[11px] font-semibold text-slate-500 mb-1">
-                <span>Job Offers</span>
-                <span className="font-bold text-slate-900">{offerCount}/{monthlyOffers}</span>
-              </div>
-              <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                <div 
-                  className="bg-emerald-500 h-full rounded-full transition-all duration-300"
-                  style={{ width: `${offerProgress}%` }}
-                />
-              </div>
-              <p className="text-[10px] text-slate-400 mt-1 flex justify-between">
-                <span>{offerProgress}% done</span>
-                <span>{offerCount >= monthlyOffers ? 'Goal met!' : `${monthlyOffers - offerCount} to go`}</span>
-              </p>
-            </div>
+        {/* Minimal Progress Bar Summary */}
+        <div className="bg-slate-50/70 border-b border-slate-100 px-6 py-3">
+          <div className="flex items-center justify-between text-xs text-slate-600 mb-1.5">
+            <span className="font-medium">
+              Applications: <strong className="text-slate-900 font-semibold">{appliedCount}</strong> / {monthlyApps}
+            </span>
+            <span className="text-slate-400">
+              Interviews: <strong className="text-slate-700 font-semibold">{interviewCount}</strong>/{monthlyInterviews} · Offers: <strong className="text-slate-700 font-semibold">{offerCount}</strong>/{monthlyOffers}
+            </span>
+          </div>
+          <div className="w-full bg-slate-200/80 h-1.5 rounded-full overflow-hidden">
+            <div 
+              className={`h-full rounded-full transition-all duration-300 ${appsProgress >= 100 ? 'bg-emerald-500' : 'bg-blue-600'}`}
+              style={{ width: `${appsProgress}%` }}
+            />
           </div>
         </div>
 
         {/* Form Body */}
         <form onSubmit={handleSave} className="p-6 space-y-5 overflow-y-auto flex-1 text-sm">
-          {/* Preset Selector for Monthly Apps */}
+          {/* Monthly Applications Target */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-                <Zap className="w-3.5 h-3.5 text-blue-600" />
+              <label className="text-xs font-semibold text-slate-700">
                 Monthly Applications Target
               </label>
-              <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-100">
-                {monthlyApps} Applications / Month
+              <span className="text-xs font-bold text-slate-900">
+                {monthlyApps} apps / mo
               </span>
             </div>
 
-            {/* Quick preset buttons */}
-            <div className="grid grid-cols-4 gap-2 mb-2.5">
-              {[
-                { value: 10, label: 'Selective', desc: '10 / mo' },
-                { value: 20, label: 'Standard', desc: '20 / mo' },
-                { value: 30, label: 'Active', desc: '30 / mo' },
-                { value: 50, label: 'Intensive', desc: '50 / mo' },
-              ].map((preset) => (
+            {/* Clean Pill Presets */}
+            <div className="flex items-center gap-1.5 mb-2.5">
+              {[10, 20, 30, 40, 50].map((presetVal) => (
                 <button
-                  key={preset.value}
+                  key={presetVal}
                   type="button"
                   onClick={() => {
-                    setMonthlyApps(preset.value);
-                    setWeeklyApps(Math.max(1, Math.round(preset.value / 4)));
+                    setMonthlyApps(presetVal);
+                    setWeeklyApps(Math.max(1, Math.round(presetVal / 4)));
                   }}
-                  className={`py-2 px-2 text-center rounded-xl border transition-all ${
-                    monthlyApps === preset.value
-                      ? 'bg-blue-600 text-white border-blue-600 shadow-2xs font-bold'
-                      : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50 font-medium'
+                  className={`flex-1 py-1 text-xs font-medium rounded-lg border transition-all ${
+                    monthlyApps === presetVal
+                      ? 'bg-slate-900 text-white border-slate-900 font-semibold'
+                      : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
                   }`}
                 >
-                  <div className="text-xs">{preset.label}</div>
-                  <div className={`text-[10px] ${monthlyApps === preset.value ? 'text-blue-100' : 'text-slate-400'}`}>
-                    {preset.desc}
-                  </div>
+                  {presetVal}
                 </button>
               ))}
             </div>
 
-            {/* Custom slider and number input */}
+            {/* Slider & Input */}
             <div className="flex items-center gap-3">
               <input
                 type="range"
@@ -320,7 +253,7 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
                   setMonthlyApps(val);
                   setWeeklyApps(Math.max(1, Math.round(val / 4)));
                 }}
-                className="flex-1 accent-blue-600 h-2 bg-slate-200 rounded-lg cursor-pointer"
+                className="flex-1 accent-slate-900 h-1.5 bg-slate-200 rounded-lg cursor-pointer"
               />
               <input
                 type="number"
@@ -332,147 +265,95 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
                   setMonthlyApps(val);
                   if (val > 0) setWeeklyApps(Math.max(1, Math.round(val / 4)));
                 }}
-                className="w-20 px-2.5 py-1.5 text-center font-bold text-slate-900 border border-slate-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-blue-500 text-sm"
+                className="w-16 px-2 py-1 text-center font-bold text-slate-900 border border-slate-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-slate-900 text-xs"
               />
             </div>
           </div>
 
-          {/* Secondary Goals Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-3 border-t border-slate-100">
-            {/* Weekly Target */}
+          {/* Pipeline Milestones: 3 Clean Inputs */}
+          <div className="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100">
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Weekly Apps Goal
+                Weekly Target
               </label>
-              <div className="relative">
-                <input
-                  type="number"
-                  min="1"
-                  max="50"
-                  value={weeklyApps}
-                  onChange={(e) => setWeeklyApps(Number(e.target.value))}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg font-bold text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500"
-                />
-                <span className="absolute right-3 top-2 text-xs text-slate-400">/ week</span>
-              </div>
-              <p className="text-[10px] text-slate-400 mt-1">~{Math.round(monthlyApps / 4)}/wk recommended</p>
+              <input
+                type="number"
+                min="1"
+                max="50"
+                value={weeklyApps}
+                onChange={(e) => setWeeklyApps(Number(e.target.value))}
+                className="w-full px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-semibold text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-slate-900"
+              />
             </div>
 
-            {/* Monthly Interviews Target */}
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Target Interviews
+                Interviews
               </label>
-              <div className="relative">
-                <input
-                  type="number"
-                  min="1"
-                  max="30"
-                  value={monthlyInterviews}
-                  onChange={(e) => setMonthlyInterviews(Number(e.target.value))}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg font-bold text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-purple-500"
-                />
-                <span className="absolute right-3 top-2 text-xs text-slate-400">rounds</span>
-              </div>
-              <p className="text-[10px] text-slate-400 mt-1">Target conversion: 15-20%</p>
+              <input
+                type="number"
+                min="0"
+                max="30"
+                value={monthlyInterviews}
+                onChange={(e) => setMonthlyInterviews(Number(e.target.value))}
+                className="w-full px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-semibold text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-slate-900"
+              />
             </div>
 
-            {/* Monthly Offers Target */}
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">
-                Target Job Offers
+                Offers
               </label>
-              <div className="relative">
-                <input
-                  type="number"
-                  min="1"
-                  max="10"
-                  value={monthlyOffers}
-                  onChange={(e) => setMonthlyOffers(Number(e.target.value))}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg font-bold text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-emerald-500"
-                />
-                <span className="absolute right-3 top-2 text-xs text-slate-400">offers</span>
-              </div>
-              <p className="text-[10px] text-slate-400 mt-1">Target for final decision</p>
+              <input
+                type="number"
+                min="0"
+                max="10"
+                value={monthlyOffers}
+                onChange={(e) => setMonthlyOffers(Number(e.target.value))}
+                className="w-full px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-semibold text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-slate-900"
+              />
             </div>
           </div>
 
-          {/* Minimum Target Compensation & Currency Selection */}
-          <div className="pt-3 border-t border-slate-100 space-y-3">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <label className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-                <Coins className="w-3.5 h-3.5 text-emerald-600" />
+          {/* Minimal Target Salary & Currency */}
+          <div className="pt-3 border-t border-slate-100 space-y-2.5">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-semibold text-slate-700">
                 Target Minimum Base Salary
               </label>
-              <div className="flex items-center gap-2">
-                <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100/70 text-emerald-800 border border-emerald-200">
-                  {salaryCurrency}
-                </span>
-                <span className="text-xs font-bold text-emerald-700 font-mono">
-                  {formatSalaryNum(minSalary || 0, salaryCurrency)} / yr
-                </span>
-              </div>
+              <span className="text-xs font-bold text-emerald-700 font-mono">
+                {formatSalaryNum(minSalary || 0, salaryCurrency)} / yr
+              </span>
             </div>
 
-            {/* Currency Selector Options */}
-            <div>
-              <div className="flex items-center justify-between text-[11px] font-medium text-slate-500 mb-1.5">
-                <span className="flex items-center gap-1">
-                  <Globe className="w-3 h-3 text-slate-400" />
-                  Select Target Currency:
-                </span>
-                <span className="text-[10px] text-slate-400">South African Rand (ZAR) available</span>
-              </div>
-
-              {/* Quick Currency Pills */}
-              <div className="flex flex-wrap items-center gap-1.5 mb-2">
-                {[
-                  { code: 'ZAR', label: '🇿🇦 ZAR (R)', title: 'South African Rand' },
-                  { code: 'USD', label: '🇺🇸 USD ($)', title: 'US Dollar' },
-                  { code: 'EUR', label: '🇪🇺 EUR (€)', title: 'Euro' },
-                  { code: 'GBP', label: '🇬🇧 GBP (£)', title: 'British Pound' },
-                  { code: 'CAD', label: '🇨🇦 CAD ($)', title: 'Canadian Dollar' },
-                  { code: 'AUD', label: '🇦🇺 AUD ($)', title: 'Australian Dollar' },
-                ].map((cur) => (
-                  <button
-                    key={cur.code}
-                    type="button"
-                    onClick={() => handleCurrencyChange(cur.code)}
-                    title={cur.title}
-                    className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-all border ${
-                      salaryCurrency === cur.code
-                        ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
-                        : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 hover:border-slate-300'
-                    }`}
-                  >
-                    {cur.label}
-                  </button>
-                ))}
-
-                {/* More Currencies Dropdown */}
+            {/* Currency Dropdown & Value Input in one clean row */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <div className="sm:col-span-1">
                 <select
                   value={salaryCurrency}
                   onChange={(e) => handleCurrencyChange(e.target.value)}
-                  className="px-2 py-1 text-xs font-medium bg-white border border-slate-200 rounded-lg text-slate-700 hover:border-slate-300 focus:outline-hidden focus:ring-2 focus:ring-emerald-500"
-                  title="More world currencies"
+                  className="w-full px-2.5 py-1.5 text-xs font-medium bg-white border border-slate-200 rounded-lg text-slate-800 focus:outline-hidden focus:ring-2 focus:ring-slate-900"
                 >
-                  <option value="" disabled>All currencies...</option>
-                  {SUPPORTED_CURRENCIES.map((c) => (
-                    <option key={c.code} value={c.code}>
-                      {c.code} ({c.symbol.trim()}) - {c.name}
-                    </option>
-                  ))}
+                  <option value="ZAR">🇿🇦 ZAR (R) - Rand</option>
+                  <option value="USD">🇺🇸 USD ($) - US Dollar</option>
+                  <option value="EUR">🇪🇺 EUR (€) - Euro</option>
+                  <option value="GBP">🇬🇧 GBP (£) - British Pound</option>
+                  <option value="CAD">🇨🇦 CAD ($) - Canadian Dollar</option>
+                  <option value="AUD">🇦🇺 AUD ($) - Australian Dollar</option>
+                  <option disabled>──────────</option>
+                  {SUPPORTED_CURRENCIES
+                    .filter((c) => !['ZAR', 'USD', 'EUR', 'GBP', 'CAD', 'AUD'].includes(c.code))
+                    .map((c) => (
+                      <option key={c.code} value={c.code}>
+                        {c.code} ({c.symbol.trim()}) - {c.name}
+                      </option>
+                    ))}
                 </select>
               </div>
-            </div>
 
-            {/* Input & Quick Presets */}
-            <div className="space-y-2">
-              <div className="relative">
-                <div className="absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none flex items-center">
-                  <span className="text-xs font-bold font-mono px-2 py-1 bg-slate-100 text-slate-700 rounded-md border border-slate-200">
-                    {getCurrencySymbol(salaryCurrency).trim() || salaryCurrency}
-                  </span>
+              <div className="sm:col-span-2 relative">
+                <div className="absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-xs font-mono font-bold text-slate-500">
+                  {getCurrencySymbol(salaryCurrency).trim() || salaryCurrency}
                 </div>
                 <input
                   type="number"
@@ -482,84 +363,77 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
                   value={minSalary || ''}
                   onChange={(e) => setMinSalary(Number(e.target.value))}
                   placeholder={salaryCurrency === 'ZAR' ? '650000' : '140000'}
-                  className="w-full pl-16 pr-4 py-2 border border-slate-200 rounded-lg font-bold text-slate-900 font-mono focus:outline-hidden focus:ring-2 focus:ring-emerald-500"
+                  className="w-full pl-9 pr-3 py-1.5 border border-slate-200 rounded-lg text-xs font-bold text-slate-900 font-mono focus:outline-hidden focus:ring-2 focus:ring-slate-900"
                 />
-              </div>
-
-              {/* Quick Salary Benchmarks */}
-              <div className="flex flex-wrap items-center gap-1.5">
-                <span className="text-[10px] text-slate-400 font-medium mr-0.5">Quick benchmarks:</span>
-                {getSalaryPresets().map((preset) => (
-                  <button
-                    key={preset.label}
-                    type="button"
-                    onClick={() => setMinSalary(preset.value)}
-                    className={`px-2 py-0.5 text-[11px] rounded-md font-mono transition-colors border ${
-                      minSalary === preset.value
-                        ? 'bg-emerald-50 border-emerald-400 text-emerald-800 font-bold'
-                        : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50'
-                    }`}
-                  >
-                    {preset.label}
-                  </button>
-                ))}
               </div>
             </div>
 
-            <p className="text-[11px] text-slate-400">
-              Used in the Offer Comparison Matrix, analytics benchmarks, and job sorting to track roles against your compensation goal in <strong className="text-slate-600">{salaryCurrency}</strong>.
-            </p>
+            {/* Quick Benchmark Pills */}
+            <div className="flex items-center gap-1.5 overflow-x-auto py-0.5">
+              <span className="text-[11px] text-slate-400 shrink-0">Presets:</span>
+              {getSalaryPresets().map((preset) => (
+                <button
+                  key={preset.label}
+                  type="button"
+                  onClick={() => setMinSalary(preset.value)}
+                  className={`px-2 py-0.5 text-[11px] rounded-md font-mono transition-colors border ${
+                    minSalary === preset.value
+                      ? 'bg-slate-900 text-white border-slate-900 font-semibold'
+                      : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                  }`}
+                >
+                  {preset.label}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Strategic Focus / Motivational Notes */}
+          {/* Strategic Search Focus */}
           <div className="pt-3 border-t border-slate-100">
-            <label className="block text-xs font-bold text-slate-800 mb-1">
-              Strategic Search Focus & Notes
+            <label className="block text-xs font-semibold text-slate-700 mb-1">
+              Search Focus & Notes <span className="font-normal text-slate-400">(optional)</span>
             </label>
             <textarea
               rows={2}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="e.g. Focus on companies with modern tech stacks (React, TypeScript, Go), transparent salary ranges, and remote-first culture."
-              className="w-full p-2.5 border border-slate-200 rounded-lg text-slate-900 text-xs focus:outline-hidden focus:ring-2 focus:ring-blue-500 resize-none"
+              placeholder="Key requirements, preferred tech stacks, or search priorities..."
+              className="w-full p-2.5 border border-slate-200 rounded-lg text-slate-900 text-xs focus:outline-hidden focus:ring-2 focus:ring-slate-900 resize-none"
             />
           </div>
 
-          {/* Footer Actions */}
-          <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+          {/* Minimal Footer Actions */}
+          <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
             <button
               type="button"
               onClick={handleResetDefaults}
-              className="text-xs text-slate-500 hover:text-slate-800 flex items-center gap-1 transition-colors font-medium"
+              className="text-xs text-slate-400 hover:text-slate-700 flex items-center gap-1 transition-colors"
             >
-              <RotateCcw className="w-3.5 h-3.5" />
-              <span>Reset Defaults</span>
+              <RotateCcw className="w-3 h-3" />
+              <span>Reset</span>
             </button>
 
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+                className="px-3.5 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className={`px-5 py-2 text-xs font-bold text-white rounded-lg shadow-xs transition-all flex items-center gap-1.5 ${
-                  saveSuccess ? 'bg-emerald-600' : 'bg-blue-600 hover:bg-blue-700'
+                className={`px-4 py-1.5 text-xs font-semibold text-white rounded-lg transition-all flex items-center gap-1.5 ${
+                  saveSuccess ? 'bg-emerald-600' : 'bg-slate-900 hover:bg-slate-800'
                 }`}
               >
                 {saveSuccess ? (
                   <>
-                    <CheckCircle2 className="w-4 h-4" />
-                    <span>Goals Updated!</span>
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    <span>Saved!</span>
                   </>
                 ) : (
-                  <>
-                    <Target className="w-4 h-4" />
-                    <span>Save Monthly Goals</span>
-                  </>
+                  <span>Save Targets</span>
                 )}
               </button>
             </div>
