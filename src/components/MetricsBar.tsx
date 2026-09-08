@@ -22,7 +22,8 @@ export const MetricsBar: React.FC<MetricsBarProps> = ({ jobs, onFilterChange, ac
       label: 'In Progress',
       value: activeJobs.length,
       icon: Briefcase,
-      badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+      iconColor: 'text-[#003B36]',
+      iconBg: 'bg-[#F3E8EE]',
       description: 'Active applications',
       filterKey: 'active',
     },
@@ -31,7 +32,8 @@ export const MetricsBar: React.FC<MetricsBarProps> = ({ jobs, onFilterChange, ac
       label: 'Interviews',
       value: interviewsList.length,
       icon: Calendar,
-      badgeColor: 'bg-blue-50 text-blue-700 border-blue-200',
+      iconColor: 'text-[#90A955]',
+      iconBg: 'bg-[#90A955]/15',
       description: 'Upcoming conversations',
       filterKey: 'interview',
     },
@@ -40,7 +42,8 @@ export const MetricsBar: React.FC<MetricsBarProps> = ({ jobs, onFilterChange, ac
       label: 'Offers',
       value: offersList.length,
       icon: Trophy,
-      badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+      iconColor: 'text-[#003B36]',
+      iconBg: 'bg-[#ADFCF9]/40',
       description: 'Received offers',
       filterKey: 'offer',
     },
@@ -49,7 +52,8 @@ export const MetricsBar: React.FC<MetricsBarProps> = ({ jobs, onFilterChange, ac
       label: 'Total Saved',
       value: jobs.length,
       icon: Layers,
-      badgeColor: 'bg-slate-50 text-slate-700 border-slate-200',
+      iconColor: 'text-[#917C78]',
+      iconBg: 'bg-[#F3E8EE]',
       description: 'All-time applications',
       filterKey: null,
     },
@@ -71,28 +75,28 @@ export const MetricsBar: React.FC<MetricsBarProps> = ({ jobs, onFilterChange, ac
                 onFilterChange(isSelected ? null : card.filterKey);
               }
             }}
-            className={`text-left bg-white p-4 rounded-lg border transition-all focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-hidden ${
+            className={`text-left bg-white p-4 rounded-lg border transition-all focus-visible:ring-2 focus-visible:ring-[#003B36] focus-visible:outline-hidden ${
               isSelected
-                ? 'border-emerald-500 ring-2 ring-emerald-500/20 bg-emerald-50/20'
-                : 'border-slate-200 hover:border-slate-300 hover:shadow-xs'
+                ? 'border-[#003B36] ring-2 ring-[#003B36]/20 bg-[#F3E8EE]/40'
+                : 'border-slate-200 hover:border-[#917C78]/50 hover:shadow-xs'
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+              <span className="text-[11px] font-semibold text-[#917C78] uppercase tracking-wider">
                 {card.label}
               </span>
-              <div className="w-7 h-7 rounded-md bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-600">
+              <div className={`w-7 h-7 rounded-md ${card.iconBg} border border-[#917C78]/20 flex items-center justify-center ${card.iconColor}`}>
                 <Icon className="w-3.5 h-3.5" />
               </div>
             </div>
 
             <div className="mt-2.5 flex items-baseline gap-2">
-              <span className="text-2xl font-bold text-slate-900 tracking-tight">
+              <span className="text-2xl font-bold text-[#003B36] tracking-tight">
                 {card.value}
               </span>
             </div>
 
-            <p className="text-[11px] text-slate-400 mt-1">
+            <p className="text-[11px] text-[#917C78] mt-1">
               {card.description}
             </p>
           </button>

@@ -39,6 +39,17 @@ import { JobDetailDrawer } from './components/JobDetailDrawer';
 import { AiCoachModal } from './components/AiCoachModal';
 import { GoalsModal } from './components/GoalsModal';
 import { ProfileModal } from './components/ProfileModal';
+import { LandingPage } from './components/LandingPage';
+
+const getInitialRoute = (): 'landing' | 'dashboard' => {
+  const path = window.location.pathname;
+  const hash = window.location.hash;
+  if (path === '/dashboard' || hash === '#/dashboard' || hash === '#dashboard') {
+    return 'dashboard';
+  }
+  // Root URL / is always the landing page
+  return 'landing';
+};
 
 export default function App() {
   // Main jobs and resumes state
@@ -52,6 +63,30 @@ export default function App() {
   const [userGoals, setUserGoals] = useState<UserGoals>(() => loadStoredUserGoals());
   const [isGoalsModalOpen, setIsGoalsModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [profileModalMode, setProfileModalMode] = useState<'profile' | 'login' | 'signup'>('profile');
+
+  // Root URL routing state ('landing' for /, 'dashboard' for /dashboard)
+  const [currentRoute, setCurrentRoute] = useState<'landing' | 'dashboard'>(getInitialRoute);
+
+  const navigateTo = (route: 'landing' | 'dashboard') => {
+    setCurrentRoute(route);
+    const targetUrl = route === 'dashboard' ? '/dashboard' : '/';
+    if (window.location.pathname !== targetUrl && window.location.hash !== `#${targetUrl}`) {
+      window.history.pushState({}, '', targetUrl);
+    }
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentRoute(getInitialRoute());
+    };
+    window.addEventListener('popstate', handlePopState);
+    window.addEventListener('hashchange', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('hashchange', handlePopState);
+    };
+  }, []);
 
   // Pre-selected parameters for ATS calculator view
   const [atsPreselectedResumeId, setAtsPreselectedResumeId] = useState<string | undefined>(undefined);
@@ -134,6 +169,8 @@ export default function App() {
       isLoggedIn: false,
     };
     setUserProfile(updated);
+    setIsProfileModalOpen(false);
+    navigateTo('landing');
     api.saveProfile(updated).catch((e) => console.warn('Could not sync logout to backend:', e));
   };
 
@@ -145,7 +182,26 @@ export default function App() {
       isLoggedIn: true,
     };
     setUserProfile(updated);
+    setIsProfileModalOpen(false);
+    navigateTo('dashboard');
     api.saveProfile(updated).catch((e) => console.warn('Could not sync login to backend:', e));
+  };
+
+  const handleStartTracking = (mode: 'login' | 'signup' = 'signup') => {
+    if (userProfile.isLoggedIn) {
+      navigateTo('dashboard');
+    } else {
+      setProfileModalMode(mode);
+      setIsProfileModalOpen(true);
+    }
+  };
+
+  const handleGoToDashboard = () => {
+    navigateTo('dashboard');
+  };
+
+  const handleTryDemo = () => {
+    navigateTo('dashboard');
   };
 
   // Extract all distinct tags
@@ -323,6 +379,36 @@ export default function App() {
 
   const activeDrawerJob = jobs.find((j) => j.id === activeDrawerJobId) || null;
 
+  if (currentRoute === 'landing') {
+    return (
+      <div className="min-h-screen bg-slate-900">
+        <LandingPage
+          userProfile={userProfile}
+          jobs={jobs}
+          onStartTracking={handleStartTracking}
+          onGoToDashboard={handleGoToDashboard}
+          onTryDemo={handleTryDemo}
+        />
+
+        {/* User Profile & Auth Modal */}
+        <ProfileModal
+          isOpen={isProfileModalOpen}
+          onClose={() => setIsProfileModalOpen(false)}
+          userProfile={userProfile}
+          profile={userProfile}
+          onSaveProfile={handleUpdateProfile}
+          onLogout={handleLogout}
+          onLogin={handleLogin}
+          initialMode={profileModalMode}
+          onOpenGoalsModal={() => {
+            setIsProfileModalOpen(false);
+            setIsGoalsModalOpen(true);
+          }}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="h-screen w-full flex bg-slate-50 font-sans text-slate-900 overflow-hidden">
       {/* High Density Left Sidebar */}
@@ -339,6 +425,7 @@ export default function App() {
         onOpenProfileModal={() => setIsProfileModalOpen(true)}
         mobileOpen={mobileSidebarOpen}
         onCloseMobile={() => setMobileSidebarOpen(false)}
+        onNavigateToLanding={() => navigateTo('landing')}
       />
 
       {/* Main Content Area (Scrolls naturally without sticky header) */}
@@ -536,6 +623,7 @@ export default function App() {
         onSaveProfile={handleUpdateProfile}
         onLogout={handleLogout}
         onLogin={handleLogin}
+        initialMode={profileModalMode}
         onOpenGoalsModal={() => {
           setIsProfileModalOpen(false);
           setIsGoalsModalOpen(true);

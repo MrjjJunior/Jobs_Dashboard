@@ -3,11 +3,16 @@ import { AtsMatchResult, ResumeItem } from '../types';
 // Curated tech & domain skill taxonomy for robust ATS matching
 export const ATS_KEYWORD_DICTIONARY: Record<string, string[]> = {
   frontend: [
-    'React', 'TypeScript', 'JavaScript', 'Next.js', 'Vue', 'Angular', 'Svelte',
-    'HTML5', 'CSS3', 'Tailwind CSS', 'Sass', 'Redux', 'Zustand', 'GraphQL',
-    'REST APIs', 'Webpack', 'Vite', 'Jest', 'Cypress', 'Playwright', 'Figma',
-    'Responsive Design', 'Web Accessibility', 'WCAG', 'State Management',
-    'Performance Optimization', 'Micro-frontends', 'SSR', 'PWA'
+    'React', 'React Hooks', 'TypeScript', 'JavaScript', 'ES6+', 'ES2019', 'Next.js', 'Vue', 'Angular', 'Svelte', 'Gatsby',
+    'HTML5', 'CSS3', 'CSS Modules', 'Styled-Components', 'Emotion', 'Sass', 'SCSS', 'Tailwind CSS', 'BEM',
+    'Redux', 'Redux Thunk', 'Redux Saga', 'Context API', 'Zustand', 'MobX', 'RxJS', 'GraphQL', 'Apollo Client',
+    'REST APIs', 'Axios', 'Fetch API', 'WebSockets', 'Webpack', 'Babel', 'Vite', 'Rollup', 'Parcel', 'npm', 'Yarn',
+    'Jest', 'Enzyme', 'React Testing Library', 'Cypress', 'Playwright', 'Mocha', 'Chai', 'Storybook',
+    'Responsive Web Design', 'Mobile-First Design', 'Flexbox', 'CSS Grid', 'Figma',
+    'Web Accessibility', 'WCAG 2.1', 'ARIA', 'Semantic HTML', 'Cross-Browser Compatibility',
+    'State Management', 'Web Performance Optimization', 'Code Splitting', 'Lazy Loading', 'Tree Shaking',
+    'Bundle Optimization', 'Lighthouse', 'Critical Rendering Path', 'Micro-frontends', 'Single Page Applications (SPA)',
+    'Server-Side Rendering (SSR)', 'Progressive Web Apps (PWA)', 'Service Workers', 'Frontend Architecture', 'Design Systems'
   ],
   backend: [
     'Node.js', 'Express', 'Python', 'Django', 'FastAPI', 'Java', 'Spring Boot',

@@ -103,45 +103,45 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
   // Template loader & Clear handlers
   const handleLoadSampleTemplate = () => {
     setFullName('Alex Rivera');
-    setTargetTitle('Senior Full-Stack Engineer');
+    setTargetTitle('Senior Front-End Engineer');
     setEmail('alex.rivera@example.com');
     setPhone('+1 (555) 234-5678');
     setLocation('San Francisco, CA');
     setLinkedin('linkedin.com/in/alexrivera-dev');
     setGithub('github.com/alexrivera');
     setPortfolio('alexrivera.io');
-    setSummary('Performance-driven Full-Stack Engineer with 5+ years of experience architecting high-throughput distributed web applications and modern React/Node.js systems. Proven track record of accelerating page load times by 40% and leading high-velocity agile sprints.');
-    setLanguages('TypeScript, JavaScript (ES6+), Python, SQL, HTML5, CSS3');
-    setFrameworks('React, Next.js, Node.js, Express, Tailwind CSS, GraphQL, Redux Toolkit');
-    setCloudTools('AWS (S3, Lambda, CloudFront), Docker, PostgreSQL, Redis, Git, GitHub Actions, Jest, Vite');
-    setMethodologies('Agile/Scrum, CI/CD, Microservices, Test-Driven Development (TDD), RESTful APIs');
+    setSummary('Senior Front-End Engineer with 6+ years of experience architecting high-performance single-page applications, design systems, and responsive web interfaces using React 16.8 (Hooks), TypeScript, Redux Saga, and Webpack 4. Passionate about web accessibility (WCAG 2.1 AA), critical rendering path optimization, and modular UI component libraries.');
+    setLanguages('JavaScript (ES2019/ES6+), TypeScript, HTML5, CSS3/SASS, SQL');
+    setFrameworks('React (Hooks), Redux / Redux Saga, Next.js, GraphQL / Apollo Client, Styled Components, CSS Modules');
+    setCloudTools('Webpack 4, Babel, Jest, Enzyme, Cypress, Git, Docker, AWS S3 / CloudFront, Storybook');
+    setMethodologies('Component-Driven Development, Responsive Web Design, A11y (WCAG 2.1), Micro-Frontends, Agile/Scrum, CI/CD, TDD');
     setExperiences([
       {
         id: 'exp-1',
         company: 'TechFlow Systems',
-        role: 'Senior Full-Stack Engineer',
+        role: 'Senior Front-End Engineer',
         location: 'San Francisco, CA',
-        startDate: '2023-03',
+        startDate: '2017-03',
         endDate: 'Present',
         isCurrent: true,
         bullets: [
-          'Architected real-time WebSocket dashboard handling 25,000+ concurrent connections, reducing client synchronization latency by 45%.',
-          'Spearheaded migration of legacy monolith to micro-frontends using React 18, TypeScript, and Vite, cutting initial bundle size by 38% and accelerating deployment cycles from 2 weeks to daily releases.',
-          'Engineered automated CI/CD pipeline with comprehensive end-to-end Playwright tests, decreasing production escape defects by 52% across 6 core product domains.',
+          'Architected and led the company-wide migration to React 16.8 Hooks and TypeScript across 12 core enterprise products, eliminating 40,000+ lines of boilerplate class lifecycle code and improving test coverage to 92%.',
+          'Engineered an accessible, themeable design system in Storybook adopted across 5 distributed engineering teams, reducing UI feature delivery time by 35%.',
+          'Optimized critical rendering path and Webpack 4 code-splitting bundles, slashing initial bundle size by 45% and reducing Time to Interactive (TTI) from 4.2s to 1.8s.',
         ],
       },
       {
         id: 'exp-2',
         company: 'Nexus Digital Labs',
-        role: 'Software Engineer',
+        role: 'Front-End Engineer',
         location: 'San Jose, CA',
-        startDate: '2021-06',
-        endDate: '2023-02',
+        startDate: '2014-08',
+        endDate: '2017-02',
         isCurrent: false,
         bullets: [
-          'Developed high-conversion checkout flows using React, Tailwind CSS, and Stripe API, elevating user checkout completion rate by 18.5% ($1.2M incremental ARR).',
-          'Optimized PostgreSQL database queries and implemented Redis caching layer, decreasing average server response time from 420ms to 95ms.',
-          'Mentored 4 junior engineers on modern React hooks architecture, code review standards, and automated unit testing practices.',
+          'Developed high-conversion responsive checkout and product discovery flows using React, Redux, and SASS, boosting customer conversion rates by 22% ($1.4M incremental revenue).',
+          'Built complex client-side state caching with Redux Saga and Apollo Client GraphQL, dropping redundant API round-trips by 60%.',
+          'Mentored 5 junior front-end engineers in modern JavaScript ES6+, semantic HTML5, CSS Grid/Flexbox layouts, and automated unit testing with Jest.',
         ],
       },
     ]);
@@ -151,14 +151,14 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
         school: 'University of California, Berkeley',
         degree: 'Bachelor of Science',
         field: 'Computer Science',
-        graduationYear: '2021',
+        graduationYear: '2014',
         gpa: '3.8/4.0',
         honors: 'Dean’s Honors List',
       },
     ]);
-    setXyzAccomplished('Accelerated mobile application performance');
-    setXyzMeasured('by 42% from 3.8s to 2.2s load time');
-    setXyzDoing('by implementing code splitting, lazy asset loading, and server caching');
+    setXyzAccomplished('Accelerated single-page application page load performance');
+    setXyzMeasured('by 45% from 4.2s to 1.8s Time to Interactive (TTI)');
+    setXyzDoing('by implementing Webpack 4 code-splitting, tree-shaking, and lazy route loading');
     setSaveSuccessMessage('Sample template loaded for reference!');
     setTimeout(() => setSaveSuccessMessage(null), 3000);
   };

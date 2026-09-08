@@ -31,6 +31,7 @@ interface ProfileModalProps {
   onLogin: (email: string, name: string) => void;
   onLogout: () => void;
   onOpenGoalsModal?: () => void;
+  initialMode?: 'profile' | 'login' | 'signup';
 }
 
 export const ProfileModal: React.FC<ProfileModalProps> = ({
@@ -42,12 +43,13 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
   onLogin,
   onLogout,
   onOpenGoalsModal,
+  initialMode,
 }) => {
   const userProfile = propUserProfile || propProfile || DEFAULT_USER_PROFILE;
 
   // Mode: 'profile' for editing current profile, 'auth' for login / sign up
   const [mode, setMode] = useState<'profile' | 'login' | 'signup'>(
-    userProfile.isLoggedIn ? 'profile' : 'login'
+    initialMode || (userProfile.isLoggedIn ? 'profile' : 'login')
   );
 
   // Profile Edit fields
@@ -73,7 +75,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
 
   useEffect(() => {
     if (isOpen) {
-      setMode(userProfile.isLoggedIn ? 'profile' : 'login');
+      setMode(initialMode || (userProfile.isLoggedIn ? 'profile' : 'login'));
       setName(userProfile.name);
       setEmail(userProfile.email);
       setRole(userProfile.role);
@@ -86,7 +88,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
       setSavedSuccess(false);
       setAuthError(null);
     }
-  }, [isOpen, userProfile]);
+  }, [isOpen, userProfile, initialMode]);
 
   if (!isOpen) return null;
 

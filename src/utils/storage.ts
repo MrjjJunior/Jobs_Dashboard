@@ -12,13 +12,13 @@ export const DEFAULT_USER_PROFILE: UserProfile = {
   id: 'user-1',
   name: 'Alex Rivera',
   email: 'alex.rivera@example.com',
-  role: 'Senior Software Engineer',
+  role: 'Senior Front-End Engineer',
   avatarUrl: null,
   location: 'San Francisco, CA',
   phone: '+1 (555) 382-9012',
-  linkedin: 'https://linkedin.com/in/alex-rivera-tech',
+  linkedin: 'https://linkedin.com/in/alex-rivera-frontend',
   github: 'https://github.com/alexrivera-dev',
-  bio: 'Experienced engineer specializing in React, TypeScript, cloud services, and developer tooling.',
+  bio: 'Senior Front-End Engineer specializing in React 16.8 (Hooks), TypeScript, Redux Saga, Webpack 4, GraphQL, and responsive Web Performance Optimization.',
   isLoggedIn: true,
 };
 
@@ -27,10 +27,10 @@ export const DEFAULT_USER_GOALS: UserGoals = {
   weeklyApplicationsTarget: 5,
   monthlyInterviewsTarget: 4,
   monthlyOffersTarget: 1,
-  targetMinSalary: 145000,
+  targetMinSalary: 155000,
   salaryCurrency: 'USD',
-  focusNotes: 'Prioritize modern tech stacks, strong engineering culture, and competitive compensation.',
-  targetMonth: new Date().toISOString().slice(0, 7),
+  focusNotes: 'Prioritize Senior Front-End & UI Engineering roles with modern React component architecture, high engineering standards, and competitive equity.',
+  targetMonth: '2019-10',
 };
 
 export function loadStoredUserProfile(): UserProfile {

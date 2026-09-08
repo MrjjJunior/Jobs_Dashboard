@@ -128,13 +128,13 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Quick Search */}
           {onSearchChange && (
             <div className="relative w-full">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <Search className="w-4 h-4 text-[#917C78] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
                 placeholder="Search by role, company, or location..."
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
-                className="w-full bg-slate-50 hover:bg-slate-100/70 focus:bg-white text-xs text-slate-900 placeholder:text-slate-400 pl-9 pr-3 py-2 rounded-lg border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all focus-visible:outline-hidden"
+                className="w-full bg-slate-50 hover:bg-slate-100/70 focus:bg-white text-xs text-slate-900 placeholder:text-slate-400 pl-9 pr-3 py-2 rounded-lg border border-slate-200 focus:border-[#003B36] focus:ring-2 focus:ring-[#003B36]/15 transition-all focus-visible:outline-hidden"
               />
             </div>
           )}
@@ -146,12 +146,12 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="relative">
             <button
               onClick={() => setShowDataMenu(!showDataMenu)}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-hidden"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#003B36] bg-white hover:bg-[#F3E8EE]/50 border border-slate-200 rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-[#003B36] focus-visible:outline-hidden"
               aria-label="Data Options"
             >
-              <Download className="w-3.5 h-3.5 text-slate-500" />
+              <Download className="w-3.5 h-3.5 text-[#917C78]" />
               <span className="hidden sm:inline">Export</span>
-              <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+              <ChevronDown className="w-3.5 h-3.5 text-[#917C78]" />
             </button>
 
             {showDataMenu && (
@@ -164,9 +164,9 @@ export const Header: React.FC<HeaderProps> = ({
                     exportJobsToJson(jobs);
                     setShowDataMenu(false);
                   }}
-                  className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2"
+                  className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2 text-slate-800"
                 >
-                  <Download className="w-3.5 h-3.5 text-emerald-600" />
+                  <Download className="w-3.5 h-3.5 text-[#003B36]" />
                   <span>Export as JSON</span>
                 </button>
 
@@ -175,14 +175,14 @@ export const Header: React.FC<HeaderProps> = ({
                     exportJobsToCsv(jobs);
                     setShowDataMenu(false);
                   }}
-                  className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2"
+                  className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2 text-slate-800"
                 >
-                  <FileSpreadsheet className="w-3.5 h-3.5 text-blue-600" />
+                  <FileSpreadsheet className="w-3.5 h-3.5 text-[#90A955]" />
                   <span>Export as Excel (CSV)</span>
                 </button>
 
-                <label className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2 cursor-pointer">
-                  <Upload className="w-3.5 h-3.5 text-slate-600" />
+                <label className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2 cursor-pointer text-slate-800">
+                  <Upload className="w-3.5 h-3.5 text-[#917C78]" />
                   <span>Import Backup</span>
                   <input
                     type="file"
@@ -214,12 +214,12 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="relative">
             <button
               onClick={() => setShowNotifications(!showNotifications)}
-              className="p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg relative focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-hidden"
+              className="p-2 text-[#917C78] hover:text-[#003B36] hover:bg-[#F3E8EE]/50 rounded-lg relative focus-visible:ring-2 focus-visible:ring-[#003B36] focus-visible:outline-hidden"
               aria-label="Notifications"
             >
               <Bell className="w-4 h-4" />
               {interviewCount > 0 && (
-                <span className="w-2 h-2 rounded-full bg-blue-600 absolute top-1.5 right-1.5" />
+                <span className="w-2 h-2 rounded-full bg-[#90A955] absolute top-1.5 right-1.5" />
               )}
             </button>
 
@@ -230,7 +230,7 @@ export const Header: React.FC<HeaderProps> = ({
               >
                 <div className="font-bold text-slate-900 mb-1.5 flex items-center justify-between">
                   <span>Upcoming Reminders</span>
-                  <span className="text-[10px] font-semibold text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-100">
+                  <span className="text-[10px] font-semibold text-[#003B36] bg-[#F3E8EE] px-1.5 py-0.5 rounded border border-[#917C78]/30">
                     {interviewCount} Active
                   </span>
                 </div>
@@ -251,20 +251,20 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="relative">
             <button
               onClick={() => setShowProfileMenu(!showProfileMenu)}
-              className="flex items-center gap-2 p-1 rounded-lg hover:bg-slate-100 transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-hidden"
+              className="flex items-center gap-2 p-1 rounded-lg hover:bg-[#F3E8EE]/50 transition-colors focus-visible:ring-2 focus-visible:ring-[#003B36] focus-visible:outline-hidden"
               aria-label="User Account"
             >
-              <div className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-xs shrink-0 border border-emerald-200 overflow-hidden">
+              <div className="w-7 h-7 rounded-full bg-[#F3E8EE] text-[#003B36] flex items-center justify-center font-bold text-xs shrink-0 border border-[#917C78]/30 overflow-hidden">
                 {profile.avatarUrl ? (
                   <img src={profile.avatarUrl} alt="" className="w-full h-full object-cover" />
                 ) : (
                   (profile.name || 'A')[0].toUpperCase()
                 )}
               </div>
-              <span className="hidden md:inline text-xs font-semibold text-slate-800">
+              <span className="hidden md:inline text-xs font-semibold text-[#003B36]">
                 {profile.name}
               </span>
-              <ChevronDown className="w-3.5 h-3.5 text-slate-400 hidden md:inline" />
+              <ChevronDown className="w-3.5 h-3.5 text-[#917C78] hidden md:inline" />
             </button>
 
             {showProfileMenu && (
@@ -273,8 +273,8 @@ export const Header: React.FC<HeaderProps> = ({
                 onMouseLeave={() => setShowProfileMenu(false)}
               >
                 <div className="px-3.5 py-2 border-b border-slate-100">
-                  <p className="font-bold text-slate-900 truncate">{profile.name}</p>
-                  <p className="text-[11px] text-slate-500 truncate">{profile.email}</p>
+                  <p className="font-bold text-[#003B36] truncate">{profile.name}</p>
+                  <p className="text-[11px] text-[#917C78] truncate">{profile.email}</p>
                 </div>
                 <button
                   onClick={() => {
@@ -283,7 +283,7 @@ export const Header: React.FC<HeaderProps> = ({
                   }}
                   className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2 text-slate-700"
                 >
-                  <User className="w-3.5 h-3.5 text-slate-500" />
+                  <User className="w-3.5 h-3.5 text-[#917C78]" />
                   <span>Profile & Bio</span>
                 </button>
                 <button
@@ -293,7 +293,7 @@ export const Header: React.FC<HeaderProps> = ({
                   }}
                   className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2 text-slate-700"
                 >
-                  <Target className="w-3.5 h-3.5 text-slate-500" />
+                  <Target className="w-3.5 h-3.5 text-[#90A955]" />
                   <span>Application Goals</span>
                 </button>
                 <div className="my-1 border-t border-slate-100" />
@@ -316,10 +316,10 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Page Header */}
       <div className="px-4 lg:px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-slate-900 tracking-tight">
+          <h1 className="text-xl font-bold text-[#003B36] tracking-tight">
             {currentMeta.title}
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-[#917C78] mt-0.5">
             {currentMeta.subtitle}
           </p>
         </div>
@@ -327,9 +327,9 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           id="header-post-job-btn"
           onClick={onOpenNewJobModal}
-          className="flex items-center justify-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:outline-hidden self-start sm:self-auto"
+          className="flex items-center justify-center gap-1.5 px-4 py-2 bg-[#003B36] hover:bg-[#064f48] active:bg-[#00221f] text-[#F3E8EE] rounded-lg text-xs font-semibold shadow-xs transition-colors focus-visible:ring-2 focus-visible:ring-[#003B36] focus-visible:ring-offset-2 focus-visible:outline-hidden self-start sm:self-auto"
         >
-          <Plus className="w-4 h-4" />
+          <Plus className="w-4 h-4 text-[#ADFCF9]" />
           <span>Add Application</span>
         </button>
       </div>
