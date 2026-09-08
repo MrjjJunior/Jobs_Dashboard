@@ -2,6 +2,7 @@
 
 A full-stack, career management dashboard, ATS keyword match calculator, and AI-assisted application tracker built with a **Python FastAPI backend** and **React + Tailwind CSS frontend**.
 
+WTC verification code: WTC-C73XSVKZ
 ---
 
 ## 🏗️ Architecture Overview
