@@ -1448,7 +1448,7 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
               </div>
               <h3 className="font-bold text-pine-900 text-sm">A/B Testing Your Resumes</h3>
               <p className="text-xs text-taupe-600 leading-relaxed">
-                Create 2 or 3 specialized versions in JobFlow (e.g. <em>Frontend Focused</em> vs <em>Full-Stack Lead</em>) and track their interview conversion rates in the <strong>Resume Tracker</strong> view!
+                Create 2 or 3 specialized versions in Jobbdash (e.g. <em>Frontend Focused</em> vs <em>Full-Stack Lead</em>) and track their interview conversion rates in the <strong>Resume Tracker</strong> view!
               </p>
             </div>
           </div>

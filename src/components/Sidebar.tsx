@@ -77,7 +77,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
           <div className="flex flex-col">
             <span className="font-bold text-sm tracking-tight text-[#003B36] leading-tight">
-              JobFlow Pro
+              Jobbdash
             </span>
             <span className="text-[11px] font-medium text-[#917C78] leading-none">
               Career Dashboard

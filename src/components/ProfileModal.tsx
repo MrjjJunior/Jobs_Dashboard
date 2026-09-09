@@ -241,7 +241,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
             </div>
             <div>
               <h2 className="text-base font-bold text-[#F3E8EE] tracking-tight">
-                {mode === 'profile' ? 'Account & Profile Settings' : mode === 'login' ? 'Sign In to JobFlow' : 'Create an Account'}
+                {mode === 'profile' ? 'Account & Profile Settings' : mode === 'login' ? 'Sign In to Jobbdash' : 'Create an Account'}
               </h2>
               <p className="text-xs text-[#ADFCF9]/80">
                 {mode === 'profile' 
@@ -560,7 +560,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                   <LogIn className="w-6 h-6 text-[#003B36]" />
                 </div>
                 <h3 className="text-base sm:text-lg font-bold text-[#F3E8EE]">
-                  {mode === 'login' ? 'Welcome Back to JobFlow' : 'Start Tracking Your Career'}
+                  {mode === 'login' ? 'Welcome Back to Jobbdash' : 'Start Tracking Your Career'}
                 </h3>
                 <p className="text-xs text-[#F3E8EE]/80 max-w-xs mx-auto mt-1 leading-snug">
                   {mode === 'login' 

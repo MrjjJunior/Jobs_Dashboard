@@ -74,7 +74,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           </div>
           <div>
             <span className="font-extrabold text-base sm:text-lg tracking-tight text-[#F3E8EE] flex items-center gap-1.5">
-              JobFlow <span className="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded bg-[#ADFCF9]/20 text-[#ADFCF9] border border-[#ADFCF9]/40">Pro</span>
+              Jobbdash <span className="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded bg-[#ADFCF9]/20 text-[#ADFCF9] border border-[#ADFCF9]/40">Pro</span>
             </span>
           </div>
         </div>
@@ -180,7 +180,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <span className="w-3 h-3 rounded-full bg-rose-500/80 inline-block" />
                 <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
                 <span className="w-3 h-3 rounded-full bg-[#90A955] inline-block" />
-                <span className="ml-3 text-[11px] font-mono text-[#F3E8EE]/60 hidden sm:inline">jobflow.app/pipeline</span>
+                <span className="ml-3 text-[11px] font-mono text-[#F3E8EE]/60 hidden sm:inline">jobbdash.app/pipeline</span>
               </div>
 
               <div className="flex items-center gap-1 bg-[#001f1c] p-0.5 rounded-lg text-xs font-semibold text-[#F3E8EE]/80">
@@ -510,7 +510,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             Ready to streamline your job search?
           </h2>
           <p className="text-xs sm:text-sm text-[#F3E8EE]/80 max-w-xl mx-auto leading-relaxed">
-            Join professionals who organize their applications, optimize their resumes, and negotiate top offers with JobFlow Pro.
+            Join professionals who organize their applications, optimize their resumes, and negotiate top offers with Jobbdash.
           </p>
 
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3.5">
@@ -533,7 +533,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           <div className="w-6 h-6 rounded-lg bg-[#90A955]/20 text-[#ADFCF9] flex items-center justify-center font-bold text-xs">
             <Briefcase className="w-3.5 h-3.5" />
           </div>
-          <span className="font-bold text-[#F3E8EE]">JobFlow Pro</span>
+          <span className="font-bold text-[#F3E8EE]">Jobbdash</span>
           <span>© 2019 All rights reserved.</span>
         </div>
 
