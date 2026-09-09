@@ -72,9 +72,11 @@ export const JobModal: React.FC<JobModalProps> = ({
   const [jobUrl, setJobUrl] = useState('');
   const [appliedDate, setAppliedDate] = useState(() => new Date().toISOString().split('T')[0]);
   
-  // Resume & Notes & Tags
+  // Resume & Notes & Description & Requirements & Tags
   const [resumeId, setResumeId] = useState<string>('');
   const [resumeVersion, setResumeVersion] = useState<string>('');
+  const [jobDescription, setJobDescription] = useState('');
+  const [requirements, setRequirements] = useState('');
   const [notes, setNotes] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
@@ -114,6 +116,8 @@ export const JobModal: React.FC<JobModalProps> = ({
       setAppliedDate(initialJob.appliedDate || new Date().toISOString().split('T')[0]);
       setResumeId(initialJob.resumeId || '');
       setResumeVersion(initialJob.resumeVersion || '');
+      setJobDescription(initialJob.jobDescription || '');
+      setRequirements(initialJob.requirements || '');
       setNotes(initialJob.notes || '');
       setTags(initialJob.tags || []);
       setTagInput('');
@@ -136,6 +140,8 @@ export const JobModal: React.FC<JobModalProps> = ({
       const firstResume = resumes[0];
       setResumeId(firstResume?.id || '');
       setResumeVersion(firstResume?.name || '');
+      setJobDescription('');
+      setRequirements('');
       setNotes('');
       setTags([]);
       setTagInput('');
@@ -178,20 +184,21 @@ export const JobModal: React.FC<JobModalProps> = ({
 
       setJobUrl(preview.sourceUrl || urlToFetch);
 
-      // Build structured notes / job description text
-      let combinedNotes = '';
+      // Explicitly set Job Description & Requirements fields
       if (preview.description) {
-        combinedNotes += `--- JOB DESCRIPTION ---\n${preview.description}`;
+        setJobDescription(preview.description);
       }
       if (preview.requirements) {
-        combinedNotes += combinedNotes ? `\n\n--- REQUIREMENTS ---\n${preview.requirements}` : `--- REQUIREMENTS ---\n${preview.requirements}`;
-      }
-      if (preview.benefits) {
-        combinedNotes += combinedNotes ? `\n\n--- BENEFITS ---\n${preview.benefits}` : `--- BENEFITS ---\n${preview.benefits}`;
+        setRequirements(preview.requirements);
       }
 
-      if (combinedNotes) {
-        setNotes(notes ? `${notes}\n\n${combinedNotes}` : combinedNotes);
+      // Add perks/benefits to notes if present
+      if (preview.benefits) {
+        setNotes((prevNotes) =>
+          prevNotes
+            ? `${prevNotes}\n\nBenefits & Perks:\n${preview.benefits}`
+            : `Benefits & Perks:\n${preview.benefits}`
+        );
       }
 
       // Add auto-extracted tags
@@ -213,7 +220,7 @@ export const JobModal: React.FC<JobModalProps> = ({
       if (preview.warningMessage) {
         setExtractionStatus(preview.warningMessage);
       } else {
-        setExtractionStatus('Listing details auto-filled successfully! Review and confirm fields below.');
+        setExtractionStatus('Listing details auto-filled successfully! Review and edit fields below.');
       }
     } catch (err: any) {
       setExtractionError(err.message || 'Unable to import listing from this URL.');
@@ -221,9 +228,6 @@ export const JobModal: React.FC<JobModalProps> = ({
       setIsExtracting(false);
     }
   };
-
-
-  if (!isOpen) return null;
 
   const handleAddTag = () => {
     const trimmed = tagInput.trim().replace(/^#/, '');
@@ -258,7 +262,7 @@ export const JobModal: React.FC<JobModalProps> = ({
     let atsMatchResult = initialJob?.atsMatchResult;
 
     if (selectedResume && selectedResume.content) {
-      atsMatchResult = calculateAtsMatch(selectedResume.content, notes || role, role);
+      atsMatchResult = calculateAtsMatch(selectedResume.content, jobDescription || requirements || notes || role, role);
       atsScore = atsMatchResult.score;
     }
 
@@ -277,6 +281,8 @@ export const JobModal: React.FC<JobModalProps> = ({
       salaryPeriod,
       jobUrl: jobUrl.trim() || undefined,
       sourceUrl: jobUrl.trim() || undefined,
+      jobDescription: jobDescription.trim() || undefined,
+      requirements: requirements.trim() || undefined,
       extractedAt: extractedAt || undefined,
       extractionConfidence: extractedConfidence || undefined,
       appliedDate: appliedDate || new Date().toISOString().split('T')[0],
@@ -294,6 +300,7 @@ export const JobModal: React.FC<JobModalProps> = ({
       archived: false,
       color: initialJob?.color || getCompanyColor(company.trim()),
     };
+
 
     onSave(jobToSave);
     onClose();
@@ -693,20 +700,49 @@ export const JobModal: React.FC<JobModalProps> = ({
               )}
             </div>
 
-            {/* Row 8: Notes */}
+            {/* Row 8: Job Description */}
             <div>
               <label className="block font-semibold text-slate-700 mb-1">
-                Notes & Key Details
+                Job Description (Optional)
               </label>
               <textarea
                 rows={3}
-                placeholder="Add contact names, interview questions, key requirements, or personal impressions..."
+                placeholder="Paste, auto-fill, or edit the full job description and role overview..."
+                value={jobDescription}
+                onChange={(e) => setJobDescription(e.target.value)}
+                className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus-visible:outline-hidden resize-y leading-relaxed"
+              />
+            </div>
+
+            {/* Row 9: Requirements & Qualifications */}
+            <div>
+              <label className="block font-semibold text-slate-700 mb-1">
+                Requirements & Qualifications (Optional)
+              </label>
+              <textarea
+                rows={3}
+                placeholder="Paste, auto-fill, or edit key qualifications, tech stack, education, or experience required..."
+                value={requirements}
+                onChange={(e) => setRequirements(e.target.value)}
+                className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus-visible:outline-hidden resize-y leading-relaxed"
+              />
+            </div>
+
+            {/* Row 10: Personal Notes & Impressions */}
+            <div>
+              <label className="block font-semibold text-slate-700 mb-1">
+                Personal Notes & Impressions (Optional)
+              </label>
+              <textarea
+                rows={2}
+                placeholder="Add contact names, referral details, interview questions, or personal impressions..."
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus-visible:outline-hidden resize-y leading-relaxed"
               />
             </div>
           </div>
+
 
           {/* Modal Footer (Sticky) */}
           <div className="px-6 py-3.5 border-t border-slate-100 flex items-center justify-end gap-2.5 bg-slate-50/70 shrink-0">

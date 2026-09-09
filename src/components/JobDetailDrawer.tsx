@@ -615,17 +615,44 @@ export const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({
               </div>
             )}
 
-            {/* Notes & Job Description */}
+            {/* Job Description */}
+            {job.jobDescription && (
+              <div className="space-y-2">
+                <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+                  <FileText className="w-4 h-4 text-emerald-700" />
+                  Job Description
+                </h3>
+                <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 whitespace-pre-wrap leading-relaxed max-h-60 overflow-y-auto">
+                  {job.jobDescription}
+                </div>
+              </div>
+            )}
+
+            {/* Requirements & Qualifications */}
+            {job.requirements && (
+              <div className="space-y-2">
+                <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+                  <CheckSquare className="w-4 h-4 text-teal-700" />
+                  Requirements & Qualifications
+                </h3>
+                <div className="p-3.5 bg-emerald-50/40 rounded-xl border border-emerald-200/80 text-slate-800 whitespace-pre-wrap leading-relaxed max-h-60 overflow-y-auto">
+                  {job.requirements}
+                </div>
+              </div>
+            )}
+
+            {/* Personal Notes & Impressions */}
             <div className="space-y-2">
               <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
                 <MessageSquare className="w-4 h-4 text-slate-600" />
-                Notes & Job Overview
+                Personal Notes & Impressions
               </h3>
               <div className="p-3.5 bg-amber-50/40 rounded-xl border border-amber-200/80 text-slate-800 whitespace-pre-wrap leading-relaxed">
-                {job.notes || job.jobDescription || 'No notes added yet.'}
+                {job.notes || 'No notes added yet.'}
               </div>
             </div>
           </div>
+
 
           {/* Footer Controls */}
           <div className="p-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between">
