@@ -263,16 +263,6 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
         {!userProfile.isLoggedIn ? (
           <div className="flex border-b border-[#917C78]/30 bg-[#002824] px-6 pt-2 overflow-x-auto">
             <button
-              onClick={() => setMode('profile')}
-              className={`pb-2 px-4 text-xs font-bold border-b-2 whitespace-nowrap transition-colors cursor-pointer ${
-                mode === 'profile'
-                  ? 'border-[#90A955] text-[#ADFCF9]'
-                  : 'border-transparent text-[#F3E8EE]/70 hover:text-[#F3E8EE]'
-              }`}
-            >
-              Guest Profile
-            </button>
-            <button
               onClick={() => setMode('login')}
               className={`pb-2 px-4 text-xs font-bold border-b-2 whitespace-nowrap transition-colors cursor-pointer ${
                 mode === 'login'
