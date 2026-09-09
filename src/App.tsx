@@ -19,7 +19,8 @@ import {
   loadStoredUserProfile,
   saveStoredUserProfile,
   loadStoredUserGoals,
-  saveStoredUserGoals
+  saveStoredUserGoals,
+  DEFAULT_USER_PROFILE
 } from './utils/storage';
 import { api } from './services/api';
 import { Sidebar } from './components/Sidebar';

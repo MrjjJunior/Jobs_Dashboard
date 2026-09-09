@@ -77,9 +77,11 @@ class TestJobImport(unittest.TestCase):
         self.assertEqual(period, "year")
 
 
+import uuid
+
 class TestUserAuthentication(unittest.TestCase):
     def test_signup_and_login_flow(self):
-        email = "testuser@example.com"
+        email = f"testuser_{uuid.uuid4().hex[:8]}@example.com"
         password = "SecurePassword123!"
 
         # 1. Signup user
