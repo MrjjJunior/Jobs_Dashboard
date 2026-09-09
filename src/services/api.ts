@@ -153,8 +153,15 @@ export const api = {
     formData.append('file', file);
     if (targetRole) formData.append('targetRole', targetRole);
 
+    const userId = getActiveUserId();
+    const headers: Record<string, string> = {};
+    if (userId) {
+      headers['X-User-Id'] = userId;
+    }
+
     const res = await fetch(`${API_BASE}/resumes/upload`, {
       method: 'POST',
+      headers,
       body: formData,
     });
 

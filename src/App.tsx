@@ -166,7 +166,13 @@ export default function App() {
   }, [userGoals]);
 
   const handleUpdateProfile = (updated: UserProfile) => {
+    // Write to localStorage FIRST so getActiveUserId() returns the correct ID
+    // when the data-loading useEffect fires (before the localStorage-sync useEffect runs)
+    saveStoredUserProfile(updated);
     setUserProfile(updated);
+    if (updated.isLoggedIn && !userProfile.isLoggedIn) {
+      navigateTo('dashboard');
+    }
     api.saveProfile(updated).catch((e) => console.warn('Could not sync profile to backend:', e));
   };
 
