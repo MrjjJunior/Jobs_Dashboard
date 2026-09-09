@@ -23,7 +23,7 @@ export const CookieBanner: React.FC = () => {
       <div className="flex-1 text-[#F3E8EE] text-xs sm:text-sm max-w-4xl">
         <p>
           We use cookies to ensure you get the best experience on our website, analyze site traffic, and personalize content. 
-          By continuing to use Jobbdash, you consent to our use of cookies in accordance with our <a href="#" className="text-[#ADFCF9] underline">Privacy Policy</a>.
+          By continuing to use Jobbdash, you consent to our use of cookies in accordance with our <a href="/privacy" className="text-[#ADFCF9] underline">Privacy Policy</a>.
         </p>
       </div>
       <div className="flex items-center gap-3 shrink-0">

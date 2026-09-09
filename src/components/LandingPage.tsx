@@ -531,8 +531,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-[#F3E8EE]/70 mt-4 sm:mt-0">
           <a href="#features" className="hover:text-[#ADFCF9] transition-colors">Features</a>
           <a href="#how-it-works" className="hover:text-[#ADFCF9] transition-colors">How It Works</a>
-          <a href="#" className="hover:text-[#ADFCF9] transition-colors">Privacy Policy</a>
-          <a href="#" className="hover:text-[#ADFCF9] transition-colors">Terms of Service</a>
+          <a href="/privacy" className="hover:text-[#ADFCF9] transition-colors">Privacy Policy</a>
+          <a href="/terms" className="hover:text-[#ADFCF9] transition-colors">Terms of Service</a>
           <button onClick={handleLoginClick} className="hover:text-[#ADFCF9] transition-colors cursor-pointer">
             {isLoggedIn ? 'Dashboard' : 'Sign In'}
           </button>

@@ -42,14 +42,15 @@ import { GoalsModal } from './components/GoalsModal';
 import { ProfileModal } from './components/ProfileModal';
 import { LandingPage } from './components/LandingPage';
 import { CookieBanner } from './components/CookieBanner';
+import { PrivacyPolicy } from './components/PrivacyPolicy';
+import { TermsOfService } from './components/TermsOfService';
 
-const getInitialRoute = (): 'landing' | 'dashboard' => {
+const getInitialRoute = (): 'landing' | 'dashboard' | 'privacy' | 'terms' => {
   const path = window.location.pathname;
   const hash = window.location.hash;
-  if (path === '/dashboard' || hash === '#/dashboard' || hash === '#dashboard') {
-    return 'dashboard';
-  }
-  // Root URL / is always the landing page
+  if (path === '/dashboard' || hash === '#/dashboard' || hash === '#dashboard') return 'dashboard';
+  if (path === '/privacy' || hash === '#/privacy' || hash === '#privacy') return 'privacy';
+  if (path === '/terms' || hash === '#/terms' || hash === '#terms') return 'terms';
   return 'landing';
 };
 
@@ -73,11 +74,14 @@ export default function App() {
   const [profileModalMode, setProfileModalMode] = useState<'profile' | 'login' | 'signup'>('profile');
 
   // Root URL routing state ('landing' for /, 'dashboard' for /dashboard)
-  const [currentRoute, setCurrentRoute] = useState<'landing' | 'dashboard'>(getInitialRoute);
+  const [currentRoute, setCurrentRoute] = useState<'landing' | 'dashboard' | 'privacy' | 'terms'>(getInitialRoute);
 
-  const navigateTo = (route: 'landing' | 'dashboard') => {
+  const navigateTo = (route: 'landing' | 'dashboard' | 'privacy' | 'terms') => {
     setCurrentRoute(route);
-    const targetUrl = route === 'dashboard' ? '/dashboard' : '/';
+    let targetUrl = '/';
+    if (route === 'dashboard') targetUrl = '/dashboard';
+    else if (route === 'privacy') targetUrl = '/privacy';
+    else if (route === 'terms') targetUrl = '/terms';
     if (window.location.pathname !== targetUrl && window.location.hash !== `#${targetUrl}`) {
       window.history.pushState({}, '', targetUrl);
     }
