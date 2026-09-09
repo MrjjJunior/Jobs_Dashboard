@@ -503,58 +503,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </div>
       </section>
 
-      {/* Testimonials & Outcomes */}
-      <section id="outcomes" className="py-20 px-4 lg:px-12 bg-[#002622] border-t border-[#917C78]/30">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl bg-[#00302c] border border-[#917C78]/30 space-y-3">
-              <div className="flex text-[#ADFCF9] gap-1 text-sm">
-                {'★★★★★'.split('').map((s, i) => (
-                  <span key={i}>{s}</span>
-                ))}
-              </div>
-              <p className="text-xs text-[#F3E8EE]/85 leading-relaxed italic">
-                "Having the Kanban board and ATS scanner in one place was the single reason I landed 3 final round interviews in 2 weeks. Essential tool."
-              </p>
-              <div className="pt-2 border-t border-[#917C78]/30">
-                <p className="text-xs font-bold text-white">David K.</p>
-                <p className="text-[11px] text-[#F3E8EE]/60">Staff Infrastructure Engineer</p>
-              </div>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-[#00302c] border border-[#917C78]/30 space-y-3">
-              <div className="flex text-[#ADFCF9] gap-1 text-sm">
-                {'★★★★★'.split('').map((s, i) => (
-                  <span key={i}>{s}</span>
-                ))}
-              </div>
-              <p className="text-xs text-[#F3E8EE]/85 leading-relaxed italic">
-                "The offer comparison matrix made negotiating my base salary effortless. I could see the exact total compensation difference instantly."
-              </p>
-              <div className="pt-2 border-t border-[#917C78]/30">
-                <p className="text-xs font-bold text-white">Sarah M.</p>
-                <p className="text-[11px] text-[#F3E8EE]/60">Lead Product Designer</p>
-              </div>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-[#00302c] border border-[#917C78]/30 space-y-3">
-              <div className="flex text-[#ADFCF9] gap-1 text-sm">
-                {'★★★★★'.split('').map((s, i) => (
-                  <span key={i}>{s}</span>
-                ))}
-              </div>
-              <p className="text-xs text-[#F3E8EE]/85 leading-relaxed italic">
-                "No complicated sign-up traps, runs completely private and fast. Easily the best application tracker on the web."
-              </p>
-              <div className="pt-2 border-t border-[#917C78]/30">
-                <p className="text-xs font-bold text-white">Marcus T.</p>
-                <p className="text-[11px] text-[#F3E8EE]/60">Frontend Developer</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Bottom CTA Banner */}
       <section className="py-16 px-4 lg:px-12 bg-gradient-to-b from-[#00302c] to-[#001f1c] border-t border-[#917C78]/30 text-center relative overflow-hidden">
         <div className="max-w-3xl mx-auto space-y-6 relative z-10">
