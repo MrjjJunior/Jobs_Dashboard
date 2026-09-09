@@ -4,7 +4,8 @@ import {
   UserProfile, 
   UserGoals, 
   JobStage, 
-  AtsMatchResult 
+  AtsMatchResult,
+  ExtractedJobPreview
 } from '../types';
 
 const API_BASE = '/api';
@@ -35,8 +36,17 @@ export const api = {
     return fetchJson(`${API_BASE}/health`);
   },
 
+  // Import Job from URL
+  importJobFromUrl: async (url: string): Promise<ExtractedJobPreview> => {
+    return fetchJson(`${API_BASE}/jobs/import`, {
+      method: 'POST',
+      body: JSON.stringify({ url }),
+    });
+  },
+
   // Jobs API
   getJobs: async (params?: { stage?: string; priority?: string; search?: string }): Promise<JobApplication[]> => {
+
     const query = new URLSearchParams();
     if (params?.stage && params.stage !== 'all') query.set('stage', params.stage);
     if (params?.priority && params.priority !== 'all') query.set('priority', params.priority);

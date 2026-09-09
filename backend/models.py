@@ -84,6 +84,31 @@ class ResumeItem(BaseModel):
     isDefault: Optional[bool] = False
 
 
+class JobImportRequest(BaseModel):
+    url: str
+
+
+class ExtractedJobPreview(BaseModel):
+    sourceUrl: str
+    title: str
+    company: str
+    location: str = ""
+    workplaceType: WorkplaceType = "remote"
+    employmentType: EmploymentType = "full-time"
+    salaryMin: Optional[float] = None
+    salaryMax: Optional[float] = None
+    salaryCurrency: str = "USD"
+    salaryPeriod: SalaryPeriod = "year"
+    description: str = ""
+    requirements: str = ""
+    benefits: str = ""
+    deadline: Optional[str] = None
+    extractedAt: str = Field(default_factory=lambda: datetime.now().isoformat())
+    extractionConfidence: Literal["high", "medium", "low"] = "medium"
+    usedAiFallback: bool = False
+    warningMessage: Optional[str] = None
+
+
 class JobApplication(BaseModel):
     id: str
     company: str
@@ -104,8 +129,10 @@ class JobApplication(BaseModel):
 
     # URLs and Assets
     jobUrl: Optional[str] = None
+    sourceUrl: Optional[str] = None
     companyWebsite: Optional[str] = None
     jobDescription: Optional[str] = None
+    requirements: Optional[str] = None
     resumeId: Optional[str] = None
     resumeVersion: Optional[str] = None
     coverLetterVersion: Optional[str] = None
@@ -119,6 +146,8 @@ class JobApplication(BaseModel):
     lastActivityDate: str = Field(default_factory=lambda: date.today().isoformat())
     deadline: Optional[str] = None
     followUpDate: Optional[str] = None
+    extractedAt: Optional[str] = None
+    extractionConfidence: Optional[Literal["high", "medium", "low"]] = None
 
     # Details
     contacts: List[ContactPerson] = []
@@ -129,6 +158,7 @@ class JobApplication(BaseModel):
     tags: List[str] = []
     archived: bool = False
     color: Optional[str] = None
+
 
 
 class UserProfile(BaseModel):

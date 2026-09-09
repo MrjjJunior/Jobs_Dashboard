@@ -79,6 +79,27 @@ export interface ResumeItem {
   isDefault?: boolean;
 }
 
+export interface ExtractedJobPreview {
+  sourceUrl: string;
+  title: string;
+  company: string;
+  location: string;
+  workplaceType: WorkplaceType;
+  employmentType: EmploymentType;
+  salaryMin?: number;
+  salaryMax?: number;
+  salaryCurrency: string;
+  salaryPeriod: SalaryPeriod;
+  description: string;
+  requirements?: string;
+  benefits?: string;
+  deadline?: string;
+  extractedAt: string;
+  extractionConfidence: 'high' | 'medium' | 'low';
+  usedAiFallback?: boolean;
+  warningMessage?: string;
+}
+
 export interface JobApplication {
   id: string;
   company: string;
@@ -99,8 +120,10 @@ export interface JobApplication {
 
   // URLs and Assets
   jobUrl?: string;
+  sourceUrl?: string;
   companyWebsite?: string;
   jobDescription?: string;
+  requirements?: string;
   resumeId?: string; // ID of the linked resume
   resumeVersion?: string; // Name of the linked resume
   coverLetterVersion?: string;
@@ -114,6 +137,8 @@ export interface JobApplication {
   lastActivityDate: string; // YYYY-MM-DD
   deadline?: string; // YYYY-MM-DD
   followUpDate?: string; // YYYY-MM-DD
+  extractedAt?: string;
+  extractionConfidence?: 'high' | 'medium' | 'low';
 
   // Details
   contacts: ContactPerson[];
@@ -125,6 +150,7 @@ export interface JobApplication {
   archived: boolean;
   color?: string;
 }
+
 
 export interface StageConfig {
   id: JobStage;

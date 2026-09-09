@@ -7,11 +7,26 @@ from ..models import (
     BatchDeleteRequest,
     BatchStageUpdateRequest,
     StageUpdatePayload,
-    RatingUpdatePayload
+    RatingUpdatePayload,
+    JobImportRequest,
+    ExtractedJobPreview
 )
 from .. import database as db
+from ..services.job_importer import import_job_from_url
 
 router = APIRouter(prefix="/api/jobs", tags=["jobs"])
+
+@router.post("/import", response_model=ExtractedJobPreview)
+async def import_job(req: JobImportRequest):
+    """
+    Import job listing metadata from a remote URL.
+    Parses JSON-LD (JobPosting), HTML elements, and optional AI extraction.
+    Returns a preview object for user review/confirmation before saving.
+    """
+    if not req.url or not req.url.strip():
+        raise HTTPException(status_code=400, detail="Job listing URL is required.")
+    return await import_job_from_url(req.url.strip())
+
 
 @router.get("", response_model=List[JobApplication])
 def list_jobs(

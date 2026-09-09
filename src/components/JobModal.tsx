@@ -9,7 +9,13 @@ import {
   Link as LinkIcon, 
   FileText, 
   Check, 
-  Plus
+  Plus,
+  Wand2,
+  Sparkles,
+  AlertCircle,
+  CheckCircle2,
+  Loader2,
+  Globe
 } from 'lucide-react';
 import { 
   JobApplication, 
@@ -18,11 +24,14 @@ import {
   WorkplaceType, 
   EmploymentType, 
   SalaryPeriod, 
-  ResumeItem 
+  ResumeItem,
+  ExtractedJobPreview
 } from '../types';
 import { STAGES_CONFIG } from '../data/initialJobs';
 import { SUPPORTED_CURRENCIES, getCompanyColor } from '../utils/storage';
 import { calculateAtsMatch } from '../utils/atsCalculator';
+import { api } from '../services/api';
+
 
 interface JobModalProps {
   isOpen: boolean;
@@ -70,8 +79,25 @@ export const JobModal: React.FC<JobModalProps> = ({
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
 
+  // Auto-Fill from URL state
+  const [importUrlInput, setImportUrlInput] = useState('');
+  const [isExtracting, setIsExtracting] = useState(false);
+  const [extractionStatus, setExtractionStatus] = useState<string | null>(null);
+  const [extractionError, setExtractionError] = useState<string | null>(null);
+  const [extractedConfidence, setExtractedConfidence] = useState<'high' | 'medium' | 'low' | null>(null);
+  const [usedAiFallback, setUsedAiFallback] = useState(false);
+  const [extractedAt, setExtractedAt] = useState<string | null>(null);
+
   // Sync state when modal opens or initialJob changes
   useEffect(() => {
+    setImportUrlInput('');
+    setIsExtracting(false);
+    setExtractionStatus(null);
+    setExtractionError(null);
+    setExtractedConfidence(null);
+    setUsedAiFallback(false);
+    setExtractedAt(null);
+
     if (initialJob) {
       setRole(initialJob.role || '');
       setCompany(initialJob.company || '');
@@ -91,6 +117,8 @@ export const JobModal: React.FC<JobModalProps> = ({
       setNotes(initialJob.notes || '');
       setTags(initialJob.tags || []);
       setTagInput('');
+      setExtractedConfidence(initialJob.extractionConfidence || null);
+      setExtractedAt(initialJob.extractedAt || null);
     } else {
       setRole('');
       setCompany('');
@@ -113,6 +141,87 @@ export const JobModal: React.FC<JobModalProps> = ({
       setTagInput('');
     }
   }, [initialJob, defaultStage, defaultCurrency, isOpen, resumes]);
+
+  const handleAutoFillUrl = async () => {
+    const urlToFetch = importUrlInput.trim() || jobUrl.trim();
+    if (!urlToFetch) {
+      setExtractionError('Please enter or paste a valid job listing URL.');
+      return;
+    }
+    if (!/^https?:\/\//i.test(urlToFetch)) {
+      setExtractionError('Invalid URL format. Please start with http:// or https://');
+      return;
+    }
+
+    setIsExtracting(true);
+    setExtractionError(null);
+    setExtractionStatus('Fetching webpage and parsing listing details...');
+
+    try {
+      const preview = await api.importJobFromUrl(urlToFetch);
+      
+      // Populate fields
+      if (preview.title) setRole(preview.title);
+      if (preview.company) setCompany(preview.company);
+      if (preview.location) setLocation(preview.location);
+      if (preview.workplaceType) setWorkplaceType(preview.workplaceType);
+      if (preview.employmentType) setEmploymentType(preview.employmentType);
+      
+      if (preview.salaryMin !== undefined && preview.salaryMin !== null) {
+        setSalaryMin(String(preview.salaryMin));
+      }
+      if (preview.salaryMax !== undefined && preview.salaryMax !== null) {
+        setSalaryMax(String(preview.salaryMax));
+      }
+      if (preview.salaryCurrency) setSalaryCurrency(preview.salaryCurrency);
+      if (preview.salaryPeriod) setSalaryPeriod(preview.salaryPeriod);
+
+      setJobUrl(preview.sourceUrl || urlToFetch);
+
+      // Build structured notes / job description text
+      let combinedNotes = '';
+      if (preview.description) {
+        combinedNotes += `--- JOB DESCRIPTION ---\n${preview.description}`;
+      }
+      if (preview.requirements) {
+        combinedNotes += combinedNotes ? `\n\n--- REQUIREMENTS ---\n${preview.requirements}` : `--- REQUIREMENTS ---\n${preview.requirements}`;
+      }
+      if (preview.benefits) {
+        combinedNotes += combinedNotes ? `\n\n--- BENEFITS ---\n${preview.benefits}` : `--- BENEFITS ---\n${preview.benefits}`;
+      }
+
+      if (combinedNotes) {
+        setNotes(notes ? `${notes}\n\n${combinedNotes}` : combinedNotes);
+      }
+
+      // Add auto-extracted tags
+      const newTags = [...tags];
+      if (preview.workplaceType && !newTags.includes(preview.workplaceType)) {
+        newTags.push(preview.workplaceType);
+      }
+      if (preview.employmentType && !newTags.includes(preview.employmentType)) {
+        newTags.push(preview.employmentType);
+      }
+      if (newTags.length > tags.length) {
+        setTags(newTags);
+      }
+
+      setExtractedConfidence(preview.extractionConfidence);
+      setUsedAiFallback(Boolean(preview.usedAiFallback));
+      setExtractedAt(preview.extractedAt);
+
+      if (preview.warningMessage) {
+        setExtractionStatus(preview.warningMessage);
+      } else {
+        setExtractionStatus('Listing details auto-filled successfully! Review and confirm fields below.');
+      }
+    } catch (err: any) {
+      setExtractionError(err.message || 'Unable to import listing from this URL.');
+    } finally {
+      setIsExtracting(false);
+    }
+  };
+
 
   if (!isOpen) return null;
 
@@ -167,6 +276,9 @@ export const JobModal: React.FC<JobModalProps> = ({
       salaryCurrency,
       salaryPeriod,
       jobUrl: jobUrl.trim() || undefined,
+      sourceUrl: jobUrl.trim() || undefined,
+      extractedAt: extractedAt || undefined,
+      extractionConfidence: extractedConfidence || undefined,
       appliedDate: appliedDate || new Date().toISOString().split('T')[0],
       lastActivityDate: new Date().toISOString().split('T')[0],
       resumeId: resumeId || undefined,
@@ -206,7 +318,7 @@ export const JobModal: React.FC<JobModalProps> = ({
                 {initialJob ? 'Edit Application' : 'Add Application'}
               </h2>
               <p className="text-xs text-slate-500">
-                {initialJob ? 'Update application progress and details' : 'Save a new job opportunity to your tracker'}
+                {initialJob ? 'Update application progress and details' : 'Save a new job opportunity or import via listing URL'}
               </p>
             </div>
           </div>
@@ -222,6 +334,99 @@ export const JobModal: React.FC<JobModalProps> = ({
         {/* Form Body */}
         <form onSubmit={handleSubmit} className="flex flex-col flex-1 overflow-hidden min-h-0">
           <div className="p-6 space-y-4 text-xs text-slate-800 overflow-y-auto flex-1">
+            {/* Auto-Fill from URL Section */}
+            {!initialJob && (
+              <div className="p-3.5 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50/60 border border-emerald-200/80 rounded-xl space-y-2.5 shadow-2xs">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-emerald-700 animate-pulse" />
+                    <span className="font-bold text-emerald-950 text-xs">
+                      Auto-Fill from Job Listing URL
+                    </span>
+                  </div>
+                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100/80 text-emerald-800 border border-emerald-200">
+                    Server Extractor
+                  </span>
+                </div>
+                <p className="text-[11px] text-emerald-900/80 leading-snug">
+                  Paste job URL (e.g. LinkedIn, Indeed, Glassdoor, Greenhouse, Lever or company careers page) to auto-fill details.
+                </p>
+
+                <div className="flex items-center gap-2">
+                  <div className="relative flex-1">
+                    <Globe className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <input
+                      type="url"
+                      placeholder="https://company.com/careers/software-engineer..."
+                      value={importUrlInput}
+                      onChange={(e) => setImportUrlInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          handleAutoFillUrl();
+                        }
+                      }}
+                      disabled={isExtracting}
+                      className="w-full pl-8 pr-3 py-1.5 bg-white border border-emerald-200 rounded-lg text-xs font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus-visible:outline-hidden disabled:bg-slate-50"
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleAutoFillUrl}
+                    disabled={isExtracting || !importUrlInput.trim()}
+                    className="flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 disabled:bg-slate-300 text-white rounded-lg text-xs font-semibold shrink-0 shadow-2xs transition-colors cursor-pointer disabled:cursor-not-allowed"
+                  >
+                    {isExtracting ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        <span>Extracting...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Wand2 className="w-3.5 h-3.5" />
+                        <span>Auto-Fill</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {/* Extraction Alerts */}
+                {extractionError && (
+                  <div className="p-2 bg-rose-50 border border-rose-200 rounded-lg text-[11px] text-rose-700 flex items-start gap-2 animate-fadeIn">
+                    <AlertCircle className="w-3.5 h-3.5 text-rose-600 shrink-0 mt-0.5" />
+                    <span>{extractionError}</span>
+                  </div>
+                )}
+
+                {extractionStatus && !extractionError && (
+                  <div className="p-2.5 bg-emerald-100/70 border border-emerald-300/80 rounded-lg text-[11px] text-emerald-900 flex items-start justify-between gap-2 animate-fadeIn">
+                    <div className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
+                      <div>
+                        <p className="font-semibold text-emerald-950">{extractionStatus}</p>
+                        {usedAiFallback && (
+                          <p className="text-[10px] text-emerald-800 font-medium mt-0.5">
+                            ✨ Enhanced structured data using AI fallback.
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    {extractedConfidence && (
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 ${
+                        extractedConfidence === 'high' 
+                          ? 'bg-emerald-600 text-white' 
+                          : extractedConfidence === 'medium' 
+                          ? 'bg-amber-500 text-white' 
+                          : 'bg-orange-500 text-white'
+                      }`}>
+                        {extractedConfidence.toUpperCase()} CONFIDENCE
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Row 1: Role & Company */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div>

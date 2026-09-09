@@ -11,8 +11,10 @@ import {
   User,
   LogOut,
   Target,
-  Menu
+  Menu,
+  Sparkles
 } from 'lucide-react';
+
 import { ViewMode, JobApplication, UserProfile } from '../types';
 import { exportJobsToJson, exportJobsToCsv, DEFAULT_USER_PROFILE } from '../utils/storage';
 
@@ -324,15 +326,25 @@ export const Header: React.FC<HeaderProps> = ({
           </p>
         </div>
 
-        <button
-          id="header-post-job-btn"
-          onClick={onOpenNewJobModal}
-          className="flex items-center justify-center gap-1.5 px-4 py-2 bg-[#003B36] hover:bg-[#064f48] active:bg-[#00221f] text-[#F3E8EE] rounded-lg text-xs font-semibold shadow-xs transition-colors focus-visible:ring-2 focus-visible:ring-[#003B36] focus-visible:ring-offset-2 focus-visible:outline-hidden self-start sm:self-auto"
-        >
-          <Plus className="w-4 h-4 text-[#ADFCF9]" />
-          <span>Add Application</span>
-        </button>
+        <div className="flex items-center gap-2.5 self-start sm:self-auto">
+          <button
+            onClick={onOpenNewJobModal}
+            className="flex items-center justify-center gap-1.5 px-3.5 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-lg text-xs font-semibold shadow-2xs transition-colors cursor-pointer"
+          >
+            <Sparkles className="w-4 h-4 text-emerald-700 animate-pulse" />
+            <span>Auto-Fill from URL</span>
+          </button>
+          <button
+            id="header-post-job-btn"
+            onClick={onOpenNewJobModal}
+            className="flex items-center justify-center gap-1.5 px-4 py-2 bg-[#003B36] hover:bg-[#064f48] active:bg-[#00221f] text-[#F3E8EE] rounded-lg text-xs font-semibold shadow-xs transition-colors focus-visible:ring-2 focus-visible:ring-[#003B36] focus-visible:ring-offset-2 focus-visible:outline-hidden"
+          >
+            <Plus className="w-4 h-4 text-[#ADFCF9]" />
+            <span>Add Application</span>
+          </button>
+        </div>
       </div>
     </div>
   );
 };
+
