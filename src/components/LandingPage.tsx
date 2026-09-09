@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { 
-  Briefcase, 
   Columns3, 
   FileText, 
   BarChart3, 
@@ -521,11 +520,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       {/* Footer */}
       <footer className="py-8 px-4 lg:px-12 bg-[#001a18] border-t border-[#917C78]/30 text-center text-xs text-[#F3E8EE]/60 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-lg bg-[#90A955]/20 text-[#ADFCF9] flex items-center justify-center font-bold text-xs">
-            <Briefcase className="w-3.5 h-3.5" />
-          </div>
           <span className="font-bold text-[#F3E8EE]">Jobbdash</span>
-          <span>© 2019 All rights reserved.</span>
+          <span>© 2026 All rights reserved.</span>
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-[#F3E8EE]/70 mt-4 sm:mt-0">
