@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException, Query, Header
 from typing import List, Optional
+import bleach
 from datetime import date
 from ..models import (
     JobApplication,
@@ -44,6 +45,12 @@ def create_or_update_job(
     x_user_id: Optional[str] = Header(None, alias="X-User-Id")
 ):
     """Create or update a job application for the user."""
+    # Input sanitization for rich text
+    if job.notes:
+        job.notes = bleach.clean(job.notes, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br', 'strong', 'em', 'u', 'h1', 'h2', 'ul', 'ol', 'li'])
+    if job.description:
+        job.description = bleach.clean(job.description, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br', 'strong', 'em', 'u', 'h1', 'h2', 'ul', 'ol', 'li'])
+    
     return db.upsert_job(job, user_id=x_user_id or job.userId)
 
 @router.get("/{job_id}", response_model=JobApplication)

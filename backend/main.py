@@ -16,12 +16,20 @@ async def lifespan(app: FastAPI):
     init_db()
     yield
 
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
+
+limiter = Limiter(key_func=get_remote_address)
+
 app = FastAPI(
     title="Jobs Dashboard API",
     description="Python FastAPI backend for Job Application & Career Dashboard",
     version="1.0.0",
     lifespan=lifespan
 )
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # Enable CORS for local React/Vite development
 app.add_middleware(

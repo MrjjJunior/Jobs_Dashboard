@@ -41,6 +41,7 @@ import { AiCoachModal } from './components/AiCoachModal';
 import { GoalsModal } from './components/GoalsModal';
 import { ProfileModal } from './components/ProfileModal';
 import { LandingPage } from './components/LandingPage';
+import { CookieBanner } from './components/CookieBanner';
 
 const getInitialRoute = (): 'landing' | 'dashboard' => {
   const path = window.location.pathname;
@@ -639,6 +640,8 @@ export default function App() {
           setIsGoalsModalOpen(true);
         }}
       />
+
+      <CookieBanner />
     </div>
   );
 }

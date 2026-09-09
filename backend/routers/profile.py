@@ -1,12 +1,17 @@
-from fastapi import APIRouter, Header, HTTPException, status
+from fastapi import APIRouter, Header, HTTPException, status, Request
 from typing import Optional
+from slowapi import Limiter
+from slowapi.util import get_remote_address
+
+limiter = Limiter(key_func=get_remote_address)
 from ..models import UserProfile, UserGoals, SignupRequest, LoginRequest, AuthResponse
 from .. import database as db
 
 router = APIRouter(prefix="/api", tags=["profile_and_goals"])
 
 @router.post("/auth/signup", response_model=AuthResponse, status_code=status.HTTP_201_CREATED)
-def signup(req: SignupRequest):
+@limiter.limit("5/minute")
+def signup(request: Request, req: SignupRequest):
     """Register a new user account with hashed password."""
     if not req.email or not req.email.strip() or "@" not in req.email:
         raise HTTPException(status_code=400, detail="Please enter a valid email address.")
@@ -27,7 +32,8 @@ def signup(req: SignupRequest):
         raise HTTPException(status_code=400, detail=str(err))
 
 @router.post("/auth/login", response_model=AuthResponse)
-def login(req: LoginRequest):
+@limiter.limit("10/minute")
+def login(request: Request, req: LoginRequest):
     """Authenticate user with email and password."""
     if not req.email or not req.password:
         raise HTTPException(status_code=400, detail="Email and password are required.")
@@ -70,3 +76,13 @@ def reset_demo_data(x_user_id: Optional[str] = Header(None, alias="X-User-Id")):
     db.reset_all_data(user_id=x_user_id)
     return {"status": "success", "message": "Database reset successfully."}
 
+
+@router.delete("/users/me")
+def delete_user_account(x_user_id: Optional[str] = Header(None, alias="X-User-Id")):
+    """Hard delete user account and all associated data."""
+    if not x_user_id:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    success = db.delete_account_and_data(x_user_id)
+    if not success:
+        raise HTTPException(status_code=400, detail="Failed to delete account.")
+    return {"status": "success", "message": "Account deleted."}
