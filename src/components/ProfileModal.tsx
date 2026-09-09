@@ -208,30 +208,6 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
     }
   };
 
-  const handleQuickDemoLogin = async () => {
-    setAuthError(null);
-    try {
-      let res;
-      try {
-        res = await api.login({ email: 'alex.rivera@example.com', password: 'demo-password-123' });
-      } catch (e) {
-        res = await api.signup({
-          name: 'Alex Rivera',
-          email: 'alex.rivera@example.com',
-          password: 'demo-password-123',
-          role: 'Senior Software Engineer'
-        });
-      }
-      onSaveProfile(res.user);
-      setSavedSuccess(true);
-      setTimeout(() => {
-        onClose();
-      }, 400);
-    } catch (err: any) {
-      setAuthError(err.message || 'Demo login failed.');
-    }
-  };
-
   const handleLogoutClick = () => {
     onLogout();
     setMode('login');
@@ -639,25 +615,6 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                   {mode === 'login' ? 'Sign In' : 'Create Account'}
                 </button>
               </form>
-
-              <div className="relative my-4">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-[#917C78]/30"></div>
-                </div>
-                <div className="relative flex justify-center text-[10px] uppercase font-bold text-[#ADFCF9]/80 bg-[#003B36] px-2">
-                  <span>Or Quick Access</span>
-                </div>
-              </div>
-
-              {/* 1-Click Demo Login */}
-              <button
-                type="button"
-                onClick={handleQuickDemoLogin}
-                className="w-full py-2.5 px-3 bg-[#002824] hover:bg-[#00302c] active:bg-[#00201d] text-[#ADFCF9] border border-[#917C78]/40 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-[#ADFCF9]" />
-                <span>Continue as Alex Rivera (Demo Profile)</span>
-              </button>
             </div>
           )}
 
