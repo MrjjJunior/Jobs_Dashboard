@@ -199,20 +199,24 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fadeIn">
       <div 
-        className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]"
+        className={`rounded-2xl shadow-2xl border w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh] transition-colors ${
+          mode === 'profile'
+            ? 'bg-white border-slate-200 text-slate-900'
+            : 'bg-[#003B36] border-[#917C78]/40 text-[#F3E8EE]'
+        }`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="px-6 py-4 bg-slate-900 text-white flex items-center justify-between shrink-0">
+        <div className="px-6 py-4 bg-[#00302c] text-white flex items-center justify-between shrink-0 border-b border-[#917C78]/30">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-sm">
-              <User className="w-4 h-4" />
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#90A955] to-[#ADFCF9] flex items-center justify-center text-[#003B36] font-bold text-sm shadow-md">
+              <User className="w-4 h-4 text-[#003B36]" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-white tracking-tight">
+              <h2 className="text-base font-bold text-[#F3E8EE] tracking-tight">
                 {mode === 'profile' ? 'Account & Profile Settings' : mode === 'login' ? 'Sign In to JobFlow' : 'Create an Account'}
               </h2>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[#ADFCF9]/80">
                 {mode === 'profile' 
                   ? 'Manage your personal details, profile photo, and credentials.' 
                   : 'Access your synced job pipeline, ATS scores, and target goals.'}
@@ -221,7 +225,8 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
+            className="p-1.5 text-[#917C78] hover:text-[#F3E8EE] rounded-lg hover:bg-[#002824] transition-colors cursor-pointer"
+            aria-label="Close"
           >
             <X className="w-5 h-5" />
           </button>
@@ -229,44 +234,45 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
 
         {/* Tab Navigation if logged out or wanting to toggle mode */}
         {!userProfile.isLoggedIn ? (
-          <div className="flex border-b border-slate-200 bg-slate-50 px-6 pt-2">
+          <div className="flex border-b border-[#917C78]/30 bg-[#002824] px-6 pt-2">
             <button
               onClick={() => setMode('login')}
-              className={`pb-2 px-4 text-xs font-bold border-b-2 transition-colors ${
+              className={`pb-2 px-4 text-xs font-bold border-b-2 transition-colors cursor-pointer ${
                 mode === 'login'
-                  ? 'border-blue-600 text-blue-600'
-                  : 'border-transparent text-slate-500 hover:text-slate-800'
+                  ? 'border-[#90A955] text-[#ADFCF9]'
+                  : 'border-transparent text-[#F3E8EE]/70 hover:text-[#F3E8EE]'
               }`}
             >
               Sign In
             </button>
             <button
               onClick={() => setMode('signup')}
-              className={`pb-2 px-4 text-xs font-bold border-b-2 transition-colors ${
+              className={`pb-2 px-4 text-xs font-bold border-b-2 transition-colors cursor-pointer ${
                 mode === 'signup'
-                  ? 'border-blue-600 text-blue-600'
-                  : 'border-transparent text-slate-500 hover:text-slate-800'
+                  ? 'border-[#90A955] text-[#ADFCF9]'
+                  : 'border-transparent text-[#F3E8EE]/70 hover:text-[#F3E8EE]'
               }`}
             >
               Create Account
             </button>
           </div>
         ) : (
-          <div className="bg-slate-50/80 px-6 py-2 border-b border-slate-200 flex items-center justify-between text-xs">
-            <div className="flex items-center gap-1.5 text-slate-600 font-medium">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span>Signed in as <strong className="text-slate-900">{userProfile.name}</strong> ({userProfile.email})</span>
+          <div className="bg-[#002824] px-6 py-2 border-b border-[#917C78]/30 flex items-center justify-between text-xs">
+            <div className="flex items-center gap-1.5 text-[#F3E8EE]/90 font-medium">
+              <ShieldCheck className="w-4 h-4 text-[#90A955]" />
+              <span>Signed in as <strong className="text-[#ADFCF9]">{userProfile.name}</strong> ({userProfile.email})</span>
             </div>
             <button
               type="button"
               onClick={handleLogoutClick}
-              className="text-xs font-bold text-rose-600 hover:text-rose-700 flex items-center gap-1 hover:bg-rose-50 px-2 py-1 rounded transition-colors"
+              className="text-xs font-bold text-rose-400 hover:text-rose-300 flex items-center gap-1 hover:bg-rose-950/40 px-2 py-1 rounded transition-colors cursor-pointer"
             >
               <LogOut className="w-3.5 h-3.5" />
               <span>Log Out</span>
             </button>
           </div>
         )}
+
 
         {/* Content Body */}
         <div className="p-6 overflow-y-auto flex-1">
@@ -511,15 +517,15 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
             </form>
           ) : (
             /* Login / Signup Form */
-            <div className="space-y-4">
+            <div className="space-y-4 py-2">
               <div className="text-center pb-2">
-                <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center mx-auto mb-2 shadow-md">
-                  <LogIn className="w-6 h-6" />
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#90A955] to-[#ADFCF9] text-[#003B36] flex items-center justify-center mx-auto mb-3 shadow-lg shadow-[#90A955]/20 font-bold">
+                  <LogIn className="w-6 h-6 text-[#003B36]" />
                 </div>
-                <h3 className="text-base font-bold text-slate-900">
+                <h3 className="text-base sm:text-lg font-bold text-[#F3E8EE]">
                   {mode === 'login' ? 'Welcome Back to JobFlow' : 'Start Tracking Your Career'}
                 </h3>
-                <p className="text-xs text-slate-500 max-w-xs mx-auto">
+                <p className="text-xs text-[#F3E8EE]/80 max-w-xs mx-auto mt-1 leading-snug">
                   {mode === 'login' 
                     ? 'Sign in to access your saved applications, custom resumes, and goals.'
                     : 'Create your personalized job search workspace with full ATS analytics.'}
@@ -527,15 +533,15 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
               </div>
 
               {authError && (
-                <div className="p-2.5 bg-rose-50 border border-rose-200 text-rose-700 text-xs rounded-lg">
-                  {authError}
+                <div className="p-2.5 bg-rose-950/60 border border-rose-500/40 text-rose-200 text-xs rounded-xl flex items-center gap-2">
+                  <span>{authError}</span>
                 </div>
               )}
 
-              <form onSubmit={handleLoginSubmit} className="space-y-3">
+              <form onSubmit={handleLoginSubmit} className="space-y-3.5">
                 {mode === 'signup' && (
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                    <label className="block text-xs font-bold text-[#F3E8EE] mb-1">
                       Full Name
                     </label>
                     <input
@@ -544,13 +550,13 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                       value={authName}
                       onChange={(e) => setAuthName(e.target.value)}
                       placeholder="Alex Rivera"
-                      className="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3.5 py-2 text-xs bg-[#002824] border border-[#917C78]/40 rounded-xl font-medium text-[#F3E8EE] placeholder:text-[#917C78] focus:outline-hidden focus:border-[#90A955] focus:ring-2 focus:ring-[#90A955]/20 transition-all"
                     />
                   </div>
                 )}
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-[#F3E8EE] mb-1">
                     Email Address
                   </label>
                   <input
@@ -559,12 +565,12 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                     value={authEmail}
                     onChange={(e) => setAuthEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3.5 py-2 text-xs bg-[#002824] border border-[#917C78]/40 rounded-xl font-medium text-[#F3E8EE] placeholder:text-[#917C78] focus:outline-hidden focus:border-[#90A955] focus:ring-2 focus:ring-[#90A955]/20 transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-[#F3E8EE] mb-1">
                     Password
                   </label>
                   <input
@@ -573,23 +579,23 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                     value={authPassword}
                     onChange={(e) => setAuthPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3.5 py-2 text-xs bg-[#002824] border border-[#917C78]/40 rounded-xl font-medium text-[#F3E8EE] placeholder:text-[#917C78] focus:outline-hidden focus:border-[#90A955] focus:ring-2 focus:ring-[#90A955]/20 transition-all"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold shadow-xs transition-colors mt-2"
+                  className="w-full py-2.5 bg-[#90A955] hover:bg-[#a2be64] active:bg-[#7e9647] text-[#00221f] rounded-xl text-xs font-bold shadow-md shadow-[#90A955]/20 transition-all cursor-pointer mt-2"
                 >
                   {mode === 'login' ? 'Sign In' : 'Create Account'}
                 </button>
               </form>
 
-              <div className="relative my-3">
+              <div className="relative my-4">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-slate-200"></div>
+                  <div className="w-full border-t border-[#917C78]/30"></div>
                 </div>
-                <div className="relative flex justify-center text-[10px] uppercase font-bold text-slate-400 bg-white px-2">
+                <div className="relative flex justify-center text-[10px] uppercase font-bold text-[#ADFCF9]/80 bg-[#003B36] px-2">
                   <span>Or Quick Access</span>
                 </div>
               </div>
@@ -598,13 +604,14 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
               <button
                 type="button"
                 onClick={handleQuickDemoLogin}
-                className="w-full py-2 px-3 bg-slate-100 hover:bg-slate-200/80 text-slate-800 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-colors"
+                className="w-full py-2.5 px-3 bg-[#002824] hover:bg-[#00302c] active:bg-[#00201d] text-[#ADFCF9] border border-[#917C78]/40 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer"
               >
-                <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+                <Sparkles className="w-3.5 h-3.5 text-[#ADFCF9]" />
                 <span>Continue as Alex Rivera (Demo Profile)</span>
               </button>
             </div>
           )}
+
         </div>
       </div>
     </div>

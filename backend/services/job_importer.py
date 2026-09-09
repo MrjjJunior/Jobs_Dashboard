@@ -399,8 +399,37 @@ async def import_job_from_url(url: str) -> ExtractedJobPreview:
                 if host_parts:
                     company = host_parts[0].capitalize()
 
-    if not description and body_text:
-        description = body_text[:4000]
+    # Search for specific HTML elements/containers for Description & Requirements
+    if not description:
+        desc_el = soup.find(id=re.compile(r"(job[-_]?description|description|details)", re.I)) or \
+                  soup.find(class_=re.compile(r"(job[-_]?description|description|details)", re.I)) or \
+                  soup.find("article") or soup.find("main")
+        if desc_el:
+            description = clean_html_text(str(desc_el))
+        elif og_desc and og_desc.get("content"):
+            description = str(og_desc["content"]).strip()
+        elif body_text:
+            description = body_text[:4000]
+
+    if not requirements:
+        req_el = soup.find(id=re.compile(r"(requirements|qualifications|skills|experience)", re.I)) or \
+                 soup.find(class_=re.compile(r"(requirements|qualifications|skills|experience)", re.I))
+        if req_el:
+            requirements = clean_html_text(str(req_el))
+        else:
+            # Look for headings containing Requirement or Qualification keywords
+            headings = soup.find_all(["h2", "h3", "h4", "strong", "b"], text=re.compile(r"(requirement|qualification|skill|experience|looking for|what you'll bring)", re.I))
+            req_texts = []
+            for h in headings[:3]:
+                parent = h.parent
+                if parent:
+                    # Find sibling or child ul/ol
+                    ul = parent.find_next(["ul", "ol"])
+                    if ul:
+                        req_texts.append(clean_html_text(str(ul)))
+            if req_texts:
+                requirements = "\n\n".join(req_texts)
+
 
     # Fallback to AI if title, company, or description are insufficient, and Gemini key present
     if (not title or not company or len(description) < 100) and (os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")):

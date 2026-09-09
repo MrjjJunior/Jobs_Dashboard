@@ -147,20 +147,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           <button
             id="hero-start-tracking-cta"
             onClick={handlePrimaryCta}
-            className="w-full sm:w-auto flex items-center justify-center gap-2 px-7 py-3.5 bg-gradient-to-r from-[#90A955] to-[#7f9845] hover:from-[#a2be64] hover:to-[#90A955] active:scale-98 text-[#00221f] rounded-xl text-sm font-bold shadow-xl shadow-[#90A955]/30 transition-all cursor-pointer"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 bg-gradient-to-r from-[#90A955] to-[#7f9845] hover:from-[#a2be64] hover:to-[#90A955] active:scale-98 text-[#00221f] rounded-xl text-sm font-bold shadow-xl shadow-[#90A955]/30 transition-all cursor-pointer"
           >
             <span>{isLoggedIn ? 'Open Your Dashboard' : 'Start Tracking Free'}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
-
-          <button
-            onClick={onTryDemo}
-            className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 bg-[#002824] hover:bg-[#003430] active:bg-[#00201d] text-[#F3E8EE] border border-[#917C78]/50 rounded-xl text-sm font-semibold transition-all cursor-pointer"
-          >
-            <Play className="w-4 h-4 text-[#ADFCF9] fill-[#ADFCF9]" />
-            <span>Explore Live Demo</span>
-          </button>
         </div>
+
 
         {/* Proof Badges */}
         <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs text-[#F3E8EE]/80 font-medium">
@@ -581,13 +574,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               <span>{isLoggedIn ? 'Open Your Dashboard' : 'Start Tracking Now - It’s Free'}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
-            <button
-              onClick={onTryDemo}
-              className="w-full sm:w-auto px-6 py-3.5 bg-[#002824] hover:bg-[#003833] text-[#F3E8EE] rounded-xl text-xs font-semibold border border-[#917C78]/50 transition-colors cursor-pointer"
-            >
-              View Live Demo
-            </button>
           </div>
+
         </div>
       </section>
 
