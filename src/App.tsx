@@ -440,7 +440,7 @@ export default function App() {
         goals={userGoals}
         onOpenGoalsModal={() => setIsGoalsModalOpen(true)}
         userProfile={userProfile}
-        onOpenProfileModal={() => setIsProfileModalOpen(true)}
+        onOpenProfileModal={() => { setProfileModalMode('profile'); setIsProfileModalOpen(true); }}
         mobileOpen={mobileSidebarOpen}
         onCloseMobile={() => setMobileSidebarOpen(false)}
         onNavigateToLanding={() => navigateTo('landing')}
@@ -457,7 +457,7 @@ export default function App() {
           onResetDemoData={handleResetDemoData}
           onOpenAiDraftModal={() => setIsAiCoachOpen(true)}
           userProfile={userProfile}
-          onOpenProfileModal={() => setIsProfileModalOpen(true)}
+          onOpenProfileModal={() => { setProfileModalMode('profile'); setIsProfileModalOpen(true); }}
           onOpenGoalsModal={() => setIsGoalsModalOpen(true)}
           onLogout={handleLogout}
           onToggleMobileSidebar={() => setMobileSidebarOpen(!mobileSidebarOpen)}
