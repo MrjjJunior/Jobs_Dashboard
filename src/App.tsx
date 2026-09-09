@@ -402,6 +402,14 @@ export default function App() {
 
   const activeDrawerJob = jobs.find((j) => j.id === activeDrawerJobId) || null;
 
+  if (currentRoute === 'privacy') {
+    return <PrivacyPolicy onBack={() => navigateTo('landing')} />;
+  }
+  
+  if (currentRoute === 'terms') {
+    return <TermsOfService onBack={() => navigateTo('landing')} />;
+  }
+
   if (currentRoute === 'landing') {
     return (
       <div className="min-h-screen bg-pine-900">
