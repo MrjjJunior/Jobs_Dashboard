@@ -77,7 +77,7 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
       weeklyApplicationsTarget: Math.max(1, Number(weeklyApps) || 5),
       monthlyInterviewsTarget: Math.max(0, Number(monthlyInterviews) || 4),
       monthlyOffersTarget: Math.max(0, Number(monthlyOffers) || 1),
-      targetMinSalary: Number(minSalary) || undefined,
+      targetMinSalary: minSalary >= 0 ? Number(minSalary) : undefined,
       salaryCurrency: salaryCurrency || 'USD',
       focusNotes: notes.trim(),
       targetMonth: goals.targetMonth || new Date().toISOString().slice(0, 7),
@@ -357,10 +357,9 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
                 </div>
                 <input
                   type="number"
-                  min="1000"
-                  max="50000000"
-                  step={salaryCurrency === 'ZAR' ? '25000' : '5000'}
-                  value={minSalary || ''}
+                  min="0"
+                  step="any"
+                  value={minSalary !== undefined ? minSalary : ''}
                   onChange={(e) => setMinSalary(Number(e.target.value))}
                   placeholder={salaryCurrency === 'ZAR' ? '650000' : '140000'}
                   className="w-full pl-9 pr-3 py-1.5 border border-slate-200 rounded-lg text-xs font-bold text-slate-900 font-mono focus:outline-hidden focus:ring-2 focus:ring-slate-900"

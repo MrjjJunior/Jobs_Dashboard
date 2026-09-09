@@ -541,7 +541,7 @@ export default function App() {
                 onAddResume={handleAddResume}
                 onUpdateResume={handleUpdateResume}
                 onDeleteResume={handleDeleteResume}
-                onTestWithAts={(resId) => handleNavigateToAts(resId)}
+                onNavigateToAts={(resId) => handleNavigateToAts(resId)}
                 onSelectJob={(job) => setActiveDrawerJobId(job.id)}
                 onNavigateToBuilder={() => setViewMode('builder')}
               />
@@ -563,16 +563,8 @@ export default function App() {
                 jobs={jobs}
                 initialResumeId={atsPreselectedResumeId}
                 initialJobId={atsPreselectedJobId}
-                onSaveAtsScoreToJob={(jobId, score, result) => {
-                  setJobs((prev) =>
-                    prev.map((j) =>
-                      j.id === jobId
-                        ? { ...j, atsScore: score, atsMatchResult: result }
-                        : j
-                    )
-                  );
-                }}
-                onOpenJobModal={(job) => handleOpenEditModal(job)}
+                onUpdateJob={handleAddOrUpdateJob}
+                onUpdateResume={handleUpdateResume}
               />
             )}
 
