@@ -52,15 +52,20 @@ const getInitialRoute = (): 'landing' | 'dashboard' => {
 };
 
 export default function App() {
-  // Main jobs and resumes state
-  const [jobs, setJobs] = useState<JobApplication[]>(() => loadStoredJobs());
-  const [resumes, setResumes] = useState<ResumeItem[]>(() => loadStoredResumes());
-  const [viewMode, setViewMode] = useState<ViewMode>('table');
-  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-
   // User profile and goals state
   const [userProfile, setUserProfile] = useState<UserProfile>(() => loadStoredUserProfile());
   const [userGoals, setUserGoals] = useState<UserGoals>(() => loadStoredUserGoals());
+
+  // Main jobs and resumes state (user-bound)
+  const [jobs, setJobs] = useState<JobApplication[]>(() => 
+    userProfile.isLoggedIn && userProfile.id ? loadStoredJobs(userProfile.id) : []
+  );
+  const [resumes, setResumes] = useState<ResumeItem[]>(() => 
+    userProfile.isLoggedIn && userProfile.id ? loadStoredResumes(userProfile.id) : []
+  );
+
+  const [viewMode, setViewMode] = useState<ViewMode>('table');
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [isGoalsModalOpen, setIsGoalsModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [profileModalMode, setProfileModalMode] = useState<'profile' | 'login' | 'signup'>('profile');
@@ -106,44 +111,50 @@ export default function App() {
   const [modalDefaultStage, setModalDefaultStage] = useState<JobStage>('applied');
   const [isAiCoachOpen, setIsAiCoachOpen] = useState(false);
 
-  // Load from Python API on initial mount (with local storage as instant cache)
+  // Load from Python API whenever user logs in, signs up, or switches account
   useEffect(() => {
+    if (!userProfile.isLoggedIn || !userProfile.id) {
+      setJobs([]);
+      setResumes([]);
+      return;
+    }
+
     async function loadDataFromApi() {
       try {
-        const [jobsRes, resumesRes, profileRes, goalsRes] = await Promise.allSettled([
+        const [jobsRes, resumesRes, goalsRes] = await Promise.allSettled([
           api.getJobs(),
           api.getResumes(),
-          api.getProfile(),
           api.getGoals(),
         ]);
 
-        if (jobsRes.status === 'fulfilled' && Array.isArray(jobsRes.value) && jobsRes.value.length > 0) {
+        if (jobsRes.status === 'fulfilled' && Array.isArray(jobsRes.value)) {
           setJobs(jobsRes.value);
         }
-        if (resumesRes.status === 'fulfilled' && Array.isArray(resumesRes.value) && resumesRes.value.length > 0) {
+        if (resumesRes.status === 'fulfilled' && Array.isArray(resumesRes.value)) {
           setResumes(resumesRes.value);
-        }
-        if (profileRes.status === 'fulfilled' && profileRes.value) {
-          setUserProfile(profileRes.value);
         }
         if (goalsRes.status === 'fulfilled' && goalsRes.value) {
           setUserGoals(goalsRes.value);
         }
       } catch (err) {
-        console.warn('Backend API connection notice (using cached state):', err);
+        console.warn('Backend API sync notice:', err);
       }
     }
     loadDataFromApi();
-  }, []);
+  }, [userProfile.id, userProfile.isLoggedIn]);
 
-  // Save to localStorage whenever jobs, resumes, userProfile, or userGoals change
+  // Save to user-scoped localStorage whenever jobs or resumes change
   useEffect(() => {
-    saveStoredJobs(jobs);
-  }, [jobs]);
+    if (userProfile.id && userProfile.isLoggedIn) {
+      saveStoredJobs(jobs, userProfile.id);
+    }
+  }, [jobs, userProfile.id, userProfile.isLoggedIn]);
 
   useEffect(() => {
-    saveStoredResumes(resumes);
-  }, [resumes]);
+    if (userProfile.id && userProfile.isLoggedIn) {
+      saveStoredResumes(resumes, userProfile.id);
+    }
+  }, [resumes, userProfile.id, userProfile.isLoggedIn]);
 
   useEffect(() => {
     saveStoredUserProfile(userProfile);
@@ -154,9 +165,6 @@ export default function App() {
   }, [userGoals]);
 
   const handleUpdateProfile = (updated: UserProfile) => {
-    if (!updated.id) {
-      updated.id = `user-${Date.now()}`;
-    }
     setUserProfile(updated);
     api.saveProfile(updated).catch((e) => console.warn('Could not sync profile to backend:', e));
   };
@@ -167,14 +175,12 @@ export default function App() {
   };
 
   const handleLogout = () => {
-    const updated = {
-      ...userProfile,
-      isLoggedIn: false,
-    };
-    setUserProfile(updated);
+    setUserProfile(DEFAULT_USER_PROFILE);
+    setJobs([]);
+    setResumes([]);
     setIsProfileModalOpen(false);
     navigateTo('landing');
-    api.saveProfile(updated).catch((e) => console.warn('Could not sync logout to backend:', e));
+    saveStoredUserProfile(DEFAULT_USER_PROFILE);
   };
 
   const handleLogin = (email: string, name: string) => {

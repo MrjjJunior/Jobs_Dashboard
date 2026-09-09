@@ -86,53 +86,45 @@ export function saveStoredUserGoals(goals: UserGoals): void {
   }
 }
 
-export function loadStoredJobs(): JobApplication[] {
+export function loadStoredJobs(userId?: string): JobApplication[] {
+  if (!userId) return [];
   try {
-    const raw = localStorage.getItem(JOBS_STORAGE_KEY);
-    if (!raw) {
-      localStorage.setItem(JOBS_STORAGE_KEY, JSON.stringify([]));
-      return [];
-    }
+    const raw = localStorage.getItem(`${JOBS_STORAGE_KEY}_${userId}`);
+    if (!raw) return [];
     const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed)) {
-      return parsed;
-    }
-    return [];
+    return Array.isArray(parsed) ? parsed : [];
   } catch (err) {
-    console.error('Failed to parse stored jobs, starting fresh', err);
+    console.error('Failed to parse stored jobs', err);
     return [];
   }
 }
 
-export function saveStoredJobs(jobs: JobApplication[]): void {
+export function saveStoredJobs(jobs: JobApplication[], userId?: string): void {
+  if (!userId) return;
   try {
-    localStorage.setItem(JOBS_STORAGE_KEY, JSON.stringify(jobs));
+    localStorage.setItem(`${JOBS_STORAGE_KEY}_${userId}`, JSON.stringify(jobs));
   } catch (err) {
     console.error('Failed to save jobs to localStorage', err);
   }
 }
 
-export function loadStoredResumes(): ResumeItem[] {
+export function loadStoredResumes(userId?: string): ResumeItem[] {
+  if (!userId) return [];
   try {
-    const raw = localStorage.getItem(RESUMES_STORAGE_KEY);
-    if (!raw) {
-      localStorage.setItem(RESUMES_STORAGE_KEY, JSON.stringify([]));
-      return [];
-    }
+    const raw = localStorage.getItem(`${RESUMES_STORAGE_KEY}_${userId}`);
+    if (!raw) return [];
     const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed)) {
-      return parsed;
-    }
-    return [];
+    return Array.isArray(parsed) ? parsed : [];
   } catch (err) {
     console.error('Failed to parse stored resumes', err);
     return [];
   }
 }
 
-export function saveStoredResumes(resumes: ResumeItem[]): void {
+export function saveStoredResumes(resumes: ResumeItem[], userId?: string): void {
+  if (!userId) return;
   try {
-    localStorage.setItem(RESUMES_STORAGE_KEY, JSON.stringify(resumes));
+    localStorage.setItem(`${RESUMES_STORAGE_KEY}_${userId}`, JSON.stringify(resumes));
   } catch (err) {
     console.error('Failed to save resumes to localStorage', err);
   }
