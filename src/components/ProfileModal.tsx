@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { UserProfile } from '../types';
 import { DEFAULT_USER_PROFILE } from '../utils/storage';
+import { api } from '../services/api';
 
 interface ProfileModalProps {
   isOpen: boolean;
@@ -161,26 +162,74 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
     }, 600);
   };
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!authEmail.trim()) {
-      setAuthError('Please enter your email address.');
+    setAuthError(null);
+
+    if (!authEmail.trim() || !authPassword) {
+      setAuthError('Please enter your email and password.');
       return;
     }
-    const resolvedName = authName.trim() || authEmail.split('@')[0];
-    onLogin(authEmail.trim(), resolvedName);
-    setSavedSuccess(true);
-    setTimeout(() => {
-      onClose();
-    }, 500);
+
+    try {
+      if (mode === 'signup') {
+        if (!authName.trim()) {
+          setAuthError('Please enter your full name.');
+          return;
+        }
+        if (authPassword.length < 6) {
+          setAuthError('Password must be at least 6 characters long.');
+          return;
+        }
+
+        const res = await api.signup({
+          name: authName.trim(),
+          email: authEmail.trim(),
+          password: authPassword,
+        });
+        onSaveProfile(res.user);
+        setSavedSuccess(true);
+        setTimeout(() => {
+          onClose();
+        }, 500);
+      } else {
+        const res = await api.login({
+          email: authEmail.trim(),
+          password: authPassword,
+        });
+        onSaveProfile(res.user);
+        setSavedSuccess(true);
+        setTimeout(() => {
+          onClose();
+        }, 500);
+      }
+    } catch (err: any) {
+      setAuthError(err.message || 'Authentication failed. Please check your credentials.');
+    }
   };
 
-  const handleQuickDemoLogin = () => {
-    onLogin('alex.rivera@example.com', 'Alex Rivera');
-    setSavedSuccess(true);
-    setTimeout(() => {
-      onClose();
-    }, 400);
+  const handleQuickDemoLogin = async () => {
+    setAuthError(null);
+    try {
+      let res;
+      try {
+        res = await api.login({ email: 'alex.rivera@example.com', password: 'demo-password-123' });
+      } catch (e) {
+        res = await api.signup({
+          name: 'Alex Rivera',
+          email: 'alex.rivera@example.com',
+          password: 'demo-password-123',
+          role: 'Senior Software Engineer'
+        });
+      }
+      onSaveProfile(res.user);
+      setSavedSuccess(true);
+      setTimeout(() => {
+        onClose();
+      }, 400);
+    } catch (err: any) {
+      setAuthError(err.message || 'Demo login failed.');
+    }
   };
 
   const handleLogoutClick = () => {

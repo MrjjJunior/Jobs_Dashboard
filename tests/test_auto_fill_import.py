@@ -76,5 +76,48 @@ class TestJobImport(unittest.TestCase):
         self.assertEqual(curr, "ZAR")
         self.assertEqual(period, "year")
 
+
+class TestUserAuthentication(unittest.TestCase):
+    def test_signup_and_login_flow(self):
+        email = "testuser@example.com"
+        password = "SecurePassword123!"
+
+        # 1. Signup user
+        signup_res = client.post("/api/auth/signup", json={
+            "name": "Test User",
+            "email": email,
+            "password": password
+        })
+        self.assertEqual(signup_res.status_code, 201)
+        data = signup_res.json()
+        self.assertEqual(data["user"]["email"], email)
+
+        # 2. Login with WRONG password -> MUST FAIL with 401
+        wrong_login_res = client.post("/api/auth/login", json={
+            "email": email,
+            "password": "WrongPassword456!"
+        })
+        self.assertEqual(wrong_login_res.status_code, 401)
+        self.assertIn("Invalid email or password", wrong_login_res.json()["detail"])
+
+        # 3. Login with CORRECT password -> MUST SUCCEED with 200
+        correct_login_res = client.post("/api/auth/login", json={
+            "email": email,
+            "password": password
+        })
+        self.assertEqual(correct_login_res.status_code, 200)
+        self.assertEqual(correct_login_res.json()["user"]["email"], email)
+
+        # 4. Duplicate signup with same email -> MUST FAIL with 400
+        dup_signup_res = client.post("/api/auth/signup", json={
+            "name": "Duplicate User",
+            "email": email,
+            "password": "AnotherPassword789!"
+        })
+        self.assertEqual(dup_signup_res.status_code, 400)
+        self.assertIn("already exists", dup_signup_res.json()["detail"])
+
+
 if __name__ == "__main__":
     unittest.main()
+

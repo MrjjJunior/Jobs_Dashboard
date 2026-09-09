@@ -154,6 +154,9 @@ export default function App() {
   }, [userGoals]);
 
   const handleUpdateProfile = (updated: UserProfile) => {
+    if (!updated.id) {
+      updated.id = `user-${Date.now()}`;
+    }
     setUserProfile(updated);
     api.saveProfile(updated).catch((e) => console.warn('Could not sync profile to backend:', e));
   };
@@ -175,8 +178,10 @@ export default function App() {
   };
 
   const handleLogin = (email: string, name: string) => {
+    const userId = userProfile.id || `user-${Date.now()}`;
     const updated = {
       ...userProfile,
+      id: userId,
       email,
       name,
       isLoggedIn: true,

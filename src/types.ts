@@ -66,6 +66,7 @@ export interface AtsMatchResult {
 
 export interface ResumeItem {
   id: string;
+  userId?: string;
   name: string; // e.g. "Senior React & Frontend CV.pdf"
   fileName?: string;
   fileSize?: string;
@@ -102,6 +103,7 @@ export interface ExtractedJobPreview {
 
 export interface JobApplication {
   id: string;
+  userId?: string;
   company: string;
   role: string;
   location: string;
@@ -181,6 +183,7 @@ export interface UserProfile {
 }
 
 export interface UserGoals {
+  userId?: string;
   monthlyApplicationsTarget: number;
   weeklyApplicationsTarget: number;
   monthlyInterviewsTarget: number;

@@ -9,17 +9,17 @@ const USER_PROFILE_STORAGE_KEY = 'job_tracker_user_profile_v1';
 const USER_GOALS_STORAGE_KEY = 'job_tracker_user_goals_v1';
 
 export const DEFAULT_USER_PROFILE: UserProfile = {
-  id: 'user-1',
-  name: 'Alex Rivera',
-  email: 'alex.rivera@example.com',
-  role: 'Senior Front-End Engineer',
+  id: '',
+  name: '',
+  email: '',
+  role: '',
   avatarUrl: null,
-  location: 'San Francisco, CA',
-  phone: '+1 (555) 382-9012',
-  linkedin: 'https://linkedin.com/in/alex-rivera-frontend',
-  github: 'https://github.com/alexrivera-dev',
-  bio: 'Senior Front-End Engineer specializing in React 16.8 (Hooks), TypeScript, Redux Saga, Webpack 4, GraphQL, and responsive Web Performance Optimization.',
-  isLoggedIn: true,
+  location: '',
+  phone: '',
+  linkedin: '',
+  github: '',
+  bio: '',
+  isLoggedIn: false,
 };
 
 export const DEFAULT_USER_GOALS: UserGoals = {
@@ -27,17 +27,16 @@ export const DEFAULT_USER_GOALS: UserGoals = {
   weeklyApplicationsTarget: 5,
   monthlyInterviewsTarget: 4,
   monthlyOffersTarget: 1,
-  targetMinSalary: 155000,
+  targetMinSalary: 145000,
   salaryCurrency: 'USD',
-  focusNotes: 'Prioritize Senior Front-End & UI Engineering roles with modern React component architecture, high engineering standards, and competitive equity.',
-  targetMonth: '2019-10',
+  focusNotes: 'Prioritize roles with competitive compensation and modern tech stack.',
+  targetMonth: new Date().toISOString().slice(0, 7),
 };
 
 export function loadStoredUserProfile(): UserProfile {
   try {
     const raw = localStorage.getItem(USER_PROFILE_STORAGE_KEY);
     if (!raw || raw === 'undefined' || raw === 'null') {
-      localStorage.setItem(USER_PROFILE_STORAGE_KEY, JSON.stringify(DEFAULT_USER_PROFILE));
       return DEFAULT_USER_PROFILE;
     }
     const parsed = JSON.parse(raw);

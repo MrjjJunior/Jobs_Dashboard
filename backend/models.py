@@ -71,6 +71,7 @@ class AtsMatchResult(BaseModel):
 
 class ResumeItem(BaseModel):
     id: str
+    userId: Optional[str] = None
     name: str  # e.g. "Senior React & Frontend CV.pdf"
     fileName: Optional[str] = None
     fileSize: Optional[str] = None
@@ -111,6 +112,7 @@ class ExtractedJobPreview(BaseModel):
 
 class JobApplication(BaseModel):
     id: str
+    userId: Optional[str] = None
     company: str
     role: str
     location: str = ""
@@ -162,20 +164,21 @@ class JobApplication(BaseModel):
 
 
 class UserProfile(BaseModel):
-    id: str = "user-1"
-    name: str = "Alex Rivera"
-    email: str = "alex.rivera@example.com"
-    role: str = "Senior Software Engineer"
+    id: str = ""
+    name: str = ""
+    email: str = ""
+    role: str = ""
     avatarUrl: Optional[str] = None
-    location: Optional[str] = "San Francisco, CA"
-    phone: Optional[str] = "+1 (555) 382-9012"
-    linkedin: Optional[str] = "https://linkedin.com/in/alex-rivera-tech"
-    github: Optional[str] = "https://github.com/alexrivera-dev"
-    bio: Optional[str] = "Experienced engineer specializing in React, TypeScript, Python, and cloud services."
-    isLoggedIn: bool = True
+    location: Optional[str] = None
+    phone: Optional[str] = None
+    linkedin: Optional[str] = None
+    github: Optional[str] = None
+    bio: Optional[str] = None
+    isLoggedIn: bool = False
 
 
 class UserGoals(BaseModel):
+    userId: Optional[str] = None
     monthlyApplicationsTarget: int = 20
     weeklyApplicationsTarget: int = 5
     monthlyInterviewsTarget: int = 4
@@ -219,3 +222,21 @@ class StageUpdatePayload(BaseModel):
 
 class RatingUpdatePayload(BaseModel):
     rating: int
+
+
+class SignupRequest(BaseModel):
+    name: str
+    email: str
+    password: str
+    role: Optional[str] = "Job Seeker"
+
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
+
+class AuthResponse(BaseModel):
+    user: UserProfile
+    token: str
+

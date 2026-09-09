@@ -10,16 +10,35 @@ import {
 
 const API_BASE = '/api';
 
+function getActiveUserId(): string | null {
+  try {
+    const raw = localStorage.getItem('job_tracker_user_profile_v1');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed?.id) {
+        return parsed.id;
+      }
+    }
+  } catch (e) {}
+  return null;
+}
+
 /**
  * Helper to handle fetch responses
  */
 async function fetchJson<T>(url: string, options?: RequestInit): Promise<T> {
+  const userId = getActiveUserId();
+  const reqHeaders: Record<string, string> = {
+    'Content-Type': 'application/json',
+    ...(options?.headers as Record<string, string> || {}),
+  };
+  if (userId) {
+    reqHeaders['X-User-Id'] = userId;
+  }
+
   const res = await fetch(url, {
-    headers: {
-      'Content-Type': 'application/json',
-      ...(options?.headers || {}),
-    },
     ...options,
+    headers: reqHeaders,
   });
 
   if (!res.ok) {
@@ -145,6 +164,21 @@ export const api = {
     }
 
     return res.json();
+  },
+
+  // Authentication API
+  signup: async (payload: { name: string; email: string; password: string; role?: string }): Promise<{ user: UserProfile; token: string }> => {
+    return fetchJson(`${API_BASE}/auth/signup`, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+  },
+
+  login: async (payload: { email: string; password: string }): Promise<{ user: UserProfile; token: string }> => {
+    return fetchJson(`${API_BASE}/auth/login`, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
   },
 
   // User Profile & Goals
