@@ -70,7 +70,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         {/* Brand */}
         <div className="flex items-center gap-3 h-9 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
           <div>
-            <span className="font-black text-2xl tracking-tighter text-[#ADFCF9] flex items-center gap-1.5 drop-shadow-sm">
+            <span className="font-black text-2xl tracking-tighter text-white flex items-center gap-1.5 drop-shadow-sm">
               Jobbdash
             </span>
           </div>
