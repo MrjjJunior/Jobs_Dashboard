@@ -273,11 +273,11 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
                   <div className="space-y-1.5 text-[11px] pt-2 border-t border-slate-200/60">
                     <div className="flex justify-between text-slate-600">
                       <span>Keywords Matched:</span>
-                      <strong className="text-emerald-700">{ats.matchedKeywords.length}</strong>
+                      <strong className="text-emerald-700">{ats.matchedKeywords.length + ats.matchedSoftSkills.length}</strong>
                     </div>
                     <div className="flex justify-between text-slate-600">
                       <span>Keywords Missing:</span>
-                      <strong className="text-rose-600">{ats.missingKeywords.length}</strong>
+                      <strong className="text-rose-600">{ats.missingKeywords.length + ats.missingSoftSkills.length}</strong>
                     </div>
                     <div className="flex justify-between text-slate-600">
                       <span>Rating:</span>
@@ -514,11 +514,11 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
             {/* Matched Keywords Tags */}
             <div className="py-3 border-b border-slate-100">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-2">
-                Matched Technical Keywords ({atsResult.matchedKeywords.length})
+                Matched Technical Keywords ({atsResult.matchedKeywords.length + atsResult.matchedSoftSkills.length})
               </span>
-              {atsResult.matchedKeywords.length > 0 ? (
+              {atsResult.matchedKeywords.length > 0 || atsResult.matchedSoftSkills.length > 0 ? (
                 <div className="flex flex-wrap gap-1.5">
-                  {atsResult.matchedKeywords.map((kw, i) => (
+                  {[...atsResult.matchedKeywords, ...atsResult.matchedSoftSkills].map((kw, i) => (
                     <span
                       key={i}
                       className="text-[11px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded-md flex items-center gap-1"
@@ -537,13 +537,13 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
             <div className="py-3 border-b border-slate-100">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                  Missing Keywords from Job ({atsResult.missingKeywords.length})
+                  Missing Keywords from Job ({atsResult.missingKeywords.length + atsResult.missingSoftSkills.length})
                 </span>
                 <span className="text-[10px] text-slate-400">Click + to append to CV</span>
               </div>
-              {atsResult.missingKeywords.length > 0 ? (
+              {atsResult.missingKeywords.length > 0 || atsResult.missingSoftSkills.length > 0 ? (
                 <div className="flex flex-wrap gap-1.5">
-                  {atsResult.missingKeywords.map((kw, i) => (
+                  {[...atsResult.missingKeywords, ...atsResult.missingSoftSkills].map((kw, i) => (
                     <button
                       key={i}
                       onClick={() => handleAddKeywordToResume(kw)}

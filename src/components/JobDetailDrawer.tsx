@@ -308,16 +308,16 @@ export const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({
                     Matched Skills for {job.company}
                   </span>
                   <div className="flex flex-wrap gap-1">
-                    {job.atsMatchResult.matchedKeywords.slice(0, 6).map((kw, i) => (
+                    {[...job.atsMatchResult.matchedKeywords, ...job.atsMatchResult.matchedSoftSkills].slice(0, 6).map((kw, i) => (
                       <span
-                        key={i}
-                        className="text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 px-1.5 py-0.2 rounded"
+                        key={`matched-${i}`}
+                        className="text-[10px] font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.2 rounded"
                       >
                         ✓ {kw}
                       </span>
                     ))}
-                    {job.atsMatchResult.missingKeywords.length > 0 && 
-                      job.atsMatchResult.missingKeywords.slice(0, 6).map((kw, i) => (
+                    {(job.atsMatchResult.missingKeywords.length > 0 || job.atsMatchResult.missingSoftSkills.length > 0) && 
+                      [...job.atsMatchResult.missingKeywords, ...job.atsMatchResult.missingSoftSkills].slice(0, 6).map((kw, i) => (
                         <span
                           key={`missing-${i}`}
                           className="text-[10px] font-medium text-rose-600 bg-rose-50 border border-rose-200 px-1.5 py-0.2 rounded"
@@ -326,9 +326,9 @@ export const JobDetailDrawer: React.FC<JobDetailDrawerProps> = ({
                         </span>
                       ))
                     }
-                    {job.atsMatchResult.missingKeywords.length > 6 && (
+                    {([...job.atsMatchResult.missingKeywords, ...job.atsMatchResult.missingSoftSkills].length) > 6 && (
                       <span className="text-[10px] font-medium text-slate-500 px-1">
-                        +{job.atsMatchResult.missingKeywords.length - 6} more missing
+                        +{([...job.atsMatchResult.missingKeywords, ...job.atsMatchResult.missingSoftSkills].length) - 6} more missing
                       </span>
                     )}
                   </div>
