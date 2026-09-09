@@ -68,13 +68,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       {/* Top Navigation */}
       <header className="sticky top-0 z-50 bg-[#00302c]/90 backdrop-blur-md border-b border-[#917C78]/30 px-4 lg:px-12 py-3.5 flex items-center justify-between">
         {/* Brand */}
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#90A955] to-[#ADFCF9] flex items-center justify-center text-[#003B36] shadow-lg shadow-[#90A955]/20 font-bold">
-            <Briefcase className="w-5 h-5 text-[#003B36]" />
-          </div>
+        <div className="flex items-center gap-3 h-9 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
           <div>
-            <span className="font-extrabold text-base sm:text-lg tracking-tight text-[#F3E8EE] flex items-center gap-1.5">
-              Jobbdash <span className="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded bg-[#ADFCF9]/20 text-[#ADFCF9] border border-[#ADFCF9]/40">Pro</span>
+            <span className="font-black text-2xl tracking-tighter text-[#ADFCF9] flex items-center gap-1.5 drop-shadow-sm">
+              Jobbdash
             </span>
           </div>
         </div>
