@@ -148,6 +148,21 @@ export const JobModal: React.FC<JobModalProps> = ({
     }
   }, [initialJob, defaultStage, defaultCurrency, isOpen, resumes]);
 
+  // Close modal on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   const handleAutoFillUrl = async () => {
     const urlToFetch = importUrlInput.trim() || jobUrl.trim();
     if (!urlToFetch) {
@@ -302,18 +317,27 @@ export const JobModal: React.FC<JobModalProps> = ({
     };
 
 
-    onSave(jobToSave);
-    onClose();
+    try {
+      onSave(jobToSave);
+    } catch (err) {
+      console.error('Error saving job:', err);
+    } finally {
+      onClose();
+    }
   };
 
+  if (!isOpen) return null;
+
   return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs overflow-y-auto"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
-    >
-      <div className="bg-white rounded-2xl max-w-xl w-full border border-slate-200 shadow-2xl overflow-hidden flex flex-col my-auto max-h-[92vh] animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+      {/* Backdrop overlay */}
+      <div 
+        className="fixed inset-0 bg-slate-900/50 backdrop-blur-xs cursor-pointer" 
+        onClick={onClose}
+        aria-hidden="true"
+      />
+
+      <div className="relative z-10 bg-white rounded-2xl max-w-xl w-full border border-slate-200 shadow-2xl overflow-hidden flex flex-col my-auto max-h-[92vh] animate-fadeIn">
         {/* Modal Header */}
         <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/70 shrink-0">
           <div className="flex items-center gap-3">
