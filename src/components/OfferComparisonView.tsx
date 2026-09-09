@@ -88,23 +88,23 @@ export const OfferComparisonView: React.FC<OfferComparisonViewProps> = ({
   return (
     <div className="space-y-6 animate-fadeIn">
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 rounded-2xl p-6 text-white shadow-md flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-gradient-to-r from-olive-900 via-aqua-900 to-pine-900 rounded-2xl p-6 text-white shadow-md flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-olive-300 text-xs font-bold uppercase tracking-wider mb-1">
             <Trophy className="w-4 h-4" />
             <span>Decision Matrix & Decision Engine</span>
           </div>
           <h2 className="text-2xl font-bold font-display tracking-tight text-white">
             Job Offer & Opportunity Comparison
           </h2>
-          <p className="text-emerald-100 text-sm mt-1 max-w-xl">
+          <p className="text-olive-100 text-sm mt-1 max-w-xl">
             Evaluate compensation, equity, workplace flexibility, and personal alignment to choose your optimal next career move.
           </p>
         </div>
 
         {/* Compare selector pills */}
         <div className="flex flex-wrap gap-2 items-center bg-white/10 p-2.5 rounded-xl border border-white/10">
-          <span className="text-xs font-semibold text-emerald-200">Comparing:</span>
+          <span className="text-xs font-semibold text-olive-200">Comparing:</span>
           {lateStageJobs.map((j) => {
             const isSelected = comparedJobIds.includes(j.id);
             return (
@@ -121,7 +121,7 @@ export const OfferComparisonView: React.FC<OfferComparisonViewProps> = ({
                 }}
                 className={`text-xs px-2.5 py-1 rounded-lg font-medium transition-all ${
                   isSelected
-                    ? 'bg-emerald-500 text-white shadow-xs font-bold'
+                    ? 'bg-olive-500 text-white shadow-xs font-bold'
                     : 'bg-white/20 text-white/80 hover:bg-white/30'
                 }`}
               >
@@ -134,8 +134,8 @@ export const OfferComparisonView: React.FC<OfferComparisonViewProps> = ({
 
       {/* Comparison Grid */}
       {comparedJobs.length === 0 ? (
-        <div className="bg-white rounded-xl p-12 text-center border border-slate-200">
-          <p className="text-slate-500 text-sm">No applications selected for comparison.</p>
+        <div className="bg-white rounded-xl p-12 text-center border border-linen-200">
+          <p className="text-taupe-500 text-sm">No applications selected for comparison.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -150,15 +150,15 @@ export const OfferComparisonView: React.FC<OfferComparisonViewProps> = ({
                 id={`offer-card-${job.id}`}
                 className={`bg-white rounded-2xl border transition-all duration-200 overflow-hidden flex flex-col justify-between shadow-xs ${
                   isAccepted
-                    ? 'ring-4 ring-emerald-500 border-emerald-500 shadow-xl'
+                    ? 'ring-4 ring-olive-500 border-olive-500 shadow-xl'
                     : isOffer
-                    ? 'border-emerald-300 ring-2 ring-emerald-100'
-                    : 'border-slate-200'
+                    ? 'border-olive-300 ring-2 ring-olive-100'
+                    : 'border-linen-200'
                 }`}
               >
                 <div>
                   {/* Card Top Header */}
-                  <div className="p-5 border-b border-slate-100 bg-slate-50/50 flex items-start justify-between gap-3">
+                  <div className="p-5 border-b border-linen-100 bg-linen-50/50 flex items-start justify-between gap-3">
                     <div className="flex items-center gap-3">
                       <div
                         className="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm text-white shadow-xs"
@@ -167,10 +167,10 @@ export const OfferComparisonView: React.FC<OfferComparisonViewProps> = ({
                         {getCompanyInitials(job.company)}
                       </div>
                       <div>
-                        <h3 className="font-bold text-base text-slate-900 leading-tight">
+                        <h3 className="font-bold text-base text-pine-900 leading-tight">
                           {job.company}
                         </h3>
-                        <p className="text-xs text-slate-500 font-medium">
+                        <p className="text-xs text-taupe-500 font-medium">
                           {job.role}
                         </p>
                       </div>
@@ -178,10 +178,10 @@ export const OfferComparisonView: React.FC<OfferComparisonViewProps> = ({
 
                     {/* Overall Match Score */}
                     <div className="text-right">
-                      <div className="text-2xl font-black text-emerald-700 font-display">
+                      <div className="text-2xl font-black text-olive-700 font-display">
                         {score}
                       </div>
-                      <div className="text-[10px] uppercase tracking-wider font-bold text-slate-400">
+                      <div className="text-[10px] uppercase tracking-wider font-bold text-taupe-400">
                         Fit Score
                       </div>
                     </div>
@@ -190,37 +190,37 @@ export const OfferComparisonView: React.FC<OfferComparisonViewProps> = ({
                   {/* Attributes Matrix */}
                   <div className="p-5 space-y-4 text-xs">
                     {/* Base Salary */}
-                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200/80">
-                      <div className="text-slate-400 font-semibold uppercase tracking-wider text-[10px] mb-0.5">
+                    <div className="bg-linen-50 p-3 rounded-xl border border-linen-200/80">
+                      <div className="text-taupe-400 font-semibold uppercase tracking-wider text-[10px] mb-0.5">
                         Base Salary
                       </div>
-                      <div className="text-base font-bold text-slate-900 font-mono">
+                      <div className="text-base font-bold text-pine-900 font-mono">
                         {formatSalary(job.salaryMin, job.salaryMax, job.salaryCurrency, job.salaryPeriod)}
                       </div>
                     </div>
 
                     {/* Bonus & Equity */}
-                    <div className="bg-slate-50 p-3 rounded-xl border border-slate-200/80">
-                      <div className="text-slate-400 font-semibold uppercase tracking-wider text-[10px] mb-0.5">
+                    <div className="bg-linen-50 p-3 rounded-xl border border-linen-200/80">
+                      <div className="text-taupe-400 font-semibold uppercase tracking-wider text-[10px] mb-0.5">
                         Bonus & Equity
                       </div>
-                      <div className="text-xs font-semibold text-slate-800">
+                      <div className="text-xs font-semibold text-pine-800">
                         {job.equityBonus || 'Standard package / Discretionary'}
                       </div>
                     </div>
 
                     {/* Workplace & Location */}
-                    <div className="flex justify-between items-center py-1 border-b border-slate-100">
-                      <span className="text-slate-500 font-medium">Workplace Model:</span>
-                      <span className="font-semibold text-slate-800 capitalize bg-slate-100 px-2 py-0.5 rounded">
+                    <div className="flex justify-between items-center py-1 border-b border-linen-100">
+                      <span className="text-taupe-500 font-medium">Workplace Model:</span>
+                      <span className="font-semibold text-pine-800 capitalize bg-linen-100 px-2 py-0.5 rounded">
                         {job.workplaceType} ({job.location})
                       </span>
                     </div>
 
                     {/* Benefits & Perks */}
-                    <div className="py-1 border-b border-slate-100">
-                      <div className="text-slate-500 font-medium mb-1">Key Perks:</div>
-                      <div className="text-slate-700 leading-relaxed font-medium bg-slate-50 p-2 rounded-lg text-[11px]">
+                    <div className="py-1 border-b border-linen-100">
+                      <div className="text-taupe-500 font-medium mb-1">Key Perks:</div>
+                      <div className="text-taupe-700 leading-relaxed font-medium bg-linen-50 p-2 rounded-lg text-[11px]">
                         {job.benefits || 'Standard health, dental, and 401(k)'}
                       </div>
                     </div>
@@ -228,7 +228,7 @@ export const OfferComparisonView: React.FC<OfferComparisonViewProps> = ({
                     {/* Decision Deadline */}
                     {job.deadline && (
                       <div className="flex justify-between items-center py-1">
-                        <span className="text-slate-500 font-medium">Offer Deadline:</span>
+                        <span className="text-taupe-500 font-medium">Offer Deadline:</span>
                         <span className="font-semibold text-rose-600 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">
                           {job.deadline}
                         </span>
@@ -237,10 +237,10 @@ export const OfferComparisonView: React.FC<OfferComparisonViewProps> = ({
 
                     {/* Interest / Match Rating */}
                     <div className="flex justify-between items-center py-1">
-                      <span className="text-slate-500 font-medium">Personal Enthusiasm:</span>
+                      <span className="text-taupe-500 font-medium">Personal Enthusiasm:</span>
                       <span className="font-bold text-amber-500">
                         {'★'.repeat(job.rating || 3)}
-                        <span className="text-slate-200">{'★'.repeat(5 - (job.rating || 3))}</span>
+                        <span className="text-linen-200">{'★'.repeat(5 - (job.rating || 3))}</span>
                       </span>
                     </div>
                   </div>
@@ -249,7 +249,7 @@ export const OfferComparisonView: React.FC<OfferComparisonViewProps> = ({
                 {/* Footer Action */}
                 <div className="p-5 pt-0">
                   {isAccepted ? (
-                    <div className="w-full py-2.5 bg-emerald-600 text-white rounded-xl font-bold text-xs text-center flex items-center justify-center gap-2 shadow-xs">
+                    <div className="w-full py-2.5 bg-olive-600 text-white rounded-xl font-bold text-xs text-center flex items-center justify-center gap-2 shadow-xs">
                       <Check className="w-4 h-4" />
                       Offer Accepted!
                     </div>
@@ -257,7 +257,7 @@ export const OfferComparisonView: React.FC<OfferComparisonViewProps> = ({
                     <button
                       id={`accept-offer-btn-${job.id}`}
                       onClick={() => handleCelebrateAccept(job)}
-                      className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-xs transition-all shadow-xs flex items-center justify-center gap-2"
+                      className="w-full py-2.5 bg-olive-600 hover:bg-olive-700 text-white rounded-xl font-bold text-xs transition-all shadow-xs flex items-center justify-center gap-2"
                     >
                       <Sparkles className="w-4 h-4" />
                       Select as Top Offer
@@ -266,7 +266,7 @@ export const OfferComparisonView: React.FC<OfferComparisonViewProps> = ({
 
                   <button
                     onClick={() => onSelectJob(job)}
-                    className="w-full mt-2 py-1.5 text-xs text-slate-500 hover:text-slate-800 font-medium text-center"
+                    className="w-full mt-2 py-1.5 text-xs text-taupe-500 hover:text-pine-800 font-medium text-center"
                   >
                     View full details & notes →
                   </button>

@@ -332,23 +332,23 @@ export const JobModal: React.FC<JobModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
       {/* Backdrop overlay */}
       <div 
-        className="fixed inset-0 bg-slate-900/50 backdrop-blur-xs cursor-pointer" 
+        className="fixed inset-0 bg-pine-900/50 backdrop-blur-xs cursor-pointer" 
         onClick={onClose}
         aria-hidden="true"
       />
 
-      <div className="relative z-10 bg-white rounded-2xl max-w-xl w-full border border-slate-200 shadow-2xl overflow-hidden flex flex-col my-auto max-h-[92vh] animate-fadeIn">
+      <div className="relative z-10 bg-white rounded-2xl max-w-xl w-full border border-linen-200 shadow-2xl overflow-hidden flex flex-col my-auto max-h-[92vh] animate-fadeIn">
         {/* Modal Header */}
-        <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/70 shrink-0">
+        <div className="px-6 py-4 border-b border-linen-100 flex items-center justify-between bg-linen-50/70 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold shadow-2xs">
-              <Briefcase className="w-4 h-4 text-emerald-700" />
+            <div className="w-9 h-9 rounded-xl bg-olive-100 text-olive-800 flex items-center justify-center font-bold shadow-2xs">
+              <Briefcase className="w-4 h-4 text-olive-700" />
             </div>
             <div>
-              <h2 className="font-bold text-slate-900 text-sm sm:text-base tracking-tight">
+              <h2 className="font-bold text-pine-900 text-sm sm:text-base tracking-tight">
                 {initialJob ? 'Edit Application' : 'Add Application'}
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-taupe-500">
                 {initialJob ? 'Update application progress and details' : 'Save a new job opportunity or import via listing URL'}
               </p>
             </div>
@@ -360,7 +360,7 @@ export const JobModal: React.FC<JobModalProps> = ({
               e.stopPropagation();
               onClose();
             }}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 transition-colors cursor-pointer"
+            className="p-1.5 rounded-lg text-taupe-400 hover:text-taupe-700 hover:bg-linen-200/60 transition-colors cursor-pointer"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -370,28 +370,28 @@ export const JobModal: React.FC<JobModalProps> = ({
 
         {/* Form Body */}
         <form onSubmit={handleSubmit} className="flex flex-col flex-1 overflow-hidden min-h-0">
-          <div className="p-6 space-y-4 text-xs text-slate-800 overflow-y-auto flex-1">
+          <div className="p-6 space-y-4 text-xs text-pine-800 overflow-y-auto flex-1">
             {/* Auto-Fill from URL Section */}
             {!initialJob && (
-              <div className="p-3.5 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50/60 border border-emerald-200/80 rounded-xl space-y-2.5 shadow-2xs">
+              <div className="p-3.5 bg-gradient-to-r from-olive-50 via-aqua-50 to-olive-50/60 border border-olive-200/80 rounded-xl space-y-2.5 shadow-2xs">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-emerald-700 animate-pulse" />
-                    <span className="font-bold text-emerald-950 text-xs">
+                    <Sparkles className="w-4 h-4 text-olive-700 animate-pulse" />
+                    <span className="font-bold text-olive-950 text-xs">
                       Auto-Fill from Job Listing URL
                     </span>
                   </div>
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100/80 text-emerald-800 border border-emerald-200">
+                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-olive-100/80 text-olive-800 border border-olive-200">
                     Server Extractor
                   </span>
                 </div>
-                <p className="text-[11px] text-emerald-900/80 leading-snug">
+                <p className="text-[11px] text-olive-900/80 leading-snug">
                   Paste job URL (e.g. LinkedIn, Indeed, Glassdoor, Greenhouse, Lever or company careers page) to auto-fill details.
                 </p>
 
                 <div className="flex items-center gap-2">
                   <div className="relative flex-1">
-                    <Globe className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <Globe className="w-3.5 h-3.5 text-taupe-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                     <input
                       type="url"
                       placeholder="https://company.com/careers/software-engineer..."
@@ -404,14 +404,14 @@ export const JobModal: React.FC<JobModalProps> = ({
                         }
                       }}
                       disabled={isExtracting}
-                      className="w-full pl-8 pr-3 py-1.5 bg-white border border-emerald-200 rounded-lg text-xs font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus-visible:outline-hidden disabled:bg-slate-50"
+                      className="w-full pl-8 pr-3 py-1.5 bg-white border border-olive-200 rounded-lg text-xs font-medium focus:border-olive-500 focus:ring-2 focus:ring-olive-500/20 focus-visible:outline-hidden disabled:bg-linen-50"
                     />
                   </div>
                   <button
                     type="button"
                     onClick={handleAutoFillUrl}
                     disabled={isExtracting || !importUrlInput.trim()}
-                    className="flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 disabled:bg-slate-300 text-white rounded-lg text-xs font-semibold shrink-0 shadow-2xs transition-colors cursor-pointer disabled:cursor-not-allowed"
+                    className="flex items-center gap-1.5 px-3.5 py-1.5 bg-olive-700 hover:bg-olive-800 active:bg-olive-900 disabled:bg-taupe-200 text-white rounded-lg text-xs font-semibold shrink-0 shadow-2xs transition-colors cursor-pointer disabled:cursor-not-allowed"
                   >
                     {isExtracting ? (
                       <>
@@ -436,13 +436,13 @@ export const JobModal: React.FC<JobModalProps> = ({
                 )}
 
                 {extractionStatus && !extractionError && (
-                  <div className="p-2.5 bg-emerald-100/70 border border-emerald-300/80 rounded-lg text-[11px] text-emerald-900 flex items-start justify-between gap-2 animate-fadeIn">
+                  <div className="p-2.5 bg-olive-100/70 border border-olive-300/80 rounded-lg text-[11px] text-olive-900 flex items-start justify-between gap-2 animate-fadeIn">
                     <div className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-olive-700 shrink-0 mt-0.5" />
                       <div>
-                        <p className="font-semibold text-emerald-950">{extractionStatus}</p>
+                        <p className="font-semibold text-olive-950">{extractionStatus}</p>
                         {usedAiFallback && (
-                          <p className="text-[10px] text-emerald-800 font-medium mt-0.5">
+                          <p className="text-[10px] text-olive-800 font-medium mt-0.5">
                             ✨ Enhanced structured data using AI fallback.
                           </p>
                         )}
@@ -451,7 +451,7 @@ export const JobModal: React.FC<JobModalProps> = ({
                     {extractedConfidence && (
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 ${
                         extractedConfidence === 'high' 
-                          ? 'bg-emerald-600 text-white' 
+                          ? 'bg-olive-600 text-white' 
                           : extractedConfidence === 'medium' 
                           ? 'bg-amber-500 text-white' 
                           : 'bg-orange-500 text-white'
@@ -467,7 +467,7 @@ export const JobModal: React.FC<JobModalProps> = ({
             {/* Row 1: Role & Company */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">
+                <label className="block font-semibold text-taupe-700 mb-1">
                   Job Title / Role <span className="text-rose-500">*</span>
                 </label>
                 <input
@@ -476,12 +476,12 @@ export const JobModal: React.FC<JobModalProps> = ({
                   placeholder="e.g. Senior Frontend Engineer"
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus-visible:outline-hidden transition-all"
+                  className="w-full px-3 py-2 bg-white border border-linen-200 rounded-lg text-xs font-medium focus:border-olive-500 focus:ring-2 focus:ring-olive-500/20 focus-visible:outline-hidden transition-all"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">
+                <label className="block font-semibold text-taupe-700 mb-1">
                   Company / Organization <span className="text-rose-500">*</span>
                 </label>
                 <input
@@ -490,7 +490,7 @@ export const JobModal: React.FC<JobModalProps> = ({
                   placeholder="e.g. Stripe, Acme Corp"
                   value={company}
                   onChange={(e) => setCompany(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus-visible:outline-hidden transition-all"
+                  className="w-full px-3 py-2 bg-white border border-linen-200 rounded-lg text-xs font-medium focus:border-olive-500 focus:ring-2 focus:ring-olive-500/20 focus-visible:outline-hidden transition-all"
                 />
               </div>
             </div>
@@ -498,13 +498,13 @@ export const JobModal: React.FC<JobModalProps> = ({
             {/* Row 2: Status Stage & Priority */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">
+                <label className="block font-semibold text-taupe-700 mb-1">
                   Application Status
                 </label>
                 <select
                   value={stage}
                   onChange={(e) => setStage(e.target.value as JobStage)}
-                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus-visible:outline-hidden cursor-pointer"
+                  className="w-full px-3 py-2 bg-white border border-linen-200 rounded-lg text-xs font-medium focus:border-olive-500 focus:ring-2 focus:ring-olive-500/20 focus-visible:outline-hidden cursor-pointer"
                 >
                   {Object.entries(STAGES_CONFIG).map(([key, conf]) => (
                     <option key={key} value={key}>
@@ -515,13 +515,13 @@ export const JobModal: React.FC<JobModalProps> = ({
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">
+                <label className="block font-semibold text-taupe-700 mb-1">
                   Priority Level
                 </label>
                 <select
                   value={priority}
                   onChange={(e) => setPriority(e.target.value as Priority)}
-                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus-visible:outline-hidden cursor-pointer"
+                  className="w-full px-3 py-2 bg-white border border-linen-200 rounded-lg text-xs font-medium focus:border-olive-500 focus:ring-2 focus:ring-olive-500/20 focus-visible:outline-hidden cursor-pointer"
                 >
                   <option value="high">High Priority</option>
                   <option value="medium">Medium Priority</option>
@@ -533,7 +533,7 @@ export const JobModal: React.FC<JobModalProps> = ({
             {/* Row 3: Location, Workplace Type, Employment Type */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">
+                <label className="block font-semibold text-taupe-700 mb-1">
                   Location
                 </label>
                 <input
@@ -541,18 +541,18 @@ export const JobModal: React.FC<JobModalProps> = ({
                   placeholder="e.g. San Francisco, Remote"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus-visible:outline-hidden"
+                  className="w-full px-3 py-2 bg-white border border-linen-200 rounded-lg text-xs font-medium focus:border-olive-500 focus:ring-2 focus:ring-olive-500/20 focus-visible:outline-hidden"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">
+                <label className="block font-semibold text-taupe-700 mb-1">
                   Workplace Type
                 </label>
                 <select
                   value={workplaceType}
                   onChange={(e) => setWorkplaceType(e.target.value as WorkplaceType)}
-                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus-visible:outline-hidden cursor-pointer"
+                  className="w-full px-3 py-2 bg-white border border-linen-200 rounded-lg text-xs font-medium focus:border-olive-500 focus:ring-2 focus:ring-olive-500/20 focus-visible:outline-hidden cursor-pointer"
                 >
                   <option value="remote">Remote</option>
                   <option value="hybrid">Hybrid</option>
@@ -561,13 +561,13 @@ export const JobModal: React.FC<JobModalProps> = ({
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">
+                <label className="block font-semibold text-taupe-700 mb-1">
                   Job Type
                 </label>
                 <select
                   value={employmentType}
                   onChange={(e) => setEmploymentType(e.target.value as EmploymentType)}
-                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus-visible:outline-hidden cursor-pointer"
+                  className="w-full px-3 py-2 bg-white border border-linen-200 rounded-lg text-xs font-medium focus:border-olive-500 focus:ring-2 focus:ring-olive-500/20 focus-visible:outline-hidden cursor-pointer"
                 >
                   <option value="full-time">Full-Time</option>
                   <option value="part-time">Part-Time</option>
@@ -578,8 +578,8 @@ export const JobModal: React.FC<JobModalProps> = ({
             </div>
 
             {/* Row 4: Salary Range & Currency */}
-            <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
-              <span className="block font-semibold text-slate-700">
+            <div className="p-3.5 bg-linen-50 border border-linen-200 rounded-xl space-y-2">
+              <span className="block font-semibold text-taupe-700">
                 Salary or Compensation (Optional)
               </span>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -589,7 +589,7 @@ export const JobModal: React.FC<JobModalProps> = ({
                     placeholder="Min Salary"
                     value={salaryMin}
                     onChange={(e) => setSalaryMin(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-md text-xs font-medium focus:border-emerald-500 focus-visible:outline-hidden"
+                    className="w-full px-2.5 py-1.5 bg-white border border-linen-200 rounded-md text-xs font-medium focus:border-olive-500 focus-visible:outline-hidden"
                   />
                 </div>
                 <div>
@@ -598,14 +598,14 @@ export const JobModal: React.FC<JobModalProps> = ({
                     placeholder="Max Salary"
                     value={salaryMax}
                     onChange={(e) => setSalaryMax(e.target.value)}
-                    className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-md text-xs font-medium focus:border-emerald-500 focus-visible:outline-hidden"
+                    className="w-full px-2.5 py-1.5 bg-white border border-linen-200 rounded-md text-xs font-medium focus:border-olive-500 focus-visible:outline-hidden"
                   />
                 </div>
                 <div>
                   <select
                     value={salaryCurrency}
                     onChange={(e) => setSalaryCurrency(e.target.value)}
-                    className="w-full px-2 py-1.5 bg-white border border-slate-200 rounded-md text-xs font-medium focus:border-emerald-500 focus-visible:outline-hidden cursor-pointer"
+                    className="w-full px-2 py-1.5 bg-white border border-linen-200 rounded-md text-xs font-medium focus:border-olive-500 focus-visible:outline-hidden cursor-pointer"
                   >
                     {SUPPORTED_CURRENCIES.map((c) => (
                       <option key={c.code} value={c.code}>
@@ -618,7 +618,7 @@ export const JobModal: React.FC<JobModalProps> = ({
                   <select
                     value={salaryPeriod}
                     onChange={(e) => setSalaryPeriod(e.target.value as SalaryPeriod)}
-                    className="w-full px-2 py-1.5 bg-white border border-slate-200 rounded-md text-xs font-medium focus:border-emerald-500 focus-visible:outline-hidden cursor-pointer"
+                    className="w-full px-2 py-1.5 bg-white border border-linen-200 rounded-md text-xs font-medium focus:border-olive-500 focus-visible:outline-hidden cursor-pointer"
                   >
                     <option value="year">/ Year</option>
                     <option value="month">/ Month</option>
@@ -631,7 +631,7 @@ export const JobModal: React.FC<JobModalProps> = ({
             {/* Row 5: Job URL & Applied Date */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">
+                <label className="block font-semibold text-taupe-700 mb-1">
                   Job Posting URL
                 </label>
                 <input
@@ -639,19 +639,19 @@ export const JobModal: React.FC<JobModalProps> = ({
                   placeholder="https://..."
                   value={jobUrl}
                   onChange={(e) => setJobUrl(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus-visible:outline-hidden"
+                  className="w-full px-3 py-2 bg-white border border-linen-200 rounded-lg text-xs font-medium focus:border-olive-500 focus:ring-2 focus:ring-olive-500/20 focus-visible:outline-hidden"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">
+                <label className="block font-semibold text-taupe-700 mb-1">
                   Date Applied
                 </label>
                 <input
                   type="date"
                   value={appliedDate}
                   onChange={(e) => setAppliedDate(e.target.value)}
-                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus-visible:outline-hidden"
+                  className="w-full px-3 py-2 bg-white border border-linen-200 rounded-lg text-xs font-medium focus:border-olive-500 focus:ring-2 focus:ring-olive-500/20 focus-visible:outline-hidden"
                 />
               </div>
             </div>
@@ -659,7 +659,7 @@ export const JobModal: React.FC<JobModalProps> = ({
             {/* Row 6: Resume Attached */}
             {resumes.length > 0 && (
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">
+                <label className="block font-semibold text-taupe-700 mb-1">
                   Resume Used
                 </label>
                 <select
@@ -670,7 +670,7 @@ export const JobModal: React.FC<JobModalProps> = ({
                     const selected = resumes.find((r) => r.id === selectedId);
                     if (selected) setResumeVersion(selected.name);
                   }}
-                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus-visible:outline-hidden cursor-pointer"
+                  className="w-full px-3 py-2 bg-white border border-linen-200 rounded-lg text-xs font-medium focus:border-olive-500 focus:ring-2 focus:ring-olive-500/20 focus-visible:outline-hidden cursor-pointer"
                 >
                   <option value="">Select a saved resume...</option>
                   {resumes.map((r) => (
@@ -684,7 +684,7 @@ export const JobModal: React.FC<JobModalProps> = ({
 
             {/* Row 7: Tags */}
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">
+              <label className="block font-semibold text-taupe-700 mb-1">
                 Tags & Keywords
               </label>
               <div className="flex gap-2 mb-2">
@@ -699,12 +699,12 @@ export const JobModal: React.FC<JobModalProps> = ({
                       handleAddTag();
                     }
                   }}
-                  className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus-visible:outline-hidden"
+                  className="w-full px-3 py-2 bg-white border border-linen-200 rounded-lg text-xs font-medium focus:border-olive-500 focus:ring-2 focus:ring-olive-500/20 focus-visible:outline-hidden"
                 />
                 <button
                   type="button"
                   onClick={handleAddTag}
-                  className="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold shrink-0 cursor-pointer"
+                  className="px-3 py-2 bg-linen-100 hover:bg-linen-200 text-taupe-700 rounded-lg text-xs font-semibold shrink-0 cursor-pointer"
                 >
                   Add
                 </button>
@@ -714,13 +714,13 @@ export const JobModal: React.FC<JobModalProps> = ({
                   {tags.map((tag) => (
                     <span
                       key={tag}
-                      className="inline-flex items-center gap-1 text-[11px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full font-medium border border-slate-200"
+                      className="inline-flex items-center gap-1 text-[11px] bg-linen-100 text-taupe-700 px-2 py-0.5 rounded-full font-medium border border-linen-200"
                     >
                       #{tag}
                       <button
                         type="button"
                         onClick={() => handleRemoveTag(tag)}
-                        className="text-slate-400 hover:text-rose-600 cursor-pointer"
+                        className="text-taupe-400 hover:text-rose-600 cursor-pointer"
                       >
                         ×
                       </button>
@@ -732,7 +732,7 @@ export const JobModal: React.FC<JobModalProps> = ({
 
             {/* Row 8: Job Description */}
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">
+              <label className="block font-semibold text-taupe-700 mb-1">
                 Job Description (Optional)
               </label>
               <textarea
@@ -740,13 +740,13 @@ export const JobModal: React.FC<JobModalProps> = ({
                 placeholder="Paste, auto-fill, or edit the full job description and role overview..."
                 value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}
-                className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus-visible:outline-hidden resize-y leading-relaxed"
+                className="w-full px-3 py-2 bg-white border border-linen-200 rounded-lg text-xs font-medium focus:border-olive-500 focus:ring-2 focus:ring-olive-500/20 focus-visible:outline-hidden resize-y leading-relaxed"
               />
             </div>
 
             {/* Row 9: Requirements & Qualifications */}
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">
+              <label className="block font-semibold text-taupe-700 mb-1">
                 Requirements & Qualifications (Optional)
               </label>
               <textarea
@@ -754,13 +754,13 @@ export const JobModal: React.FC<JobModalProps> = ({
                 placeholder="Paste, auto-fill, or edit key qualifications, tech stack, education, or experience required..."
                 value={requirements}
                 onChange={(e) => setRequirements(e.target.value)}
-                className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus-visible:outline-hidden resize-y leading-relaxed"
+                className="w-full px-3 py-2 bg-white border border-linen-200 rounded-lg text-xs font-medium focus:border-olive-500 focus:ring-2 focus:ring-olive-500/20 focus-visible:outline-hidden resize-y leading-relaxed"
               />
             </div>
 
             {/* Row 10: Personal Notes & Impressions */}
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">
+              <label className="block font-semibold text-taupe-700 mb-1">
                 Personal Notes & Impressions (Optional)
               </label>
               <textarea
@@ -768,14 +768,14 @@ export const JobModal: React.FC<JobModalProps> = ({
                 placeholder="Add contact names, referral details, interview questions, or personal impressions..."
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus-visible:outline-hidden resize-y leading-relaxed"
+                className="w-full px-3 py-2 bg-white border border-linen-200 rounded-lg text-xs font-medium focus:border-olive-500 focus:ring-2 focus:ring-olive-500/20 focus-visible:outline-hidden resize-y leading-relaxed"
               />
             </div>
           </div>
 
 
           {/* Modal Footer (Sticky) */}
-          <div className="px-6 py-3.5 border-t border-slate-100 flex items-center justify-end gap-2.5 bg-slate-50/70 shrink-0">
+          <div className="px-6 py-3.5 border-t border-linen-100 flex items-center justify-end gap-2.5 bg-linen-50/70 shrink-0">
             <button
               type="button"
               onClick={(e) => {
@@ -783,14 +783,14 @@ export const JobModal: React.FC<JobModalProps> = ({
                 e.stopPropagation();
                 onClose();
               }}
-              className="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
+              className="px-4 py-2 text-xs font-semibold text-taupe-600 hover:text-pine-800 hover:bg-linen-100 rounded-lg transition-colors cursor-pointer"
             >
               Cancel
             </button>
 
             <button
               type="submit"
-              className="flex items-center gap-1.5 px-5 py-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 cursor-pointer"
+              className="flex items-center gap-1.5 px-5 py-2 bg-olive-600 hover:bg-olive-700 active:bg-olive-800 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors focus-visible:ring-2 focus-visible:ring-olive-500 focus-visible:ring-offset-2 cursor-pointer"
             >
               <Check className="w-3.5 h-3.5" />
               <span>{initialJob ? 'Save Changes' : 'Add Application'}</span>

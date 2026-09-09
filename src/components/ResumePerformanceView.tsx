@@ -194,20 +194,20 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
   return (
     <div className="space-y-6 animate-fadeIn">
       {/* Top Banner & Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-5 rounded-xl border border-linen-200 shadow-xs">
         <div>
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+            <div className="w-8 h-8 rounded-lg bg-pine-50 text-pine-600 flex items-center justify-center font-bold">
               <BarChart2 className="w-4 h-4" />
             </div>
-            <h2 className="text-base font-bold text-slate-900">
+            <h2 className="text-base font-bold text-pine-900">
               Resume Performance & A/B Tracking
             </h2>
-            <span className="text-[10px] uppercase font-bold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">
+            <span className="text-[10px] uppercase font-bold bg-pine-100 text-pine-700 px-2 py-0.5 rounded-full">
               {resumes.length} Active CVs
             </span>
           </div>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-taupe-500 mt-1">
             See which resume version yields the highest interview conversion rates and ATS match scores across your job applications.
           </p>
         </div>
@@ -217,9 +217,9 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
             <button
               id="resume-builder-nav-btn"
               onClick={() => onNavigateToBuilder()}
-              className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-lg transition-colors"
+              className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-pine-700 bg-pine-50 hover:bg-pine-100 border border-pine-200 rounded-lg transition-colors"
             >
-              <BookOpen className="w-3.5 h-3.5 text-indigo-600" />
+              <BookOpen className="w-3.5 h-3.5 text-pine-600" />
               <span>Create Resume & Guide</span>
             </button>
           )}
@@ -227,9 +227,9 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
           <button
             id="ats-calculator-nav-btn"
             onClick={() => onNavigateToAts()}
-            className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-slate-700 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-taupe-700 bg-linen-50 hover:bg-linen-100 border border-linen-200 rounded-lg transition-colors"
           >
-            <Calculator className="w-3.5 h-3.5 text-blue-600" />
+            <Calculator className="w-3.5 h-3.5 text-pine-600" />
             <span>Open ATS Calculator</span>
           </button>
 
@@ -245,7 +245,7 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
               setFileSize('');
               setIsUploadModalOpen(true);
             }}
-            className="flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold shadow-xs transition-colors"
+            className="flex items-center gap-1.5 px-4 py-2 bg-pine-600 hover:bg-pine-700 text-white rounded-lg text-xs font-bold shadow-xs transition-colors"
           >
             <Upload className="w-3.5 h-3.5" />
             <span>Upload / Add Resume</span>
@@ -255,22 +255,22 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
 
       {/* Top Performer Highlight Card */}
       {topPerformer && topPerformer.totalApplications > 0 && (
-        <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 rounded-xl p-5 text-white shadow-md shadow-blue-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="bg-gradient-to-r from-pine-600 via-pine-600 to-pine-700 rounded-xl p-5 text-white shadow-md shadow-pine-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-start gap-3.5">
             <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
               <Trophy className="w-5 h-5 text-amber-300" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-extrabold uppercase tracking-widest bg-amber-400 text-slate-900 px-2 py-0.5 rounded">
+                <span className="text-[10px] font-extrabold uppercase tracking-widest bg-amber-400 text-pine-900 px-2 py-0.5 rounded">
                   Top Converting Resume
                 </span>
-                <span className="text-xs text-blue-100">Highest interview response rate</span>
+                <span className="text-xs text-pine-100">Highest interview response rate</span>
               </div>
               <h3 className="text-base font-extrabold text-white mt-1">
                 {topPerformer.resume.name}
               </h3>
-              <p className="text-xs text-blue-100 mt-0.5">
+              <p className="text-xs text-pine-100 mt-0.5">
                 Target Role: <span className="font-semibold text-white">{topPerformer.resume.targetRole || 'Software Engineer'}</span> • {topPerformer.resume.skills.length} verified ATS skills
               </p>
             </div>
@@ -278,16 +278,16 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
 
           <div className="grid grid-cols-3 gap-3 bg-white/10 p-3 rounded-lg border border-white/20 text-center shrink-0">
             <div>
-              <p className="text-[10px] uppercase font-bold text-blue-200">Interview Rate</p>
+              <p className="text-[10px] uppercase font-bold text-pine-200">Interview Rate</p>
               <p className="text-lg font-black text-amber-300">{topPerformer.interviewRate}%</p>
             </div>
             <div className="border-x border-white/20 px-2">
-              <p className="text-[10px] uppercase font-bold text-blue-200">Interviews</p>
+              <p className="text-[10px] uppercase font-bold text-pine-200">Interviews</p>
               <p className="text-lg font-black text-white">{topPerformer.interviewsCount}</p>
             </div>
             <div>
-              <p className="text-[10px] uppercase font-bold text-blue-200">Avg ATS Score</p>
-              <p className="text-lg font-black text-emerald-300">{topPerformer.avgAtsScore}%</p>
+              <p className="text-[10px] uppercase font-bold text-pine-200">Avg ATS Score</p>
+              <p className="text-lg font-black text-olive-300">{topPerformer.avgAtsScore}%</p>
             </div>
           </div>
         </div>
@@ -302,18 +302,18 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
             <div
               key={resume.id}
               id={`resume-card-${resume.id}`}
-              className="bg-white rounded-xl border border-slate-200 shadow-xs hover:border-slate-300 transition-all flex flex-col justify-between overflow-hidden"
+              className="bg-white rounded-xl border border-linen-200 shadow-xs hover:border-taupe-200 transition-all flex flex-col justify-between overflow-hidden"
             >
               <div>
                 {/* Card Header */}
-                <div className="p-4 border-b border-slate-100 flex items-start justify-between gap-2">
+                <div className="p-4 border-b border-linen-100 flex items-start justify-between gap-2">
                   <div className="flex items-start gap-2.5 min-w-0">
-                    <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 font-bold">
+                    <div className="w-8 h-8 rounded-lg bg-pine-50 text-pine-600 flex items-center justify-center shrink-0 font-bold">
                       <FileText className="w-4 h-4" />
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-1.5">
-                        <h4 className="font-bold text-slate-900 text-xs truncate" title={resume.name}>
+                        <h4 className="font-bold text-pine-900 text-xs truncate" title={resume.name}>
                           {resume.name}
                         </h4>
                         {isTopPerformer && (
@@ -322,7 +322,7 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
                           </span>
                         )}
                       </div>
-                      <p className="text-[11px] text-slate-500 truncate">
+                      <p className="text-[11px] text-taupe-500 truncate">
                         {resume.targetRole || 'General Resume'}
                       </p>
                     </div>
@@ -332,14 +332,14 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
                     <button
                       onClick={() => setPreviewResume(resume)}
                       title="Preview Resume"
-                      className="p-1 text-slate-400 hover:text-blue-600 rounded transition-colors"
+                      className="p-1 text-taupe-400 hover:text-pine-600 rounded transition-colors"
                     >
                       <Eye className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => handleOpenEdit(resume)}
                       title="Edit Details"
-                      className="p-1 text-slate-400 hover:text-slate-700 rounded transition-colors"
+                      className="p-1 text-taupe-400 hover:text-taupe-700 rounded transition-colors"
                     >
                       <Edit className="w-3.5 h-3.5" />
                     </button>
@@ -350,7 +350,7 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
                         }
                       }}
                       title="Delete Resume"
-                      className="p-1 text-slate-400 hover:text-rose-600 rounded transition-colors"
+                      className="p-1 text-taupe-400 hover:text-rose-600 rounded transition-colors"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -358,20 +358,20 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
                 </div>
 
                 {/* Key Performance Metrics Bar */}
-                <div className="grid grid-cols-3 gap-2 p-3 bg-slate-50 border-b border-slate-100 text-center">
+                <div className="grid grid-cols-3 gap-2 p-3 bg-linen-50 border-b border-linen-100 text-center">
                   <div>
-                    <span className="text-[10px] font-bold text-slate-400 uppercase">Applications</span>
-                    <p className="text-base font-extrabold text-slate-900">{totalApplications}</p>
+                    <span className="text-[10px] font-bold text-taupe-400 uppercase">Applications</span>
+                    <p className="text-base font-extrabold text-pine-900">{totalApplications}</p>
                   </div>
-                  <div className="border-x border-slate-200">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase">Interview Rate</span>
-                    <p className={`text-base font-extrabold ${interviewRate >= 40 ? 'text-emerald-600' : 'text-blue-600'}`}>
+                  <div className="border-x border-linen-200">
+                    <span className="text-[10px] font-bold text-taupe-400 uppercase">Interview Rate</span>
+                    <p className={`text-base font-extrabold ${interviewRate >= 40 ? 'text-olive-600' : 'text-pine-600'}`}>
                       {interviewRate}%
                     </p>
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold text-slate-400 uppercase">Avg ATS</span>
-                    <p className="text-base font-extrabold text-indigo-600">
+                    <span className="text-[10px] font-bold text-taupe-400 uppercase">Avg ATS</span>
+                    <p className="text-base font-extrabold text-pine-600">
                       {avgAtsScore > 0 ? `${avgAtsScore}%` : 'N/A'}
                     </p>
                   </div>
@@ -380,22 +380,22 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
                 {/* Skills tags preview */}
                 <div className="p-3.5">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                    <span className="text-[10px] font-bold text-taupe-400 uppercase tracking-wider">
                       Targeted Skills ({resume.skills.length})
                     </span>
-                    <span className="text-[10px] text-slate-400 font-medium">{resume.fileSize || '120 KB'}</span>
+                    <span className="text-[10px] text-taupe-400 font-medium">{resume.fileSize || '120 KB'}</span>
                   </div>
                   <div className="flex flex-wrap gap-1 max-h-16 overflow-hidden">
                     {resume.skills.slice(0, 7).map((skill, i) => (
                       <span
                         key={i}
-                        className="text-[10px] font-semibold bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded border border-slate-200"
+                        className="text-[10px] font-semibold bg-linen-100 text-taupe-700 px-1.5 py-0.5 rounded border border-linen-200"
                       >
                         {skill}
                       </span>
                     ))}
                     {resume.skills.length > 7 && (
-                      <span className="text-[10px] font-semibold text-slate-400 px-1 py-0.5">
+                      <span className="text-[10px] font-semibold text-taupe-400 px-1 py-0.5">
                         +{resume.skills.length - 7} more
                       </span>
                     )}
@@ -404,9 +404,9 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
 
                 {/* Applications list applied with this resume */}
                 <div className="px-3.5 pb-3">
-                  <div className="flex items-center justify-between text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">
+                  <div className="flex items-center justify-between text-[10px] font-bold text-taupe-400 uppercase tracking-wider mb-2">
                     <span>Applied Roles ({appliedJobs.length})</span>
-                    <span className="text-blue-600 font-semibold">{offersCount} offers</span>
+                    <span className="text-pine-600 font-semibold">{offersCount} offers</span>
                   </div>
 
                   {appliedJobs.length > 0 ? (
@@ -415,33 +415,33 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
                         <div
                           key={job.id}
                           onClick={() => onSelectJob(job)}
-                          className="flex items-center justify-between p-2 rounded-lg bg-slate-50 hover:bg-blue-50 border border-slate-100 hover:border-blue-200 cursor-pointer transition-all text-xs"
+                          className="flex items-center justify-between p-2 rounded-lg bg-linen-50 hover:bg-pine-50 border border-linen-100 hover:border-pine-200 cursor-pointer transition-all text-xs"
                         >
                           <div className="flex items-center gap-2 min-w-0">
                             <div
                               className="w-5 h-5 rounded text-[9px] text-white flex items-center justify-center font-bold shrink-0"
-                              style={{ backgroundColor: job.color || '#3B82F6' }}
+                              style={{ backgroundColor: job.color || '#1b857c' }}
                             >
                               {getCompanyInitials(job.company)}
                             </div>
                             <div className="truncate">
-                              <span className="font-bold text-slate-900 block truncate">{job.company}</span>
-                              <span className="text-[10px] text-slate-500 block truncate">{job.role}</span>
+                              <span className="font-bold text-pine-900 block truncate">{job.company}</span>
+                              <span className="text-[10px] text-taupe-500 block truncate">{job.role}</span>
                             </div>
                           </div>
 
                           <div className="flex items-center gap-1.5 shrink-0 ml-2">
                             {job.atsScore && (
-                              <span className="text-[9px] font-bold bg-indigo-50 text-indigo-700 px-1.5 py-0.5 rounded border border-indigo-100">
+                              <span className="text-[9px] font-bold bg-pine-50 text-pine-700 px-1.5 py-0.5 rounded border border-pine-100">
                                 {job.atsScore}% ATS
                               </span>
                             )}
                             <span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full ${
                               job.stage === 'offer'
-                                ? 'bg-emerald-100 text-emerald-700'
+                                ? 'bg-olive-100 text-olive-700'
                                 : job.stage === 'interview' || job.stage === 'technical'
-                                ? 'bg-blue-100 text-blue-700'
-                                : 'bg-slate-200 text-slate-700'
+                                ? 'bg-pine-100 text-pine-700'
+                                : 'bg-linen-200 text-taupe-700'
                             }`}>
                               {job.stage}
                             </span>
@@ -449,13 +449,13 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
                         </div>
                       ))}
                       {appliedJobs.length > 4 && (
-                        <p className="text-[10px] text-slate-400 text-center font-medium pt-1">
+                        <p className="text-[10px] text-taupe-400 text-center font-medium pt-1">
                           +{appliedJobs.length - 4} more applications
                         </p>
                       )}
                     </div>
                   ) : (
-                    <div className="p-3 bg-slate-50 rounded-lg text-center text-xs text-slate-400 border border-dashed border-slate-200">
+                    <div className="p-3 bg-linen-50 rounded-lg text-center text-xs text-taupe-400 border border-dashed border-linen-200">
                       No applications linked yet. Select this resume when creating or editing a job.
                     </div>
                   )}
@@ -463,10 +463,10 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
               </div>
 
               {/* Bottom Card Action */}
-              <div className="p-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+              <div className="p-3 bg-linen-50 border-t border-linen-100 flex items-center justify-between">
                 <button
                   onClick={() => onNavigateToAts(resume.id)}
-                  className="w-full flex items-center justify-center gap-1.5 py-1.5 bg-white hover:bg-blue-50 text-blue-600 hover:text-blue-700 font-bold text-xs rounded-lg border border-slate-200 transition-colors shadow-2xs"
+                  className="w-full flex items-center justify-center gap-1.5 py-1.5 bg-white hover:bg-pine-50 text-pine-600 hover:text-pine-700 font-bold text-xs rounded-lg border border-linen-200 transition-colors shadow-2xs"
                 >
                   <Calculator className="w-3.5 h-3.5" />
                   <span>Test ATS Score with Job</span>
@@ -479,9 +479,9 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
 
       {/* Upload / Edit Resume Modal */}
       {isUploadModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs animate-fadeIn">
-          <div className="bg-white rounded-2xl max-w-2xl w-full border border-slate-200 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
-            <div className="px-6 py-4 bg-blue-600 text-white flex items-center justify-between">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-pine-900/50 backdrop-blur-xs animate-fadeIn">
+          <div className="bg-white rounded-2xl max-w-2xl w-full border border-linen-200 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+            <div className="px-6 py-4 bg-pine-600 text-white flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <FileText className="w-5 h-5 text-white" />
                 <h3 className="font-bold text-sm">
@@ -511,27 +511,27 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
                 }}
                 className={`p-5 border-2 border-dashed rounded-xl text-center transition-all ${
                   isDragOver
-                    ? 'border-blue-500 bg-blue-50/50'
-                    : 'border-slate-200 bg-slate-50 hover:bg-slate-100/50'
+                    ? 'border-pine-500 bg-pine-50/50'
+                    : 'border-linen-200 bg-linen-50 hover:bg-linen-100/50'
                 }`}
               >
                 {isParsing ? (
                   <div className="py-3 flex flex-col items-center justify-center space-y-2">
-                    <Loader2 className="w-7 h-7 text-blue-600 animate-spin" />
-                    <p className="font-bold text-slate-800 text-xs">Parsing Document & Extracting Clean Text...</p>
-                    <p className="text-[10px] text-slate-500">Decoding PDF/DOCX structure into ATS plain text</p>
+                    <Loader2 className="w-7 h-7 text-pine-600 animate-spin" />
+                    <p className="font-bold text-pine-800 text-xs">Parsing Document & Extracting Clean Text...</p>
+                    <p className="text-[10px] text-taupe-500">Decoding PDF/DOCX structure into ATS plain text</p>
                   </div>
                 ) : (
                   <>
-                    <Upload className="w-7 h-7 text-blue-600 mx-auto mb-1.5" />
-                    <p className="font-bold text-slate-800 text-xs">
+                    <Upload className="w-7 h-7 text-pine-600 mx-auto mb-1.5" />
+                    <p className="font-bold text-pine-800 text-xs">
                       {fileName ? `Loaded: ${fileName} (${fileSize})` : 'Drag and drop your Resume (.pdf, .docx, .txt, .md)'}
                     </p>
-                    <p className="text-[11px] text-slate-400 mt-0.5 mb-2.5">
+                    <p className="text-[11px] text-taupe-400 mt-0.5 mb-2.5">
                       Or click below to browse from your computer
                     </p>
-                    <label className="px-3.5 py-1.5 bg-white text-blue-600 border border-blue-200 font-bold rounded-lg cursor-pointer hover:bg-blue-50 inline-flex items-center gap-1.5 shadow-2xs">
-                      <FileText className="w-3.5 h-3.5 text-blue-600" />
+                    <label className="px-3.5 py-1.5 bg-white text-pine-600 border border-pine-200 font-bold rounded-lg cursor-pointer hover:bg-pine-50 inline-flex items-center gap-1.5 shadow-2xs">
+                      <FileText className="w-3.5 h-3.5 text-pine-600" />
                       <span>Browse Resume File</span>
                       <input
                         type="file"
@@ -545,8 +545,8 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
 
                 {/* Parsing Status or Error Badges */}
                 {parseStatus && !isParsing && (
-                  <div className="mt-3 py-1 px-2.5 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <div className="mt-3 py-1 px-2.5 bg-olive-50 border border-olive-200 text-olive-700 rounded-lg text-[11px] font-semibold flex items-center justify-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-olive-600 shrink-0" />
                     <span>{parseStatus}</span>
                   </div>
                 )}
@@ -562,7 +562,7 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
               {/* Name & Role */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  <label className="block text-[11px] font-bold text-taupe-700 uppercase tracking-wider mb-1">
                     Resume Version Label *
                   </label>
                   <input
@@ -571,12 +571,12 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
                     placeholder="e.g. Senior Frontend React Resume.pdf"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-lg font-medium text-slate-900 focus:outline-none focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-linen-200 rounded-lg font-medium text-pine-900 focus:outline-none focus:border-pine-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  <label className="block text-[11px] font-bold text-taupe-700 uppercase tracking-wider mb-1">
                     Target Role
                   </label>
                   <input
@@ -584,14 +584,14 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
                     placeholder="e.g. Lead Frontend Engineer"
                     value={targetRole}
                     onChange={(e) => setTargetRole(e.target.value)}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-lg font-medium text-slate-900 focus:outline-none focus:border-blue-500"
+                    className="w-full px-3 py-2 border border-linen-200 rounded-lg font-medium text-pine-900 focus:outline-none focus:border-pine-500"
                   />
                 </div>
               </div>
 
               {/* Skills Tags */}
               <div>
-                <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+                <label className="block text-[11px] font-bold text-taupe-700 uppercase tracking-wider mb-1">
                   Key Skills & Keywords (Comma-separated)
                 </label>
                 <input
@@ -599,17 +599,17 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
                   placeholder="React, TypeScript, Next.js, GraphQL, AWS, Docker..."
                   value={skillsInput}
                   onChange={(e) => setSkillsInput(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg font-medium text-slate-900 focus:outline-none focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-linen-200 rounded-lg font-medium text-pine-900 focus:outline-none focus:border-pine-500"
                 />
               </div>
 
               {/* Full Text Content */}
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                  <label className="block text-[11px] font-bold text-taupe-700 uppercase tracking-wider">
                     Resume Plain Text / Content (For ATS Matching) *
                   </label>
-                  <span className="text-[10px] text-slate-400">
+                  <span className="text-[10px] text-taupe-400">
                     {content.trim().split(/\s+/).filter(Boolean).length} words
                   </span>
                 </div>
@@ -619,22 +619,22 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
                   placeholder="Paste or review your resume plain text here..."
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg font-mono text-xs text-slate-900 focus:outline-none focus:border-blue-500 leading-relaxed"
+                  className="w-full px-3 py-2 border border-linen-200 rounded-lg font-mono text-xs text-pine-900 focus:outline-none focus:border-pine-500 leading-relaxed"
                 />
               </div>
 
               {/* Modal Buttons */}
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+              <div className="pt-3 border-t border-linen-100 flex items-center justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setIsUploadModalOpen(false)}
-                  className="px-4 py-2 text-slate-600 hover:text-slate-900 font-semibold"
+                  className="px-4 py-2 text-taupe-600 hover:text-pine-900 font-semibold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold shadow-xs transition-colors"
+                  className="px-5 py-2 bg-pine-600 hover:bg-pine-700 text-white rounded-lg font-bold shadow-xs transition-colors"
                 >
                   {editingResume ? 'Save Changes' : 'Add Resume'}
                 </button>
@@ -646,33 +646,33 @@ export const ResumePerformanceView: React.FC<ResumePerformanceViewProps> = ({
 
       {/* Preview Resume Modal */}
       {previewResume && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs animate-fadeIn">
-          <div className="bg-white rounded-2xl max-w-2xl w-full border border-slate-200 shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
-            <div className="px-6 py-4 bg-slate-900 text-white flex items-center justify-between">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-pine-900/50 backdrop-blur-xs animate-fadeIn">
+          <div className="bg-white rounded-2xl max-w-2xl w-full border border-linen-200 shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+            <div className="px-6 py-4 bg-pine-900 text-white flex items-center justify-between">
               <div>
                 <h3 className="font-bold text-sm">{previewResume.name}</h3>
-                <p className="text-[11px] text-slate-400">{previewResume.targetRole} • {previewResume.uploadDate}</p>
+                <p className="text-[11px] text-taupe-400">{previewResume.targetRole} • {previewResume.uploadDate}</p>
               </div>
               <button
                 onClick={() => setPreviewResume(null)}
-                className="text-slate-400 hover:text-white"
+                className="text-taupe-400 hover:text-white"
               >
                 ✕
               </button>
             </div>
 
-            <div className="p-6 overflow-y-auto space-y-4 font-mono text-xs text-slate-800 whitespace-pre-wrap leading-relaxed bg-slate-50 flex-1">
+            <div className="p-6 overflow-y-auto space-y-4 font-mono text-xs text-pine-800 whitespace-pre-wrap leading-relaxed bg-linen-50 flex-1">
               {previewResume.content}
             </div>
 
-            <div className="p-4 bg-white border-t border-slate-200 flex justify-between items-center text-xs">
-              <span className="text-slate-500">{previewResume.skills.length} extracted skills</span>
+            <div className="p-4 bg-white border-t border-linen-200 flex justify-between items-center text-xs">
+              <span className="text-taupe-500">{previewResume.skills.length} extracted skills</span>
               <button
                 onClick={() => {
                   setPreviewResume(null);
                   onNavigateToAts(previewResume.id);
                 }}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold"
+                className="px-4 py-2 bg-pine-600 hover:bg-pine-700 text-white rounded-lg font-bold"
               >
                 Run ATS Match with Job
               </button>

@@ -44,7 +44,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
     selectedTag !== 'all';
 
   return (
-    <div className="bg-white p-3 rounded-lg border border-slate-200 shadow-xs mb-4">
+    <div className="bg-white p-3 rounded-lg border border-linen-200 shadow-xs mb-4">
       <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
         {/* Search Input */}
         <div className="relative flex-1 min-w-[200px]">
@@ -54,12 +54,12 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             placeholder="Search by role, company, or location..."
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full pl-8 pr-8 py-1.5 text-xs text-slate-900 placeholder:text-slate-400 bg-slate-50 hover:bg-slate-100/70 focus:bg-white border border-slate-200 rounded-md focus:border-[#003B36] focus:ring-1 focus:ring-[#003B36] focus-visible:outline-hidden transition-all"
+            className="w-full pl-8 pr-8 py-1.5 text-xs text-pine-900 placeholder:text-taupe-400 bg-linen-50 hover:bg-linen-100/70 focus:bg-white border border-linen-200 rounded-md focus:border-[#003B36] focus:ring-1 focus:ring-[#003B36] focus-visible:outline-hidden transition-all"
           />
           {searchQuery && (
             <button
               onClick={() => onSearchChange('')}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-taupe-400 hover:text-taupe-600 p-0.5"
               aria-label="Clear search"
             >
               <X className="w-3 h-3" />
@@ -74,7 +74,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             value={selectedStage}
             onChange={(e) => onStageChange(e.target.value as any)}
             aria-label="Filter by stage"
-            className="px-2.5 py-1.5 bg-slate-50 hover:bg-slate-100/70 border border-slate-200 rounded-md font-medium text-slate-700 cursor-pointer focus:border-[#003B36] focus-visible:outline-hidden"
+            className="px-2.5 py-1.5 bg-linen-50 hover:bg-linen-100/70 border border-linen-200 rounded-md font-medium text-taupe-700 cursor-pointer focus:border-[#003B36] focus-visible:outline-hidden"
           >
             <option value="all">All Statuses</option>
             <option value="active">Active Only</option>
@@ -90,7 +90,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             value={selectedPriority}
             onChange={(e) => onPriorityChange(e.target.value as any)}
             aria-label="Filter by priority"
-            className="px-2.5 py-1.5 bg-slate-50 hover:bg-slate-100/70 border border-slate-200 rounded-md font-medium text-slate-700 cursor-pointer focus:border-[#003B36] focus-visible:outline-hidden"
+            className="px-2.5 py-1.5 bg-linen-50 hover:bg-linen-100/70 border border-linen-200 rounded-md font-medium text-taupe-700 cursor-pointer focus:border-[#003B36] focus-visible:outline-hidden"
           >
             <option value="all">All Priorities</option>
             <option value="high">High</option>
@@ -103,7 +103,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             value={selectedWorkplace}
             onChange={(e) => onWorkplaceChange(e.target.value as any)}
             aria-label="Filter by workplace type"
-            className="px-2.5 py-1.5 bg-slate-50 hover:bg-slate-100/70 border border-slate-200 rounded-md font-medium text-slate-700 cursor-pointer focus:border-[#003B36] focus-visible:outline-hidden"
+            className="px-2.5 py-1.5 bg-linen-50 hover:bg-linen-100/70 border border-linen-200 rounded-md font-medium text-taupe-700 cursor-pointer focus:border-[#003B36] focus-visible:outline-hidden"
           >
             <option value="all">All Workplaces</option>
             <option value="remote">Remote</option>
@@ -115,7 +115,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           {hasActiveFilters && (
             <button
               onClick={onResetFilters}
-              className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-slate-600 hover:text-[#003B36] hover:bg-[#F3E8EE]/50 rounded-md border border-slate-200 transition-colors focus-visible:ring-2 focus-visible:ring-[#003B36]"
+              className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-taupe-600 hover:text-[#003B36] hover:bg-[#F3E8EE]/50 rounded-md border border-linen-200 transition-colors focus-visible:ring-2 focus-visible:ring-[#003B36]"
             >
               <RotateCcw className="w-3 h-3 text-[#917C78]" />
               <span>Reset</span>

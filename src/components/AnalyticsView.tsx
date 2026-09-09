@@ -72,16 +72,16 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
   return (
     <div className="space-y-6">
       {/* Top Goals & Conversion Highlights Header */}
-      <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+      <div className="bg-white rounded-xl border border-linen-200 p-5 shadow-xs flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
         <div className="flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 shrink-0">
+          <div className="w-10 h-10 rounded-lg bg-olive-50 border border-olive-200 flex items-center justify-center text-olive-700 shrink-0">
             <Target className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-sm font-bold text-slate-900">
+            <h2 className="text-sm font-bold text-pine-900">
               Monthly Career Goals Progress
             </h2>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-taupe-500 mt-0.5">
               Tracking progress against your {targetApps} application target for this cycle.
             </p>
           </div>
@@ -89,13 +89,13 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
 
         <div className="flex items-center gap-4 self-end md:self-auto">
           <div className="text-right">
-            <span className="text-xs font-semibold text-slate-500 block">Progress</span>
-            <span className="text-lg font-bold text-emerald-700">{appsProgress}% Complete</span>
+            <span className="text-xs font-semibold text-taupe-500 block">Progress</span>
+            <span className="text-lg font-bold text-olive-700">{appsProgress}% Complete</span>
           </div>
           {onOpenGoalsModal && (
             <button
               onClick={onOpenGoalsModal}
-              className="px-3.5 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-lg text-xs font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500"
+              className="px-3.5 py-1.5 bg-olive-50 hover:bg-olive-100 text-olive-800 border border-olive-200 rounded-lg text-xs font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-olive-500"
             >
               Adjust Goals
             </button>
@@ -105,50 +105,50 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
 
       {/* 4 Analytics KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-xs">
-          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+        <div className="bg-white p-4 rounded-lg border border-linen-200 shadow-xs">
+          <span className="text-[11px] font-semibold text-taupe-500 uppercase tracking-wider">
             Interview Conversion
           </span>
-          <p className="text-2xl font-bold text-slate-900 mt-1">
+          <p className="text-2xl font-bold text-pine-900 mt-1">
             {interviewRate}%
           </p>
-          <p className="text-[11px] text-blue-600 font-medium mt-0.5">
+          <p className="text-[11px] text-pine-600 font-medium mt-0.5">
             {reachedInterviewOrAbove} of {totalApplied} applied
           </p>
         </div>
 
-        <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-xs">
-          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+        <div className="bg-white p-4 rounded-lg border border-linen-200 shadow-xs">
+          <span className="text-[11px] font-semibold text-taupe-500 uppercase tracking-wider">
             Offer Success Rate
           </span>
-          <p className="text-2xl font-bold text-emerald-700 mt-1">
+          <p className="text-2xl font-bold text-olive-700 mt-1">
             {offerRate}%
           </p>
-          <p className="text-[11px] text-emerald-600 font-medium mt-0.5">
+          <p className="text-[11px] text-olive-600 font-medium mt-0.5">
             {countOffer} confirmed offers
           </p>
         </div>
 
-        <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-xs">
-          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+        <div className="bg-white p-4 rounded-lg border border-linen-200 shadow-xs">
+          <span className="text-[11px] font-semibold text-taupe-500 uppercase tracking-wider">
             Average Target Salary
           </span>
-          <p className="text-2xl font-bold text-slate-900 mt-1 font-mono">
+          <p className="text-2xl font-bold text-pine-900 mt-1 font-mono">
             {avgSalary > 0 ? formatSalaryNum(avgSalary, currency) : 'N/A'}
           </p>
-          <p className="text-[11px] text-slate-500 font-medium mt-0.5">
+          <p className="text-[11px] text-taupe-500 font-medium mt-0.5">
             Across {salaries.length} disclosed roles
           </p>
         </div>
 
-        <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-xs">
-          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+        <div className="bg-white p-4 rounded-lg border border-linen-200 shadow-xs">
+          <span className="text-[11px] font-semibold text-taupe-500 uppercase tracking-wider">
             Active Submissions
           </span>
-          <p className="text-2xl font-bold text-slate-900 mt-1">
+          <p className="text-2xl font-bold text-pine-900 mt-1">
             {totalApplied}
           </p>
-          <p className="text-[11px] text-slate-500 font-medium mt-0.5">
+          <p className="text-[11px] text-taupe-500 font-medium mt-0.5">
             {countRejected} closed / rejected
           </p>
         </div>
@@ -157,33 +157,33 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
       {/* Conversion Funnel & Workplace Distribution */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Stage Conversion Funnel (8 Columns) */}
-        <div className="lg:col-span-8 bg-white p-5 rounded-lg border border-slate-200 shadow-xs">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
-            <h3 className="font-semibold text-xs text-slate-900 uppercase tracking-wider">
+        <div className="lg:col-span-8 bg-white p-5 rounded-lg border border-linen-200 shadow-xs">
+          <div className="flex items-center justify-between pb-3 border-b border-linen-100 mb-4">
+            <h3 className="font-semibold text-xs text-pine-900 uppercase tracking-wider">
               Application Conversion Funnel
             </h3>
-            <span className="text-xs text-slate-500 font-medium">Stage progression</span>
+            <span className="text-xs text-taupe-500 font-medium">Stage progression</span>
           </div>
 
           <div className="space-y-4">
             {/* 1. Submitted */}
             <div>
               <div className="flex items-center justify-between text-xs font-semibold mb-1">
-                <span className="text-slate-800">1. Applications Submitted</span>
-                <span className="text-slate-900">{totalApplied} (100%)</span>
+                <span className="text-pine-800">1. Applications Submitted</span>
+                <span className="text-pine-900">{totalApplied} (100%)</span>
               </div>
-              <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                <div className="bg-blue-500 h-full rounded-full" style={{ width: '100%' }} />
+              <div className="w-full bg-linen-100 h-2 rounded-full overflow-hidden">
+                <div className="bg-pine-500 h-full rounded-full" style={{ width: '100%' }} />
               </div>
             </div>
 
             {/* 2. Screening */}
             <div>
               <div className="flex items-center justify-between text-xs font-semibold mb-1">
-                <span className="text-slate-800">2. Screening & Review</span>
-                <span className="text-slate-900">{countScreening + countInterview + countOffer} ({totalApplied > 0 ? Math.round(((countScreening + countInterview + countOffer) / totalApplied) * 100) : 0}%)</span>
+                <span className="text-pine-800">2. Screening & Review</span>
+                <span className="text-pine-900">{countScreening + countInterview + countOffer} ({totalApplied > 0 ? Math.round(((countScreening + countInterview + countOffer) / totalApplied) * 100) : 0}%)</span>
               </div>
-              <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+              <div className="w-full bg-linen-100 h-2 rounded-full overflow-hidden">
                 <div 
                   className="bg-amber-500 h-full rounded-full" 
                   style={{ width: `${totalApplied > 0 ? Math.round(((countScreening + countInterview + countOffer) / totalApplied) * 100) : 0}%` }} 
@@ -194,12 +194,12 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
             {/* 3. Interviews */}
             <div>
               <div className="flex items-center justify-between text-xs font-semibold mb-1">
-                <span className="text-slate-800">3. Interviews & Meetings</span>
-                <span className="text-slate-900">{countInterview + countOffer} ({totalApplied > 0 ? Math.round(((countInterview + countOffer) / totalApplied) * 100) : 0}%)</span>
+                <span className="text-pine-800">3. Interviews & Meetings</span>
+                <span className="text-pine-900">{countInterview + countOffer} ({totalApplied > 0 ? Math.round(((countInterview + countOffer) / totalApplied) * 100) : 0}%)</span>
               </div>
-              <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+              <div className="w-full bg-linen-100 h-2 rounded-full overflow-hidden">
                 <div 
-                  className="bg-indigo-500 h-full rounded-full" 
+                  className="bg-pine-500 h-full rounded-full" 
                   style={{ width: `${totalApplied > 0 ? Math.round(((countInterview + countOffer) / totalApplied) * 100) : 0}%` }} 
                 />
               </div>
@@ -208,12 +208,12 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
             {/* 4. Offers */}
             <div>
               <div className="flex items-center justify-between text-xs font-semibold mb-1">
-                <span className="text-slate-800">4. Final Offers</span>
-                <span className="text-emerald-700 font-bold">{countOffer} ({totalApplied > 0 ? Math.round((countOffer / totalApplied) * 100) : 0}%)</span>
+                <span className="text-pine-800">4. Final Offers</span>
+                <span className="text-olive-700 font-bold">{countOffer} ({totalApplied > 0 ? Math.round((countOffer / totalApplied) * 100) : 0}%)</span>
               </div>
-              <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+              <div className="w-full bg-linen-100 h-2 rounded-full overflow-hidden">
                 <div 
-                  className="bg-emerald-600 h-full rounded-full" 
+                  className="bg-olive-600 h-full rounded-full" 
                   style={{ width: `${totalApplied > 0 ? Math.max(Math.round((countOffer / totalApplied) * 100), countOffer > 0 ? 6 : 0) : 0}%` }} 
                 />
               </div>
@@ -222,33 +222,33 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
         </div>
 
         {/* Workplace & Compensation Breakdown (4 Columns) */}
-        <div className="lg:col-span-4 bg-white p-5 rounded-lg border border-slate-200 shadow-xs flex flex-col justify-between">
+        <div className="lg:col-span-4 bg-white p-5 rounded-lg border border-linen-200 shadow-xs flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
-              <h3 className="font-semibold text-xs text-slate-900 uppercase tracking-wider">
+            <div className="flex items-center justify-between pb-3 border-b border-linen-100 mb-4">
+              <h3 className="font-semibold text-xs text-pine-900 uppercase tracking-wider">
                 Workplace Types
               </h3>
             </div>
 
             <div className="space-y-3 text-xs">
-              <div className="flex items-center justify-between p-2.5 bg-slate-50 rounded-lg border border-slate-100">
-                <span className="font-medium text-slate-700">Remote</span>
-                <span className="font-bold text-slate-900">{workplaceCounts.remote} jobs</span>
+              <div className="flex items-center justify-between p-2.5 bg-linen-50 rounded-lg border border-linen-100">
+                <span className="font-medium text-taupe-700">Remote</span>
+                <span className="font-bold text-pine-900">{workplaceCounts.remote} jobs</span>
               </div>
-              <div className="flex items-center justify-between p-2.5 bg-slate-50 rounded-lg border border-slate-100">
-                <span className="font-medium text-slate-700">Hybrid</span>
-                <span className="font-bold text-slate-900">{workplaceCounts.hybrid} jobs</span>
+              <div className="flex items-center justify-between p-2.5 bg-linen-50 rounded-lg border border-linen-100">
+                <span className="font-medium text-taupe-700">Hybrid</span>
+                <span className="font-bold text-pine-900">{workplaceCounts.hybrid} jobs</span>
               </div>
-              <div className="flex items-center justify-between p-2.5 bg-slate-50 rounded-lg border border-slate-100">
-                <span className="font-medium text-slate-700">Onsite</span>
-                <span className="font-bold text-slate-900">{workplaceCounts.onsite} jobs</span>
+              <div className="flex items-center justify-between p-2.5 bg-linen-50 rounded-lg border border-linen-100">
+                <span className="font-medium text-taupe-700">Onsite</span>
+                <span className="font-bold text-pine-900">{workplaceCounts.onsite} jobs</span>
               </div>
             </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500">
+          <div className="mt-4 pt-3 border-t border-linen-100 text-[11px] text-taupe-500">
             {minSalary > 0 && maxSalary > 0 && (
-              <p>Salary Range: <span className="font-semibold text-slate-800">{formatSalaryNum(minSalary, currency)} – {formatSalaryNum(maxSalary, currency)}</span></p>
+              <p>Salary Range: <span className="font-semibold text-pine-800">{formatSalaryNum(minSalary, currency)} – {formatSalaryNum(maxSalary, currency)}</span></p>
             )}
           </div>
         </div>

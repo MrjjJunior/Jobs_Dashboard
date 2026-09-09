@@ -453,16 +453,16 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
   return (
     <div className="space-y-6 animate-fadeIn pb-12">
       {/* Top Banner: Masterclass Overview */}
-      <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-900 rounded-2xl p-6 text-white shadow-xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+      <div className="bg-gradient-to-r from-pine-900 via-pine-950 to-pine-900 rounded-2xl p-6 text-white shadow-xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
         <div className="space-y-2 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/20 border border-blue-400/30 rounded-full text-blue-300 text-xs font-semibold">
-            <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-pine-500/20 border border-pine-400/30 rounded-full text-pine-300 text-xs font-semibold">
+            <Sparkles className="w-3.5 h-3.5 text-pine-400" />
             Resume Creator & ATS Rank Optimization Studio
           </div>
           <h2 className="text-xl md:text-2xl font-bold tracking-tight text-white font-display">
             Build an ATS-Dominant, High-Impact Resume
           </h2>
-          <p className="text-xs md:text-sm text-slate-300 leading-relaxed font-sans">
+          <p className="text-xs md:text-sm text-taupe-200 leading-relaxed font-sans">
             Craft a clean, single-page resume using the <strong>Google X-Y-Z achievement formula</strong>, high-ranking power action verbs, and standard ATS formatting that gets past automated filters and captures recruiter attention in under 6 seconds.
           </p>
         </div>
@@ -471,20 +471,20 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
         <div className="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/15 flex items-center gap-4 shrink-0 shadow-lg">
           <div className="text-center">
             <div className={`text-2xl font-extrabold ${
-              qualityAudit.score >= 85 ? 'text-emerald-400' : qualityAudit.score >= 70 ? 'text-blue-400' : 'text-amber-400'
+              qualityAudit.score >= 85 ? 'text-olive-400' : qualityAudit.score >= 70 ? 'text-pine-400' : 'text-amber-400'
             }`}>
               {qualityAudit.score}%
             </div>
-            <div className="text-[10px] text-slate-300 uppercase font-semibold">ATS Rank Score</div>
+            <div className="text-[10px] text-taupe-200 uppercase font-semibold">ATS Rank Score</div>
           </div>
           <div className="h-10 w-px bg-white/20" />
-          <div className="space-y-1 text-[11px] text-slate-200">
+          <div className="space-y-1 text-[11px] text-linen-200">
             <div className="flex items-center gap-1.5">
-              <span className={`w-2 h-2 rounded-full ${qualityAudit.isOnePage ? 'bg-emerald-400' : 'bg-amber-400'}`} />
+              <span className={`w-2 h-2 rounded-full ${qualityAudit.isOnePage ? 'bg-olive-400' : 'bg-amber-400'}`} />
               <span>{qualityAudit.wordCount} words ({qualityAudit.isOnePage ? '1-Page Target' : 'Needs trim'})</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className={`w-2 h-2 rounded-full ${qualityAudit.bulletsWithMetrics > 0 ? 'bg-emerald-400' : 'bg-rose-400'}`} />
+              <span className={`w-2 h-2 rounded-full ${qualityAudit.bulletsWithMetrics > 0 ? 'bg-olive-400' : 'bg-rose-400'}`} />
               <span>{qualityAudit.bulletsWithMetrics}/{qualityAudit.totalBullets} Metrics (X-Y-Z)</span>
             </div>
           </div>
@@ -492,14 +492,14 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
       </div>
 
       {/* Navigation Sub-Tabs */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-2">
-        <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-xl text-xs font-semibold">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-linen-200 pb-2">
+        <div className="flex items-center gap-2 bg-linen-100 p-1 rounded-xl text-xs font-semibold">
           <button
             onClick={() => setActiveTab('builder')}
             className={`px-4 py-2 rounded-lg transition-all flex items-center gap-2 ${
               activeTab === 'builder'
-                ? 'bg-white text-blue-700 shadow-xs font-bold'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-white text-pine-700 shadow-xs font-bold'
+                : 'text-taupe-600 hover:text-pine-900'
             }`}
           >
             <Sliders className="w-4 h-4" />
@@ -510,8 +510,8 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
             onClick={() => setActiveTab('guide')}
             className={`px-4 py-2 rounded-lg transition-all flex items-center gap-2 ${
               activeTab === 'guide'
-                ? 'bg-white text-blue-700 shadow-xs font-bold'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-white text-pine-700 shadow-xs font-bold'
+                : 'text-taupe-600 hover:text-pine-900'
             }`}
           >
             <BookOpen className="w-4 h-4" />
@@ -522,8 +522,8 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
             onClick={() => setActiveTab('examples')}
             className={`px-4 py-2 rounded-lg transition-all flex items-center gap-2 ${
               activeTab === 'examples'
-                ? 'bg-white text-blue-700 shadow-xs font-bold'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-white text-pine-700 shadow-xs font-bold'
+                : 'text-taupe-600 hover:text-pine-900'
             }`}
           >
             <Zap className="w-4 h-4" />
@@ -534,8 +534,8 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
             onClick={() => setActiveTab('verbs')}
             className={`px-4 py-2 rounded-lg transition-all flex items-center gap-2 ${
               activeTab === 'verbs'
-                ? 'bg-white text-blue-700 shadow-xs font-bold'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-white text-pine-700 shadow-xs font-bold'
+                : 'text-taupe-600 hover:text-pine-900'
             }`}
           >
             <Flame className="w-4 h-4 text-amber-500" />
@@ -546,8 +546,8 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
         {/* Global Quick Action Buttons */}
         <div className="flex flex-wrap items-center gap-2">
           {saveSuccessMessage && (
-            <span className="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-lg flex items-center gap-1.5 animate-fadeIn">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+            <span className="text-xs font-bold text-olive-700 bg-olive-50 border border-olive-200 px-3 py-1.5 rounded-lg flex items-center gap-1.5 animate-fadeIn">
+              <CheckCircle2 className="w-3.5 h-3.5 text-olive-600" />
               {saveSuccessMessage}
             </span>
           )}
@@ -555,26 +555,26 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
           <button
             type="button"
             onClick={handleLoadSampleTemplate}
-            className="px-3 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors"
+            className="px-3 py-2 bg-pine-50 hover:bg-pine-100 text-pine-700 border border-pine-200 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-colors"
             title="Populate builder with high-impact senior engineer sample data"
           >
-            <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+            <Sparkles className="w-3.5 h-3.5 text-pine-600" />
             <span>Load Sample Template</span>
           </button>
 
           <button
             type="button"
             onClick={handleClearForm}
-            className="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors"
+            className="px-3 py-2 bg-linen-100 hover:bg-linen-200 text-taupe-700 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors"
             title="Reset all fields to a blank canvas"
           >
-            <RotateCcw className="w-3.5 h-3.5 text-slate-500" />
+            <RotateCcw className="w-3.5 h-3.5 text-taupe-500" />
             <span>Clear Form</span>
           </button>
 
           <button
             onClick={handleSaveToLibrary}
-            className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-colors"
+            className="px-3.5 py-2 bg-pine-600 hover:bg-pine-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-colors"
           >
             <Save className="w-3.5 h-3.5" />
             <span>Save to Library</span>
@@ -582,7 +582,7 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
 
           <button
             onClick={handlePrint}
-            className="px-3 py-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors"
+            className="px-3 py-2 bg-white hover:bg-linen-50 text-taupe-700 border border-linen-200 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors"
           >
             <Printer className="w-3.5 h-3.5" />
             <span>Print / PDF</span>
@@ -598,120 +598,120 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
           {/* Left Column: Form Editor (7 Cols) */}
           <div className="lg:col-span-7 space-y-6">
             {/* Section 1: Header & Clean Contact Details */}
-            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div className="bg-white rounded-2xl p-5 border border-linen-200 shadow-xs space-y-4">
+              <div className="flex items-center justify-between border-b border-linen-100 pb-3">
                 <div className="flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center">1</span>
-                  <h3 className="font-bold text-slate-900 text-sm">Header & Contact Information</h3>
+                  <span className="w-6 h-6 rounded-full bg-pine-100 text-pine-700 text-xs font-bold flex items-center justify-center">1</span>
+                  <h3 className="font-bold text-pine-900 text-sm">Header & Contact Information</h3>
                 </div>
-                <span className="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-semibold border border-emerald-200 flex items-center gap-1">
-                  <CheckCircle2 className="w-3 h-3 text-emerald-600" /> ATS Anti-Bias Compliant (No Photo/Marital)
+                <span className="text-[11px] text-olive-700 bg-olive-50 px-2 py-0.5 rounded-full font-semibold border border-olive-200 flex items-center gap-1">
+                  <CheckCircle2 className="w-3 h-3 text-olive-600" /> ATS Anti-Bias Compliant (No Photo/Marital)
                 </span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Full Legal Name</label>
+                  <label className="block font-bold text-taupe-700 mb-1">Full Legal Name</label>
                   <input
                     type="text"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="e.g. Alex Rivera"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 font-bold focus:bg-white focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 bg-linen-50 border border-linen-200 rounded-lg text-pine-900 font-bold focus:bg-white focus:ring-2 focus:ring-pine-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Target Professional Title</label>
+                  <label className="block font-bold text-taupe-700 mb-1">Target Professional Title</label>
                   <input
                     type="text"
                     value={targetTitle}
                     onChange={(e) => setTargetTitle(e.target.value)}
                     placeholder="e.g. Senior Full-Stack Engineer"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 font-semibold focus:bg-white focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 bg-linen-50 border border-linen-200 rounded-lg text-pine-900 font-semibold focus:bg-white focus:ring-2 focus:ring-pine-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Email Address</label>
+                  <label className="block font-bold text-taupe-700 mb-1">Email Address</label>
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="e.g. alex.rivera@example.com"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 font-mono"
+                    className="w-full px-3 py-2 bg-linen-50 border border-linen-200 rounded-lg text-pine-900 font-mono"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Phone Number</label>
+                  <label className="block font-bold text-taupe-700 mb-1">Phone Number</label>
                   <input
                     type="text"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="e.g. +1 (555) 234-5678"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 font-mono"
+                    className="w-full px-3 py-2 bg-linen-50 border border-linen-200 rounded-lg text-pine-900 font-mono"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">City, State / Country</label>
+                  <label className="block font-bold text-taupe-700 mb-1">City, State / Country</label>
                   <input
                     type="text"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                     placeholder="e.g. San Francisco, CA"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900"
+                    className="w-full px-3 py-2 bg-linen-50 border border-linen-200 rounded-lg text-pine-900"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">LinkedIn Profile</label>
+                  <label className="block font-bold text-taupe-700 mb-1">LinkedIn Profile</label>
                   <input
                     type="text"
                     value={linkedin}
                     onChange={(e) => setLinkedin(e.target.value)}
                     placeholder="e.g. linkedin.com/in/alexrivera-dev"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 font-mono"
+                    className="w-full px-3 py-2 bg-linen-50 border border-linen-200 rounded-lg text-pine-900 font-mono"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">GitHub / Code Portfolio</label>
+                  <label className="block font-bold text-taupe-700 mb-1">GitHub / Code Portfolio</label>
                   <input
                     type="text"
                     value={github}
                     onChange={(e) => setGithub(e.target.value)}
                     placeholder="e.g. github.com/alexrivera"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 font-mono"
+                    className="w-full px-3 py-2 bg-linen-50 border border-linen-200 rounded-lg text-pine-900 font-mono"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Personal Portfolio / Website</label>
+                  <label className="block font-bold text-taupe-700 mb-1">Personal Portfolio / Website</label>
                   <input
                     type="text"
                     value={portfolio}
                     onChange={(e) => setPortfolio(e.target.value)}
                     placeholder="e.g. alexrivera.io"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 font-mono"
+                    className="w-full px-3 py-2 bg-linen-50 border border-linen-200 rounded-lg text-pine-900 font-mono"
                   />
                 </div>
               </div>
             </div>
 
             {/* Section 2: Professional Summary (No Outdated "Objective") */}
-            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-3">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div className="bg-white rounded-2xl p-5 border border-linen-200 shadow-xs space-y-3">
+              <div className="flex items-center justify-between border-b border-linen-100 pb-3">
                 <div className="flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center">2</span>
-                  <h3 className="font-bold text-slate-900 text-sm">Professional Summary (2–3 Impact Lines)</h3>
+                  <span className="w-6 h-6 rounded-full bg-pine-100 text-pine-700 text-xs font-bold flex items-center justify-center">2</span>
+                  <h3 className="font-bold text-pine-900 text-sm">Professional Summary (2–3 Impact Lines)</h3>
                 </div>
                 <span className="text-[11px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full font-semibold border border-amber-200">
                   Tip: Replaces outdated "Objective"
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500">
+              <p className="text-[11px] text-taupe-500">
                 Front-load your years of experience, core specialization, primary tech stack, and greatest quantifiable career milestone.
               </p>
               <textarea
@@ -719,33 +719,33 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                 value={summary}
                 onChange={(e) => setSummary(e.target.value)}
                 placeholder="e.g. Performance-driven Full-Stack Engineer with 5+ years of experience architecting high-throughput distributed web applications and modern React/Node.js systems. Proven track record of accelerating page load times by 40% and leading high-velocity agile sprints."
-                className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500 leading-relaxed font-sans"
+                className="w-full p-3 bg-linen-50 border border-linen-200 rounded-xl text-xs text-pine-900 focus:bg-white focus:ring-2 focus:ring-pine-500 leading-relaxed font-sans"
               />
             </div>
 
             {/* Section 3: Interactive Google X-Y-Z Formula Bullet Builder */}
-            <div className="bg-gradient-to-br from-indigo-50/80 via-blue-50/60 to-purple-50/40 rounded-2xl p-5 border border-indigo-200 shadow-xs space-y-4">
-              <div className="flex items-center justify-between border-b border-indigo-100 pb-3">
+            <div className="bg-gradient-to-br from-pine-50/80 via-pine-50/60 to-aqua-50/40 rounded-2xl p-5 border border-pine-200 shadow-xs space-y-4">
+              <div className="flex items-center justify-between border-b border-pine-100 pb-3">
                 <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center">
+                  <div className="w-7 h-7 rounded-lg bg-pine-600 text-white flex items-center justify-center">
                     <Sparkles className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-slate-900 text-sm">Google X-Y-Z Bullet Generator</h3>
-                    <p className="text-[11px] text-indigo-700 font-medium">
+                    <h3 className="font-bold text-pine-900 text-sm">Google X-Y-Z Bullet Generator</h3>
+                    <p className="text-[11px] text-pine-700 font-medium">
                       "Accomplished [X] as measured by [Y], by doing [Z]"
                     </p>
                   </div>
                 </div>
 
-                <span className="text-[10px] uppercase tracking-wider font-extrabold bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded border border-indigo-300">
+                <span className="text-[10px] uppercase tracking-wider font-extrabold bg-pine-100 text-pine-800 px-2 py-0.5 rounded border border-pine-300">
                   Recruiter Favorite
                 </span>
               </div>
 
               {/* Action Verb Selection */}
               <div className="space-y-2">
-                <label className="block text-xs font-bold text-slate-700">1. Select Strong Action Verb</label>
+                <label className="block text-xs font-bold text-taupe-700">1. Select Strong Action Verb</label>
                 <div className="flex flex-wrap gap-1.5">
                   {['Engineered', 'Architected', 'Spearheaded', 'Optimized', 'Accelerated', 'Automated', 'Scaled', 'Pioneered', 'Overhauled'].map((v) => (
                     <button
@@ -754,8 +754,8 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                       onClick={() => setSelectedVerb(v)}
                       className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
                         selectedVerb === v
-                          ? 'bg-indigo-600 text-white shadow-2xs'
-                          : 'bg-white text-slate-700 border border-slate-200 hover:border-indigo-300'
+                          ? 'bg-pine-600 text-white shadow-2xs'
+                          : 'bg-white text-taupe-700 border border-linen-200 hover:border-pine-300'
                       }`}
                     >
                       {v}
@@ -767,7 +767,7 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
               {/* X, Y, Z Input Fields */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">
+                  <label className="block font-bold text-taupe-700 mb-1">
                     [X] Accomplishment
                   </label>
                   <input
@@ -775,12 +775,12 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                     value={xyzAccomplished}
                     onChange={(e) => setXyzAccomplished(e.target.value)}
                     placeholder="e.g. reduced checkout abandonment"
-                    className="w-full px-2.5 py-2 bg-white border border-indigo-200 rounded-lg text-slate-900"
+                    className="w-full px-2.5 py-2 bg-white border border-pine-200 rounded-lg text-pine-900"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">
+                  <label className="block font-bold text-taupe-700 mb-1">
                     [Y] Metric / Measurement
                   </label>
                   <input
@@ -788,12 +788,12 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                     value={xyzMeasured}
                     onChange={(e) => setXyzMeasured(e.target.value)}
                     placeholder="e.g. by 28% across 450k users"
-                    className="w-full px-2.5 py-2 bg-white border border-indigo-200 rounded-lg text-slate-900 font-semibold text-emerald-800"
+                    className="w-full px-2.5 py-2 bg-white border border-pine-200 rounded-lg text-pine-900 font-semibold text-olive-800"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">
+                  <label className="block font-bold text-taupe-700 mb-1">
                     [Z] Method / Technology
                   </label>
                   <input
@@ -801,28 +801,28 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                     value={xyzDoing}
                     onChange={(e) => setXyzDoing(e.target.value)}
                     placeholder="e.g. by re-architecting React state"
-                    className="w-full px-2.5 py-2 bg-white border border-indigo-200 rounded-lg text-slate-900"
+                    className="w-full px-2.5 py-2 bg-white border border-pine-200 rounded-lg text-pine-900"
                   />
                 </div>
               </div>
 
               {/* Generated Bullet Preview */}
-              <div className="p-3 bg-white rounded-xl border border-indigo-200 space-y-2">
-                <div className="text-[10px] font-bold text-slate-500 uppercase">Live Output Bullet:</div>
-                <div className="text-xs text-slate-900 font-medium leading-relaxed">
-                  • <span className="font-bold text-indigo-600">{selectedVerb}</span> {xyzAccomplished.trim()}{' '}
-                  <span className="bg-emerald-50 text-emerald-800 font-bold px-1 rounded border border-emerald-200">
+              <div className="p-3 bg-white rounded-xl border border-pine-200 space-y-2">
+                <div className="text-[10px] font-bold text-taupe-500 uppercase">Live Output Bullet:</div>
+                <div className="text-xs text-pine-900 font-medium leading-relaxed">
+                  • <span className="font-bold text-pine-600">{selectedVerb}</span> {xyzAccomplished.trim()}{' '}
+                  <span className="bg-olive-50 text-olive-800 font-bold px-1 rounded border border-olive-200">
                     ({xyzMeasured.trim()})
                   </span>{' '}
                   {xyzDoing.trim()}.
                 </div>
-                <div className="flex items-center justify-between pt-1 border-t border-slate-100">
+                <div className="flex items-center justify-between pt-1 border-t border-linen-100">
                   <div className="flex items-center gap-2">
-                    <span className="text-[11px] text-slate-500">Target Role:</span>
+                    <span className="text-[11px] text-taupe-500">Target Role:</span>
                     <select
                       value={xyzRoleIndex}
                       onChange={(e) => setXyzRoleIndex(Number(e.target.value))}
-                      className="text-xs font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-md px-2 py-1"
+                      className="text-xs font-bold text-pine-800 bg-linen-50 border border-linen-200 rounded-md px-2 py-1"
                     >
                       {experiences.map((exp, i) => (
                         <option key={exp.id} value={i}>
@@ -835,7 +835,7 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                   <button
                     type="button"
                     onClick={handleApplyXyzBullet}
-                    className="px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold flex items-center gap-1 shadow-2xs transition-colors"
+                    className="px-3 py-1 bg-pine-600 hover:bg-pine-700 text-white rounded-lg text-xs font-bold flex items-center gap-1 shadow-2xs transition-colors"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     Insert Bullet to Experience
@@ -845,18 +845,18 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
             </div>
 
             {/* Section 4: Work Experiences List */}
-            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div className="bg-white rounded-2xl p-5 border border-linen-200 shadow-xs space-y-4">
+              <div className="flex items-center justify-between border-b border-linen-100 pb-3">
                 <div className="flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center">4</span>
-                  <h3 className="font-bold text-slate-900 text-sm">
+                  <span className="w-6 h-6 rounded-full bg-pine-100 text-pine-700 text-xs font-bold flex items-center justify-center">4</span>
+                  <h3 className="font-bold text-pine-900 text-sm">
                     Professional Experience ({experiences.length})
                   </h3>
                 </div>
                 <button
                   type="button"
                   onClick={handleAddExperience}
-                  className="px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 font-bold text-xs rounded-lg flex items-center gap-1 border border-blue-200 transition-colors"
+                  className="px-3 py-1.5 bg-pine-50 text-pine-700 hover:bg-pine-100 font-bold text-xs rounded-lg flex items-center gap-1 border border-pine-200 transition-colors"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   Add Position
@@ -864,16 +864,16 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
               </div>
 
               {experiences.length === 0 ? (
-                <div className="text-center py-6 px-4 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50 space-y-2">
-                  <FileText className="w-6 h-6 text-slate-400 mx-auto" />
-                  <p className="text-xs font-semibold text-slate-700">No work experience entries added yet</p>
-                  <p className="text-[11px] text-slate-500 max-w-sm mx-auto">
+                <div className="text-center py-6 px-4 border-2 border-dashed border-linen-200 rounded-xl bg-linen-50/50 space-y-2">
+                  <FileText className="w-6 h-6 text-taupe-400 mx-auto" />
+                  <p className="text-xs font-semibold text-taupe-700">No work experience entries added yet</p>
+                  <p className="text-[11px] text-taupe-500 max-w-sm mx-auto">
                     Add your work history in reverse-chronological order or load the sample template.
                   </p>
                   <button
                     type="button"
                     onClick={handleAddExperience}
-                    className="mt-1 inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg shadow-2xs transition-colors"
+                    className="mt-1 inline-flex items-center gap-1.5 px-3 py-1.5 bg-pine-600 hover:bg-pine-700 text-white text-xs font-bold rounded-lg shadow-2xs transition-colors"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     Add First Position
@@ -883,16 +883,16 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                 experiences.map((exp, expIdx) => (
                   <div
                     key={exp.id}
-                    className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3 relative group"
+                    className="p-4 bg-linen-50 rounded-xl border border-linen-200 space-y-3 relative group"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] uppercase tracking-wider font-extrabold text-slate-400">
+                      <span className="text-[10px] uppercase tracking-wider font-extrabold text-taupe-400">
                         Position #{expIdx + 1} (Reverse-Chronological)
                       </span>
                       <button
                         type="button"
                         onClick={() => handleRemoveExperience(exp.id)}
-                        className="p-1 text-slate-400 hover:text-rose-600 transition-colors"
+                        className="p-1 text-taupe-400 hover:text-rose-600 transition-colors"
                         title="Remove this role"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -901,7 +901,7 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                       <div>
-                        <label className="block font-bold text-slate-700 mb-1">Role Title</label>
+                        <label className="block font-bold text-taupe-700 mb-1">Role Title</label>
                         <input
                           type="text"
                           value={exp.role}
@@ -911,12 +911,12 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                             setExperiences(updated);
                           }}
                           placeholder="e.g. Senior Software Engineer"
-                          className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900 font-semibold"
+                          className="w-full px-2.5 py-1.5 bg-white border border-linen-200 rounded-lg text-pine-900 font-semibold"
                         />
                       </div>
 
                       <div>
-                        <label className="block font-bold text-slate-700 mb-1">Company Name</label>
+                        <label className="block font-bold text-taupe-700 mb-1">Company Name</label>
                         <input
                           type="text"
                           value={exp.company}
@@ -926,12 +926,12 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                             setExperiences(updated);
                           }}
                           placeholder="e.g. TechFlow Systems"
-                          className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900 font-semibold"
+                          className="w-full px-2.5 py-1.5 bg-white border border-linen-200 rounded-lg text-pine-900 font-semibold"
                         />
                       </div>
 
                       <div>
-                        <label className="block font-bold text-slate-700 mb-1">Location</label>
+                        <label className="block font-bold text-taupe-700 mb-1">Location</label>
                         <input
                           type="text"
                           value={exp.location}
@@ -941,13 +941,13 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                             setExperiences(updated);
                           }}
                           placeholder="e.g. San Francisco, CA"
-                          className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900"
+                          className="w-full px-2.5 py-1.5 bg-white border border-linen-200 rounded-lg text-pine-900"
                         />
                       </div>
 
                       <div className="flex gap-2">
                         <div className="flex-1">
-                          <label className="block font-bold text-slate-700 mb-1">Start Date</label>
+                          <label className="block font-bold text-taupe-700 mb-1">Start Date</label>
                           <input
                             type="text"
                             placeholder="e.g. 2023-03"
@@ -957,11 +957,11 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                               updated[expIdx].startDate = e.target.value;
                               setExperiences(updated);
                             }}
-                            className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900 font-mono text-xs"
+                            className="w-full px-2.5 py-1.5 bg-white border border-linen-200 rounded-lg text-pine-900 font-mono text-xs"
                           />
                         </div>
                         <div className="flex-1">
-                          <label className="block font-bold text-slate-700 mb-1">End Date</label>
+                          <label className="block font-bold text-taupe-700 mb-1">End Date</label>
                           <input
                             type="text"
                             placeholder="e.g. Present"
@@ -971,22 +971,22 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                               updated[expIdx].endDate = e.target.value;
                               setExperiences(updated);
                             }}
-                            className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900 font-mono text-xs"
+                            className="w-full px-2.5 py-1.5 bg-white border border-linen-200 rounded-lg text-pine-900 font-mono text-xs"
                           />
                         </div>
                       </div>
                     </div>
 
                     {/* Bullet Points */}
-                    <div className="space-y-2 pt-2 border-t border-slate-200">
+                    <div className="space-y-2 pt-2 border-t border-linen-200">
                       <div className="flex items-center justify-between">
-                        <label className="text-[11px] font-bold text-slate-700">
+                        <label className="text-[11px] font-bold text-taupe-700">
                           Achievement Bullet Points ({exp.bullets.length})
                         </label>
                         <button
                           type="button"
                           onClick={() => handleAddBullet(expIdx)}
-                          className="text-[11px] font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1"
+                          className="text-[11px] font-bold text-pine-600 hover:text-pine-800 flex items-center gap-1"
                         >
                           <Plus className="w-3 h-3" /> Add Bullet
                         </button>
@@ -999,18 +999,18 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                         return (
                           <div key={bIdx} className="space-y-1">
                             <div className="flex items-start gap-2">
-                              <span className="text-slate-400 font-bold text-xs pt-1.5">•</span>
+                              <span className="text-taupe-400 font-bold text-xs pt-1.5">•</span>
                               <textarea
                                 rows={2}
                                 value={bullet}
                                 onChange={(e) => handleUpdateBullet(expIdx, bIdx, e.target.value)}
                                 placeholder="e.g. Architected real-time WebSocket dashboard handling 25,000+ connections, reducing latency by 45%."
-                                className="flex-1 p-2 bg-white border border-slate-200 rounded-lg text-xs text-slate-900 focus:ring-2 focus:ring-blue-500 leading-relaxed font-sans"
+                                className="flex-1 p-2 bg-white border border-linen-200 rounded-lg text-xs text-pine-900 focus:ring-2 focus:ring-pine-500 leading-relaxed font-sans"
                               />
                               <button
                                 type="button"
                                 onClick={() => handleRemoveBullet(expIdx, bIdx)}
-                                className="p-1 text-slate-400 hover:text-rose-600 pt-2"
+                                className="p-1 text-taupe-400 hover:text-rose-600 pt-2"
                               >
                                 <Trash2 className="w-3 h-3" />
                               </button>
@@ -1035,69 +1035,69 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
             </div>
 
             {/* Section 5: Technical Skills */}
-            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-3">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div className="bg-white rounded-2xl p-5 border border-linen-200 shadow-xs space-y-3">
+              <div className="flex items-center justify-between border-b border-linen-100 pb-3">
                 <div className="flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center">5</span>
-                  <h3 className="font-bold text-slate-900 text-sm">Categorized Technical Skills (ATS Keywords)</h3>
+                  <span className="w-6 h-6 rounded-full bg-pine-100 text-pine-700 text-xs font-bold flex items-center justify-center">5</span>
+                  <h3 className="font-bold text-pine-900 text-sm">Categorized Technical Skills (ATS Keywords)</h3>
                 </div>
               </div>
 
               <div className="space-y-3 text-xs">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Languages</label>
+                  <label className="block font-bold text-taupe-700 mb-1">Languages</label>
                   <input
                     type="text"
                     value={languages}
                     onChange={(e) => setLanguages(e.target.value)}
                     placeholder="e.g. TypeScript, JavaScript, Python, SQL, HTML5, CSS3"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900"
+                    className="w-full px-3 py-2 bg-linen-50 border border-linen-200 rounded-lg text-pine-900"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Frameworks & Libraries</label>
+                  <label className="block font-bold text-taupe-700 mb-1">Frameworks & Libraries</label>
                   <input
                     type="text"
                     value={frameworks}
                     onChange={(e) => setFrameworks(e.target.value)}
                     placeholder="e.g. React, Next.js, Node.js, Express, Tailwind CSS, GraphQL"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900"
+                    className="w-full px-3 py-2 bg-linen-50 border border-linen-200 rounded-lg text-pine-900"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Cloud, Database & Developer Tools</label>
+                  <label className="block font-bold text-taupe-700 mb-1">Cloud, Database & Developer Tools</label>
                   <input
                     type="text"
                     value={cloudTools}
                     onChange={(e) => setCloudTools(e.target.value)}
                     placeholder="e.g. AWS (S3, Lambda), Docker, PostgreSQL, Redis, Git, GitHub Actions"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900"
+                    className="w-full px-3 py-2 bg-linen-50 border border-linen-200 rounded-lg text-pine-900"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Architecture & Methodologies</label>
+                  <label className="block font-bold text-taupe-700 mb-1">Architecture & Methodologies</label>
                   <input
                     type="text"
                     value={methodologies}
                     onChange={(e) => setMethodologies(e.target.value)}
                     placeholder="e.g. Agile/Scrum, CI/CD, Microservices, TDD, RESTful APIs"
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900"
+                    className="w-full px-3 py-2 bg-linen-50 border border-linen-200 rounded-lg text-pine-900"
                   />
                 </div>
               </div>
             </div>
 
             {/* Section 6: Education */}
-            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-3">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div className="bg-white rounded-2xl p-5 border border-linen-200 shadow-xs space-y-3">
+              <div className="flex items-center justify-between border-b border-linen-100 pb-3">
                 <div className="flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs font-bold flex items-center justify-center">6</span>
-                  <h3 className="font-bold text-slate-900 text-sm">Education & Credentials</h3>
+                  <span className="w-6 h-6 rounded-full bg-pine-100 text-pine-700 text-xs font-bold flex items-center justify-center">6</span>
+                  <h3 className="font-bold text-pine-900 text-sm">Education & Credentials</h3>
                 </div>
                 <button
                   type="button"
                   onClick={handleAddEducation}
-                  className="px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 font-bold text-xs rounded-lg flex items-center gap-1 border border-blue-200 transition-colors"
+                  className="px-3 py-1.5 bg-pine-50 text-pine-700 hover:bg-pine-100 font-bold text-xs rounded-lg flex items-center gap-1 border border-pine-200 transition-colors"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   Add Education
@@ -1105,12 +1105,12 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
               </div>
 
               {education.length === 0 ? (
-                <div className="text-center py-5 px-4 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50 space-y-2">
-                  <p className="text-xs font-semibold text-slate-700">No education credentials added yet</p>
+                <div className="text-center py-5 px-4 border-2 border-dashed border-linen-200 rounded-xl bg-linen-50/50 space-y-2">
+                  <p className="text-xs font-semibold text-taupe-700">No education credentials added yet</p>
                   <button
                     type="button"
                     onClick={handleAddEducation}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-xs font-bold rounded-lg"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-pine-50 hover:bg-pine-100 text-pine-700 border border-pine-200 text-xs font-bold rounded-lg"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     Add Education Credential
@@ -1118,9 +1118,9 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                 </div>
               ) : (
                 education.map((edu, idx) => (
-                  <div key={edu.id} className="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs p-3 bg-slate-50 rounded-xl border border-slate-200">
+                  <div key={edu.id} className="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs p-3 bg-linen-50 rounded-xl border border-linen-200">
                     <div className="md:col-span-2">
-                      <label className="block font-bold text-slate-700 mb-1">School / University</label>
+                      <label className="block font-bold text-taupe-700 mb-1">School / University</label>
                       <input
                         type="text"
                         value={edu.school}
@@ -1130,12 +1130,12 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                           setEducation(updated);
                         }}
                         placeholder="e.g. University of California, Berkeley"
-                        className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900 font-semibold"
+                        className="w-full px-2.5 py-1.5 bg-white border border-linen-200 rounded-lg text-pine-900 font-semibold"
                       />
                     </div>
 
                     <div>
-                      <label className="block font-bold text-slate-700 mb-1">Graduation Year</label>
+                      <label className="block font-bold text-taupe-700 mb-1">Graduation Year</label>
                       <input
                         type="text"
                         value={edu.graduationYear}
@@ -1145,12 +1145,12 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                           setEducation(updated);
                         }}
                         placeholder="e.g. 2022"
-                        className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900 font-mono"
+                        className="w-full px-2.5 py-1.5 bg-white border border-linen-200 rounded-lg text-pine-900 font-mono"
                       />
                     </div>
 
                     <div>
-                      <label className="block font-bold text-slate-700 mb-1">Degree</label>
+                      <label className="block font-bold text-taupe-700 mb-1">Degree</label>
                       <input
                         type="text"
                         value={edu.degree}
@@ -1160,12 +1160,12 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                           setEducation(updated);
                         }}
                         placeholder="e.g. Bachelor of Science"
-                        className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900"
+                        className="w-full px-2.5 py-1.5 bg-white border border-linen-200 rounded-lg text-pine-900"
                       />
                     </div>
 
                     <div>
-                      <label className="block font-bold text-slate-700 mb-1">Major / Field</label>
+                      <label className="block font-bold text-taupe-700 mb-1">Major / Field</label>
                       <input
                         type="text"
                         value={edu.field}
@@ -1175,13 +1175,13 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                           setEducation(updated);
                         }}
                         placeholder="e.g. Computer Science"
-                        className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900"
+                        className="w-full px-2.5 py-1.5 bg-white border border-linen-200 rounded-lg text-pine-900"
                       />
                     </div>
 
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex-1">
-                        <label className="block font-bold text-slate-700 mb-1">Honors / GPA</label>
+                        <label className="block font-bold text-taupe-700 mb-1">Honors / GPA</label>
                         <input
                           type="text"
                           value={edu.honors || ''}
@@ -1191,13 +1191,13 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                             setEducation(updated);
                           }}
                           placeholder="e.g. Dean's Honors List | GPA: 3.8"
-                          className="w-full px-2.5 py-1.5 bg-white border border-slate-200 rounded-lg text-slate-900"
+                          className="w-full px-2.5 py-1.5 bg-white border border-linen-200 rounded-lg text-pine-900"
                         />
                       </div>
                       <button
                         type="button"
                         onClick={() => handleRemoveEducation(edu.id)}
-                        className="p-1.5 text-slate-400 hover:text-rose-600 self-end mb-1 transition-colors"
+                        className="p-1.5 text-taupe-400 hover:text-rose-600 self-end mb-1 transition-colors"
                         title="Remove education"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -1212,24 +1212,24 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
           {/* Right Column: Live ATS-Standard Paper Preview (5 Cols) */}
           <div className="lg:col-span-5 space-y-4 sticky top-6">
             {/* Live ATS Quality Audit Header */}
-            <div className="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs space-y-3">
+            <div className="bg-white rounded-2xl p-4 border border-linen-200 shadow-xs space-y-3">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-slate-900 text-xs flex items-center gap-1.5">
-                  <Award className="w-4 h-4 text-blue-600" />
+                <span className="font-bold text-pine-900 text-xs flex items-center gap-1.5">
+                  <Award className="w-4 h-4 text-pine-600" />
                   Live Resume Quality & ATS Score
                 </span>
                 <span className={`text-xs font-extrabold px-2.5 py-0.5 rounded-full ${
-                  qualityAudit.score >= 85 ? 'bg-emerald-100 text-emerald-800' : 'bg-blue-100 text-blue-800'
+                  qualityAudit.score >= 85 ? 'bg-olive-100 text-olive-800' : 'bg-pine-100 text-pine-800'
                 }`}>
                   {qualityAudit.score}/100 Match Readiness
                 </span>
               </div>
 
               {/* Progress Bar */}
-              <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+              <div className="w-full bg-linen-100 h-2 rounded-full overflow-hidden">
                 <div
                   className={`h-full transition-all duration-500 ${
-                    qualityAudit.score >= 85 ? 'bg-emerald-500' : qualityAudit.score >= 70 ? 'bg-blue-600' : 'bg-amber-500'
+                    qualityAudit.score >= 85 ? 'bg-olive-500' : qualityAudit.score >= 70 ? 'bg-pine-600' : 'bg-amber-500'
                   }`}
                   style={{ width: `${qualityAudit.score}%` }}
                 />
@@ -1237,20 +1237,20 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
 
               {/* Checklist items */}
               <div className="grid grid-cols-2 gap-2 text-[11px] pt-1">
-                <div className="flex items-center gap-1.5 text-slate-700">
-                  <CheckCircle2 className={`w-3.5 h-3.5 ${qualityAudit.isOnePage ? 'text-emerald-600' : 'text-amber-500'}`} />
+                <div className="flex items-center gap-1.5 text-taupe-700">
+                  <CheckCircle2 className={`w-3.5 h-3.5 ${qualityAudit.isOnePage ? 'text-olive-600' : 'text-amber-500'}`} />
                   <span>1-Page Length ({qualityAudit.wordCount}w)</span>
                 </div>
-                <div className="flex items-center gap-1.5 text-slate-700">
-                  <CheckCircle2 className={`w-3.5 h-3.5 ${qualityAudit.bulletsWithMetrics > 0 ? 'text-emerald-600' : 'text-rose-500'}`} />
+                <div className="flex items-center gap-1.5 text-taupe-700">
+                  <CheckCircle2 className={`w-3.5 h-3.5 ${qualityAudit.bulletsWithMetrics > 0 ? 'text-olive-600' : 'text-rose-500'}`} />
                   <span>Quantified Metrics ({qualityAudit.bulletsWithMetrics})</span>
                 </div>
-                <div className="flex items-center gap-1.5 text-slate-700">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <div className="flex items-center gap-1.5 text-taupe-700">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-olive-600" />
                   <span>Summary (No Objective)</span>
                 </div>
-                <div className="flex items-center gap-1.5 text-slate-700">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <div className="flex items-center gap-1.5 text-taupe-700">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-olive-600" />
                   <span>Standard ATS Fonts</span>
                 </div>
               </div>
@@ -1259,17 +1259,17 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
             {/* Simulated Clean ATS Document Canvas */}
             <div 
               id="printable-resume"
-              className="bg-white rounded-2xl p-6 border border-slate-300 shadow-md font-sans text-slate-900 text-[11px] leading-relaxed space-y-4 max-h-[75vh] overflow-y-auto"
+              className="bg-white rounded-2xl p-6 border border-taupe-200 shadow-md font-sans text-pine-900 text-[11px] leading-relaxed space-y-4 max-h-[75vh] overflow-y-auto"
             >
               {/* Header */}
-              <div className="text-center border-b border-slate-300 pb-3 space-y-1">
-                <h1 className="text-base font-extrabold uppercase tracking-wide text-slate-900 font-display">
+              <div className="text-center border-b border-taupe-200 pb-3 space-y-1">
+                <h1 className="text-base font-extrabold uppercase tracking-wide text-pine-900 font-display">
                   {fullName || 'Your Full Name'}
                 </h1>
-                <p className="text-[10px] text-slate-600 font-medium">
+                <p className="text-[10px] text-taupe-600 font-medium">
                   {targetTitle} • {location} • {phone} • {email}
                 </p>
-                <p className="text-[9.5px] text-blue-800 font-mono">
+                <p className="text-[9.5px] text-pine-800 font-mono">
                   {[linkedin, github, portfolio].filter(Boolean).join(' | ')}
                 </p>
               </div>
@@ -1277,10 +1277,10 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
               {/* Summary */}
               {summary && (
                 <div className="space-y-1">
-                  <h2 className="text-[10.5px] font-extrabold uppercase tracking-wider text-slate-800 border-b border-slate-200 pb-0.5">
+                  <h2 className="text-[10.5px] font-extrabold uppercase tracking-wider text-pine-800 border-b border-linen-200 pb-0.5">
                     Professional Summary
                   </h2>
-                  <p className="text-slate-700 text-[10px] text-justify leading-normal">
+                  <p className="text-taupe-700 text-[10px] text-justify leading-normal">
                     {summary}
                   </p>
                 </div>
@@ -1288,10 +1288,10 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
 
               {/* Skills */}
               <div className="space-y-1">
-                <h2 className="text-[10.5px] font-extrabold uppercase tracking-wider text-slate-800 border-b border-slate-200 pb-0.5">
+                <h2 className="text-[10.5px] font-extrabold uppercase tracking-wider text-pine-800 border-b border-linen-200 pb-0.5">
                   Technical Skills
                 </h2>
-                <div className="text-[9.5px] text-slate-700 space-y-0.5">
+                <div className="text-[9.5px] text-taupe-700 space-y-0.5">
                   <div><strong>Languages:</strong> {languages}</div>
                   <div><strong>Frameworks:</strong> {frameworks}</div>
                   <div><strong>Cloud & Tools:</strong> {cloudTools}</div>
@@ -1301,16 +1301,16 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
 
               {/* Experience */}
               <div className="space-y-2.5">
-                <h2 className="text-[10.5px] font-extrabold uppercase tracking-wider text-slate-800 border-b border-slate-200 pb-0.5">
+                <h2 className="text-[10.5px] font-extrabold uppercase tracking-wider text-pine-800 border-b border-linen-200 pb-0.5">
                   Professional Experience
                 </h2>
                 {experiences.map((exp) => (
                   <div key={exp.id} className="space-y-1">
-                    <div className="flex justify-between items-baseline font-bold text-slate-900 text-[10px]">
-                      <span>{exp.role} — <span className="font-semibold text-slate-700">{exp.company}</span></span>
-                      <span className="text-[9.5px] text-slate-500 font-normal">{exp.startDate} – {exp.endDate} | {exp.location}</span>
+                    <div className="flex justify-between items-baseline font-bold text-pine-900 text-[10px]">
+                      <span>{exp.role} — <span className="font-semibold text-taupe-700">{exp.company}</span></span>
+                      <span className="text-[9.5px] text-taupe-500 font-normal">{exp.startDate} – {exp.endDate} | {exp.location}</span>
                     </div>
-                    <ul className="list-disc list-outside pl-3.5 text-[9.5px] text-slate-700 space-y-0.5">
+                    <ul className="list-disc list-outside pl-3.5 text-[9.5px] text-taupe-700 space-y-0.5">
                       {exp.bullets.map((b, i) => (
                         <li key={i}>{b}</li>
                       ))}
@@ -1321,16 +1321,16 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
 
               {/* Education */}
               <div className="space-y-1">
-                <h2 className="text-[10.5px] font-extrabold uppercase tracking-wider text-slate-800 border-b border-slate-200 pb-0.5">
+                <h2 className="text-[10.5px] font-extrabold uppercase tracking-wider text-pine-800 border-b border-linen-200 pb-0.5">
                   Education
                 </h2>
                 {education.map((edu) => (
-                  <div key={edu.id} className="flex justify-between items-baseline text-[9.5px] text-slate-700">
+                  <div key={edu.id} className="flex justify-between items-baseline text-[9.5px] text-taupe-700">
                     <div>
                       <strong>{edu.degree} in {edu.field}</strong> — {edu.school}
-                      {edu.honors && <span className="text-slate-500"> ({edu.honors})</span>}
+                      {edu.honors && <span className="text-taupe-500"> ({edu.honors})</span>}
                     </div>
-                    <span className="font-mono text-slate-500">{edu.graduationYear}</span>
+                    <span className="font-mono text-taupe-500">{edu.graduationYear}</span>
                   </div>
                 ))}
               </div>
@@ -1346,55 +1346,55 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {/* Rule 1 */}
-            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-3">
-              <div className="w-8 h-8 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm">
+            <div className="bg-white rounded-2xl p-5 border border-linen-200 shadow-xs space-y-3">
+              <div className="w-8 h-8 rounded-xl bg-pine-100 text-pine-700 flex items-center justify-center font-bold text-sm">
                 1
               </div>
-              <h3 className="font-bold text-slate-900 text-sm">Structure & Layout: The 1-Page Rule</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <h3 className="font-bold text-pine-900 text-sm">Structure & Layout: The 1-Page Rule</h3>
+              <p className="text-xs text-taupe-600 leading-relaxed">
                 Unless you possess 10+ years of deep leadership or specialized principal experience, strictly limit your resume to <strong>one page</strong>. Recruiters spend an average of <strong>6 to 7.4 seconds</strong> on their initial scan.
               </p>
-              <div className="p-3 bg-slate-50 rounded-xl text-[11px] text-slate-700 space-y-1 border border-slate-200">
-                <div className="font-bold text-slate-900">ATS Formatting Best Practices:</div>
-                <div className="flex items-center gap-1.5 text-emerald-700">
+              <div className="p-3 bg-linen-50 rounded-xl text-[11px] text-taupe-700 space-y-1 border border-linen-200">
+                <div className="font-bold text-pine-900">ATS Formatting Best Practices:</div>
+                <div className="flex items-center gap-1.5 text-olive-700">
                   <Check className="w-3.5 h-3.5 shrink-0" /> Single-column layout (no complex multi-column sidebars)
                 </div>
-                <div className="flex items-center gap-1.5 text-emerald-700">
+                <div className="flex items-center gap-1.5 text-olive-700">
                   <Check className="w-3.5 h-3.5 shrink-0" /> Standard web fonts (Arial, Calibri, Helvetica, Inter)
                 </div>
-                <div className="flex items-center gap-1.5 text-emerald-700">
+                <div className="flex items-center gap-1.5 text-olive-700">
                   <Check className="w-3.5 h-3.5 shrink-0" /> Reverse-chronological order (most recent role first)
                 </div>
               </div>
             </div>
 
             {/* Rule 2 */}
-            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-3">
-              <div className="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm">
+            <div className="bg-white rounded-2xl p-5 border border-linen-200 shadow-xs space-y-3">
+              <div className="w-8 h-8 rounded-xl bg-pine-100 text-pine-700 flex items-center justify-center font-bold text-sm">
                 2
               </div>
-              <h3 className="font-bold text-slate-900 text-sm">Bullet Points & Impact: Google X-Y-Z</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <h3 className="font-bold text-pine-900 text-sm">Bullet Points & Impact: Google X-Y-Z</h3>
+              <p className="text-xs text-taupe-600 leading-relaxed">
                 Never list mere job duties. Frame every bullet point around quantifiable results using Laszlo Bock's acclaimed Google formula:
               </p>
-              <div className="p-3 bg-indigo-50/80 rounded-xl text-xs text-indigo-900 border border-indigo-200 font-medium">
-                "Accomplished <span className="text-indigo-700 font-bold">[X]</span> as measured by <span className="text-emerald-700 font-bold">[Y]</span>, by doing <span className="text-purple-700 font-bold">[Z]</span>."
+              <div className="p-3 bg-pine-50/80 rounded-xl text-xs text-pine-900 border border-pine-200 font-medium">
+                "Accomplished <span className="text-pine-700 font-bold">[X]</span> as measured by <span className="text-olive-700 font-bold">[Y]</span>, by doing <span className="text-aqua-700 font-bold">[Z]</span>."
               </div>
-              <p className="text-[11px] text-slate-500">
+              <p className="text-[11px] text-taupe-500">
                 Begin every single bullet with a high-impact action verb (e.g. <em>Architected, Spearheaded, Optimized</em>) instead of passive phrasing like <em>"Responsible for"</em>.
               </p>
             </div>
 
             {/* Rule 3 */}
-            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-3">
-              <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm">
+            <div className="bg-white rounded-2xl p-5 border border-linen-200 shadow-xs space-y-3">
+              <div className="w-8 h-8 rounded-xl bg-olive-100 text-olive-700 flex items-center justify-center font-bold text-sm">
                 3
               </div>
-              <h3 className="font-bold text-slate-900 text-sm">Tailoring & Beating the ATS</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <h3 className="font-bold text-pine-900 text-sm">Tailoring & Beating the ATS</h3>
+              <p className="text-xs text-taupe-600 leading-relaxed">
                 Applicant Tracking Systems (Workday, Greenhouse, Taleo, Lever) parse and rank resumes based on keyword semantic overlap before human recruiters read them.
               </p>
-              <div className="p-3 bg-emerald-50 rounded-xl text-[11px] text-emerald-900 space-y-1.5 border border-emerald-200">
+              <div className="p-3 bg-olive-50 rounded-xl text-[11px] text-olive-900 space-y-1.5 border border-olive-200">
                 <div className="font-bold">How to Rank in the Top 5%:</div>
                 <div>• Mirror exact skill keywords from the job description (e.g., <em>TypeScript</em> vs <em>TS</em>).</div>
                 <div>• Integrate hard skills directly into experience bullet points, not just in a detached skills list.</div>
@@ -1402,12 +1402,12 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
             </div>
 
             {/* Rule 4 */}
-            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-3">
+            <div className="bg-white rounded-2xl p-5 border border-linen-200 shadow-xs space-y-3">
               <div className="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-sm">
                 4
               </div>
-              <h3 className="font-bold text-slate-900 text-sm">What to Leave Out (Anti-Patterns)</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <h3 className="font-bold text-pine-900 text-sm">What to Leave Out (Anti-Patterns)</h3>
+              <p className="text-xs text-taupe-600 leading-relaxed">
                 Remove fluff and irrelevant details that consume valuable single-page real estate or introduce unconscious bias:
               </p>
               <div className="space-y-1 text-[11px] text-rose-800">
@@ -1427,15 +1427,15 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
             </div>
 
             {/* Rule 5 */}
-            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-3">
-              <div className="w-8 h-8 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-sm">
+            <div className="bg-white rounded-2xl p-5 border border-linen-200 shadow-xs space-y-3">
+              <div className="w-8 h-8 rounded-xl bg-aqua-100 text-aqua-700 flex items-center justify-center font-bold text-sm">
                 5
               </div>
-              <h3 className="font-bold text-slate-900 text-sm">Final Polish & PDF Submission</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <h3 className="font-bold text-pine-900 text-sm">Final Polish & PDF Submission</h3>
+              <p className="text-xs text-taupe-600 leading-relaxed">
                 A single grammatical error or broken layout sends your application to the discard pile.
               </p>
-              <div className="p-3 bg-purple-50 rounded-xl text-[11px] text-purple-900 space-y-1 border border-purple-200">
+              <div className="p-3 bg-aqua-50 rounded-xl text-[11px] text-aqua-900 space-y-1 border border-aqua-200">
                 <div>• <strong>Read Backward:</strong> Proofread your bullet points from bottom to top to spot spelling typos.</div>
                 <div>• <strong>Always Save as PDF:</strong> Preserves exact margins, font rendering, and line heights across Mac, Windows, and Linux.</div>
               </div>
@@ -1446,8 +1446,8 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
               <div className="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-sm">
                 <Flame className="w-4 h-4 text-amber-600" />
               </div>
-              <h3 className="font-bold text-slate-900 text-sm">A/B Testing Your Resumes</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <h3 className="font-bold text-pine-900 text-sm">A/B Testing Your Resumes</h3>
+              <p className="text-xs text-taupe-600 leading-relaxed">
                 Create 2 or 3 specialized versions in JobFlow (e.g. <em>Frontend Focused</em> vs <em>Full-Stack Lead</em>) and track their interview conversion rates in the <strong>Resume Tracker</strong> view!
               </p>
             </div>
@@ -1460,10 +1460,10 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
       {/* ========================================================================= */}
       {activeTab === 'examples' && (
         <div className="space-y-4">
-          <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs space-y-4">
+          <div className="bg-white rounded-2xl p-6 border border-linen-200 shadow-xs space-y-4">
             <div>
-              <h3 className="font-bold text-slate-900 text-base">Good vs. Bad Bullet Points Transformations</h3>
-              <p className="text-xs text-slate-500">
+              <h3 className="font-bold text-pine-900 text-base">Good vs. Bad Bullet Points Transformations</h3>
+              <p className="text-xs text-taupe-500">
                 See how passive job descriptions transform into high-impact Google X-Y-Z achievement statements.
               </p>
             </div>
@@ -1491,9 +1491,9 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                   good: 'Architected automated Snowflake ELT pipelines processing 10M+ daily events, accelerating executive reporting speed by 4x.',
                 },
               ].map((ex, i) => (
-                <div key={i} className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2.5">
-                  <div className="text-xs font-bold text-indigo-900 flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-indigo-600" />
+                <div key={i} className="p-4 bg-linen-50 rounded-xl border border-linen-200 space-y-2.5">
+                  <div className="text-xs font-bold text-pine-900 flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-pine-600" />
                     {ex.role}
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
@@ -1505,9 +1505,9 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                       <p className="italic">{ex.bad}</p>
                     </div>
 
-                    <div className="p-3 bg-emerald-50/70 border border-emerald-200 rounded-lg text-emerald-900">
-                      <div className="font-bold text-[10px] text-emerald-700 uppercase tracking-wider flex items-center gap-1 mb-1">
-                        <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                    <div className="p-3 bg-olive-50/70 border border-olive-200 rounded-lg text-olive-900">
+                      <div className="font-bold text-[10px] text-olive-700 uppercase tracking-wider flex items-center gap-1 mb-1">
+                        <CheckCircle2 className="w-3 h-3 text-olive-600" />
                         Google X-Y-Z Masterclass Bullet
                       </div>
                       <p className="font-medium">{ex.good}</p>
@@ -1524,14 +1524,14 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
       {/* TAB 4: POWER ACTION VERBS BANK */}
       {/* ========================================================================= */}
       {activeTab === 'verbs' && (
-        <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs space-y-5">
+        <div className="bg-white rounded-2xl p-6 border border-linen-200 shadow-xs space-y-5">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
             <div>
-              <h3 className="font-bold text-slate-900 text-base flex items-center gap-2">
+              <h3 className="font-bold text-pine-900 text-base flex items-center gap-2">
                 <Flame className="w-4 h-4 text-amber-500" />
                 Power Action Verbs Bank ({actionVerbsList.length}+ curated verbs)
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-taupe-500">
                 Click any verb to copy it or insert it directly into your bullet builder.
               </p>
             </div>
@@ -1551,8 +1551,8 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
                   onClick={() => setVerbCategory(c.id as any)}
                   className={`px-3 py-1.5 rounded-lg font-semibold transition-colors ${
                     verbCategory === c.id
-                      ? 'bg-blue-600 text-white shadow-2xs'
-                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      ? 'bg-pine-600 text-white shadow-2xs'
+                      : 'bg-linen-100 text-taupe-600 hover:bg-linen-200'
                   }`}
                 >
                   {c.label}
@@ -1568,7 +1568,7 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
               placeholder="Search action verbs by keyword or meaning..."
               value={verbSearch}
               onChange={(e) => setVerbSearch(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3.5 py-2.5 bg-linen-50 border border-linen-200 rounded-xl text-xs text-pine-900 focus:bg-white focus:ring-2 focus:ring-pine-500"
             />
           </div>
 
@@ -1578,20 +1578,20 @@ export const ResumeBuilderView: React.FC<ResumeBuilderViewProps> = ({
               <div
                 key={v.verb}
                 onClick={() => handleCopyVerb(v.verb)}
-                className="p-3 rounded-xl border border-slate-200 hover:border-blue-300 hover:bg-blue-50/50 cursor-pointer transition-all flex items-center justify-between group text-xs"
+                className="p-3 rounded-xl border border-linen-200 hover:border-pine-300 hover:bg-pine-50/50 cursor-pointer transition-all flex items-center justify-between group text-xs"
               >
                 <div>
-                  <div className="font-bold text-slate-900 group-hover:text-blue-700 flex items-center gap-1.5">
+                  <div className="font-bold text-pine-900 group-hover:text-pine-700 flex items-center gap-1.5">
                     {v.verb}
                     {copiedVerb === v.verb && (
-                      <span className="text-[10px] text-emerald-600 font-bold flex items-center gap-0.5">
+                      <span className="text-[10px] text-olive-600 font-bold flex items-center gap-0.5">
                         <Check className="w-3 h-3" /> Copied!
                       </span>
                     )}
                   </div>
-                  <div className="text-[11px] text-slate-500">{v.desc}</div>
+                  <div className="text-[11px] text-taupe-500">{v.desc}</div>
                 </div>
-                <Copy className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600 shrink-0" />
+                <Copy className="w-3.5 h-3.5 text-taupe-400 group-hover:text-pine-600 shrink-0" />
               </div>
             ))}
           </div>

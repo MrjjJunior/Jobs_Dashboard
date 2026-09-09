@@ -86,27 +86,27 @@ export const JobTableView: React.FC<JobTableViewProps> = ({
   const getStageBadgeClass = (stage: JobStage) => {
     switch (stage) {
       case 'offer':
-        return 'bg-emerald-50 text-emerald-800 border-emerald-300';
+        return 'bg-olive-50 text-olive-800 border-olive-300';
       case 'interview':
-        return 'bg-blue-50 text-blue-800 border-blue-200';
+        return 'bg-pine-50 text-pine-800 border-pine-200';
       case 'technical':
-        return 'bg-indigo-50 text-indigo-800 border-indigo-200';
+        return 'bg-pine-50 text-pine-800 border-pine-200';
       case 'screening':
         return 'bg-amber-50 text-amber-800 border-amber-200';
       case 'rejected':
         return 'bg-rose-50 text-rose-800 border-rose-200';
       case 'withdrawn':
-        return 'bg-slate-100 text-slate-600 border-slate-200';
+        return 'bg-linen-100 text-taupe-600 border-linen-200';
       default:
-        return 'bg-slate-50 text-slate-700 border-slate-200';
+        return 'bg-linen-50 text-taupe-700 border-linen-200';
     }
   };
 
   return (
-    <div className="bg-white rounded-lg border border-slate-200 shadow-xs overflow-hidden flex flex-col">
+    <div className="bg-white rounded-lg border border-linen-200 shadow-xs overflow-hidden flex flex-col">
       {/* Batch Selection Toolbar */}
       {selectedIds.length > 0 && (
-        <div className="bg-emerald-50/80 px-4 py-2.5 border-b border-emerald-200 flex items-center justify-between text-xs text-emerald-950">
+        <div className="bg-olive-50/80 px-4 py-2.5 border-b border-olive-200 flex items-center justify-between text-xs text-olive-950">
           <span className="font-semibold">{selectedIds.length} application(s) selected</span>
           <div className="flex items-center gap-2">
             {onBatchUpdateStage && (
@@ -118,7 +118,7 @@ export const JobTableView: React.FC<JobTableViewProps> = ({
                   }
                 }}
                 defaultValue=""
-                className="bg-white border border-emerald-300 rounded px-2.5 py-1 text-xs font-medium text-slate-800 focus-visible:ring-2 focus-visible:ring-emerald-500"
+                className="bg-white border border-olive-300 rounded px-2.5 py-1 text-xs font-medium text-pine-800 focus-visible:ring-2 focus-visible:ring-olive-500"
               >
                 <option value="" disabled>
                   Move to Stage...
@@ -147,7 +147,7 @@ export const JobTableView: React.FC<JobTableViewProps> = ({
 
             <button
               onClick={() => setSelectedIds([])}
-              className="text-slate-500 hover:text-slate-800 px-2 py-1"
+              className="text-taupe-500 hover:text-pine-800 px-2 py-1"
             >
               Cancel
             </button>
@@ -158,7 +158,7 @@ export const JobTableView: React.FC<JobTableViewProps> = ({
       {/* Main Jobs Table */}
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
-          <thead className="bg-slate-50 text-slate-500 text-[11px] font-semibold uppercase tracking-wider border-b border-slate-200 select-none">
+          <thead className="bg-linen-50 text-taupe-500 text-[11px] font-semibold uppercase tracking-wider border-b border-linen-200 select-none">
             <tr>
               <th className="py-3 px-4 w-10">
                 <input
@@ -166,17 +166,17 @@ export const JobTableView: React.FC<JobTableViewProps> = ({
                   checked={jobs.length > 0 && selectedIds.length === jobs.length}
                   onChange={toggleSelectAll}
                   aria-label="Select all jobs"
-                  className="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 cursor-pointer"
+                  className="rounded border-taupe-200 text-olive-600 focus:ring-olive-500 cursor-pointer"
                 />
               </th>
 
               <th
                 onClick={() => handleSort('role')}
-                className="py-3 px-4 cursor-pointer hover:text-slate-900 transition-colors"
+                className="py-3 px-4 cursor-pointer hover:text-pine-900 transition-colors"
               >
                 <div className="flex items-center gap-1.5">
                   <span>Role & Company</span>
-                  <ArrowUpDown className="w-3 h-3 text-slate-400" />
+                  <ArrowUpDown className="w-3 h-3 text-taupe-400" />
                 </div>
               </th>
 
@@ -186,31 +186,31 @@ export const JobTableView: React.FC<JobTableViewProps> = ({
 
               <th
                 onClick={() => handleSort('stage')}
-                className="py-3 px-4 cursor-pointer hover:text-slate-900 transition-colors"
+                className="py-3 px-4 cursor-pointer hover:text-pine-900 transition-colors"
               >
                 <div className="flex items-center gap-1.5">
                   <span>Status</span>
-                  <ArrowUpDown className="w-3 h-3 text-slate-400" />
+                  <ArrowUpDown className="w-3 h-3 text-taupe-400" />
                 </div>
               </th>
 
               <th
                 onClick={() => handleSort('priority')}
-                className="py-3 px-4 cursor-pointer hover:text-slate-900 transition-colors"
+                className="py-3 px-4 cursor-pointer hover:text-pine-900 transition-colors"
               >
                 <div className="flex items-center gap-1.5">
                   <span>Priority</span>
-                  <ArrowUpDown className="w-3 h-3 text-slate-400" />
+                  <ArrowUpDown className="w-3 h-3 text-taupe-400" />
                 </div>
               </th>
 
               <th
                 onClick={() => handleSort('salary')}
-                className="py-3 px-4 cursor-pointer hover:text-slate-900 transition-colors"
+                className="py-3 px-4 cursor-pointer hover:text-pine-900 transition-colors"
               >
                 <div className="flex items-center gap-1.5">
                   <span>Salary / Rate</span>
-                  <ArrowUpDown className="w-3 h-3 text-slate-400" />
+                  <ArrowUpDown className="w-3 h-3 text-taupe-400" />
                 </div>
               </th>
 
@@ -220,11 +220,11 @@ export const JobTableView: React.FC<JobTableViewProps> = ({
 
               <th
                 onClick={() => handleSort('appliedDate')}
-                className="py-3 px-4 cursor-pointer hover:text-slate-900 transition-colors text-right"
+                className="py-3 px-4 cursor-pointer hover:text-pine-900 transition-colors text-right"
               >
                 <div className="flex items-center justify-end gap-1.5">
                   <span>Last Active</span>
-                  <ArrowUpDown className="w-3 h-3 text-slate-400" />
+                  <ArrowUpDown className="w-3 h-3 text-taupe-400" />
                 </div>
               </th>
 
@@ -232,13 +232,13 @@ export const JobTableView: React.FC<JobTableViewProps> = ({
             </tr>
           </thead>
 
-          <tbody className="divide-y divide-slate-100 text-xs">
+          <tbody className="divide-y divide-linen-100 text-xs">
             {sortedJobs.length === 0 ? (
               <tr>
-                <td colSpan={9} className="py-12 text-center text-slate-400 text-xs">
+                <td colSpan={9} className="py-12 text-center text-taupe-400 text-xs">
                   <div className="flex flex-col items-center justify-center gap-1">
-                    <p className="font-semibold text-slate-700">No applications found</p>
-                    <p className="text-[11px] text-slate-400">Add a new job application or adjust your search filter above.</p>
+                    <p className="font-semibold text-taupe-700">No applications found</p>
+                    <p className="text-[11px] text-taupe-400">Add a new job application or adjust your search filter above.</p>
                   </div>
                 </td>
               </tr>
@@ -251,8 +251,8 @@ export const JobTableView: React.FC<JobTableViewProps> = ({
                     key={job.id}
                     id={`table-row-${job.id}`}
                     onClick={() => onSelectJob(job)}
-                    className={`hover:bg-slate-50 cursor-pointer transition-colors ${
-                      isSelected ? 'bg-emerald-50/30' : ''
+                    className={`hover:bg-linen-50 cursor-pointer transition-colors ${
+                      isSelected ? 'bg-olive-50/30' : ''
                     }`}
                   >
                     {/* Checkbox */}
@@ -262,7 +262,7 @@ export const JobTableView: React.FC<JobTableViewProps> = ({
                         checked={isSelected}
                         onChange={() => toggleSelectOne(job.id)}
                         aria-label={`Select ${job.role} at ${job.company}`}
-                        className="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 cursor-pointer"
+                        className="rounded border-taupe-200 text-olive-600 focus:ring-olive-500 cursor-pointer"
                       />
                     </td>
 
@@ -270,23 +270,23 @@ export const JobTableView: React.FC<JobTableViewProps> = ({
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-2.5">
                         <div
-                          className="w-7 h-7 rounded bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center justify-center font-bold text-[11px] shrink-0"
+                          className="w-7 h-7 rounded bg-olive-50 border border-olive-200 text-olive-800 flex items-center justify-center font-bold text-[11px] shrink-0"
                         >
                           {getCompanyInitials(job.company)}
                         </div>
                         <div className="min-w-0">
-                          <p className="font-semibold text-slate-900 hover:text-emerald-700 transition-colors truncate">
+                          <p className="font-semibold text-pine-900 hover:text-olive-700 transition-colors truncate">
                             {job.role}
                           </p>
-                          <div className="flex items-center gap-1.5 text-[11px] text-slate-500 truncate mt-0.5">
-                            <span className="font-medium text-slate-700">{job.company}</span>
+                          <div className="flex items-center gap-1.5 text-[11px] text-taupe-500 truncate mt-0.5">
+                            <span className="font-medium text-taupe-700">{job.company}</span>
                             {job.jobUrl && (
                               <a
                                 href={job.jobUrl}
                                 target="_blank"
                                 rel="noreferrer noopener"
                                 onClick={(e) => e.stopPropagation()}
-                                className="text-slate-400 hover:text-blue-600 inline-flex items-center"
+                                className="text-taupe-400 hover:text-pine-600 inline-flex items-center"
                                 title="Open Job URL"
                               >
                                 <ExternalLink className="w-3 h-3" />
@@ -298,9 +298,9 @@ export const JobTableView: React.FC<JobTableViewProps> = ({
                     </td>
 
                     {/* Location & Workplace */}
-                    <td className="py-3.5 px-4 text-slate-600">
+                    <td className="py-3.5 px-4 text-taupe-600">
                       <p className="font-medium truncate">{job.location || 'Remote'}</p>
-                      <p className="text-[11px] text-slate-400 capitalize">{job.workplaceType}</p>
+                      <p className="text-[11px] text-taupe-400 capitalize">{job.workplaceType}</p>
                     </td>
 
                     {/* Status Badge */}
@@ -327,7 +327,7 @@ export const JobTableView: React.FC<JobTableViewProps> = ({
                             ? 'bg-rose-50 text-rose-700 border border-rose-200'
                             : job.priority === 'medium'
                             ? 'bg-amber-50 text-amber-700 border border-amber-200'
-                            : 'bg-slate-100 text-slate-600 border border-slate-200'
+                            : 'bg-linen-100 text-taupe-600 border border-linen-200'
                         }`}
                       >
                         {job.priority}
@@ -335,24 +335,24 @@ export const JobTableView: React.FC<JobTableViewProps> = ({
                     </td>
 
                     {/* Compensation */}
-                    <td className="py-3.5 px-4 font-mono text-slate-800 text-[11px]">
+                    <td className="py-3.5 px-4 font-mono text-pine-800 text-[11px]">
                       {formatSalary(job.salaryMin, job.salaryMax, job.salaryCurrency, job.salaryPeriod)}
                     </td>
 
                     {/* Resume & Match Score */}
                     <td className="py-3.5 px-4">
                       <div className="flex flex-col gap-1 max-w-[150px]">
-                        <div className="flex items-center gap-1.5 text-slate-700 truncate font-medium">
-                          <FileText className="w-3 h-3 text-slate-400 shrink-0" />
+                        <div className="flex items-center gap-1.5 text-taupe-700 truncate font-medium">
+                          <FileText className="w-3 h-3 text-taupe-400 shrink-0" />
                           <span className="truncate">{job.resumeVersion ? job.resumeVersion.replace('.pdf', '') : 'Default Resume'}</span>
                         </div>
                         {job.atsScore ? (
                           <div>
                             <span className={`text-[10px] font-semibold px-1.5 py-0.2 rounded border ${
                               job.atsScore >= 80
-                                ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                                ? 'bg-olive-50 text-olive-800 border-olive-200'
                                 : job.atsScore >= 60
-                                ? 'bg-blue-50 text-blue-800 border-blue-200'
+                                ? 'bg-pine-50 text-pine-800 border-pine-200'
                                 : 'bg-amber-50 text-amber-800 border-amber-200'
                             }`}>
                               {job.atsScore}% Match
@@ -363,7 +363,7 @@ export const JobTableView: React.FC<JobTableViewProps> = ({
                     </td>
 
                     {/* Last Updated */}
-                    <td className="py-3.5 px-4 text-right text-slate-500 font-medium">
+                    <td className="py-3.5 px-4 text-right text-taupe-500 font-medium">
                       {job.lastActivityDate || job.appliedDate}
                     </td>
 
@@ -375,7 +375,7 @@ export const JobTableView: React.FC<JobTableViewProps> = ({
                           id={`view-job-btn-${job.id}`}
                           onClick={() => onSelectJob(job)}
                           title="View Details"
-                          className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-md transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500"
+                          className="p-1.5 text-taupe-400 hover:text-taupe-700 hover:bg-linen-100 rounded-md transition-colors focus-visible:ring-2 focus-visible:ring-olive-500"
                         >
                           <Eye className="w-3.5 h-3.5" />
                         </button>
@@ -389,7 +389,7 @@ export const JobTableView: React.FC<JobTableViewProps> = ({
                             }
                           }}
                           title="Delete Application"
-                          className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-md transition-colors focus-visible:ring-2 focus-visible:ring-emerald-500"
+                          className="p-1.5 text-taupe-400 hover:text-rose-600 hover:bg-rose-50 rounded-md transition-colors focus-visible:ring-2 focus-visible:ring-olive-500"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>

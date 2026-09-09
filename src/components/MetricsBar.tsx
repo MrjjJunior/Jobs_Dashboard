@@ -78,7 +78,7 @@ export const MetricsBar: React.FC<MetricsBarProps> = ({ jobs, onFilterChange, ac
             className={`text-left bg-white p-4 rounded-lg border transition-all focus-visible:ring-2 focus-visible:ring-[#003B36] focus-visible:outline-hidden ${
               isSelected
                 ? 'border-[#003B36] ring-2 ring-[#003B36]/20 bg-[#F3E8EE]/40'
-                : 'border-slate-200 hover:border-[#917C78]/50 hover:shadow-xs'
+                : 'border-linen-200 hover:border-[#917C78]/50 hover:shadow-xs'
             }`}
           >
             <div className="flex items-center justify-between">

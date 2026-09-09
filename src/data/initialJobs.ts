@@ -6,7 +6,7 @@ export const STAGES_CONFIG: Record<JobStage, StageConfig> = {
     label: 'Wishlist',
     description: 'Bookmarked opportunities to research & apply',
     color: {
-      bg: 'bg-slate-100',
+      bg: 'bg-linen-100',
       text: 'text-[#003B36]',
       border: 'border-[#917C78]/30',
       badge: 'bg-[#F3E8EE] text-[#003B36] border-[#917C78]/30',

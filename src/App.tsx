@@ -399,7 +399,7 @@ export default function App() {
 
   if (currentRoute === 'landing') {
     return (
-      <div className="min-h-screen bg-slate-900">
+      <div className="min-h-screen bg-pine-900">
         <LandingPage
           userProfile={userProfile}
           jobs={jobs}
@@ -428,7 +428,7 @@ export default function App() {
   }
 
   return (
-    <div className="h-screen w-full flex bg-slate-50 font-sans text-slate-900 overflow-hidden">
+    <div className="h-screen w-full flex bg-linen-50 font-sans text-pine-900 overflow-hidden">
       {/* High Density Left Sidebar */}
       <Sidebar
         viewMode={viewMode}

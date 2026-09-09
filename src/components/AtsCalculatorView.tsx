@@ -180,20 +180,20 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
   return (
     <div className="space-y-6 animate-fadeIn">
       {/* View Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-5 rounded-xl border border-linen-200 shadow-xs">
         <div>
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
+            <div className="w-8 h-8 rounded-lg bg-pine-50 text-pine-600 flex items-center justify-center font-bold">
               <Calculator className="w-4 h-4" />
             </div>
-            <h2 className="text-base font-bold text-slate-900">
+            <h2 className="text-base font-bold text-pine-900">
               ATS Match & Keyword Optimization Calculator
             </h2>
-            <span className="text-[10px] uppercase font-bold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full">
+            <span className="text-[10px] uppercase font-bold bg-pine-100 text-pine-700 px-2 py-0.5 rounded-full">
               Automated Parser
             </span>
           </div>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-taupe-500 mt-1">
             Compare your resume against any job description to evaluate Applicant Tracking System (ATS) keyword alignment, missing skills, and structural readiness.
           </p>
         </div>
@@ -203,8 +203,8 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
             onClick={() => setComparisonMode(!comparisonMode)}
             className={`flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold rounded-lg border transition-colors ${
               comparisonMode
-                ? 'bg-indigo-600 text-white border-indigo-600'
-                : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
+                ? 'bg-pine-600 text-white border-pine-600'
+                : 'bg-linen-50 hover:bg-linen-100 text-taupe-700 border-linen-200'
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
@@ -215,16 +215,16 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
 
       {/* Multi-Resume Comparison Banner (When toggled or when best match found) */}
       {comparisonMode && (
-        <div className="bg-white rounded-xl border border-indigo-200 p-5 shadow-xs space-y-4">
+        <div className="bg-white rounded-xl border border-pine-200 p-5 shadow-xs space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Trophy className="w-4 h-4 text-amber-500" />
-              <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+              <h3 className="text-xs font-bold text-pine-900 uppercase tracking-wider">
                 Resume Fit Comparison Matrix
               </h3>
             </div>
-            <span className="text-xs text-slate-500">
-              Targeting: <strong className="text-slate-900">{jobRoleTitle || 'Job Description'}</strong>
+            <span className="text-xs text-taupe-500">
+              Targeting: <strong className="text-pine-900">{jobRoleTitle || 'Job Description'}</strong>
             </span>
           </div>
 
@@ -242,46 +242,46 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
                   }}
                   className={`p-4 rounded-xl border cursor-pointer transition-all ${
                     isBest
-                      ? 'border-emerald-300 bg-emerald-50/30 ring-2 ring-emerald-400'
+                      ? 'border-olive-300 bg-olive-50/30 ring-2 ring-olive-400'
                       : isSelected
-                      ? 'border-indigo-300 bg-indigo-50/20'
-                      : 'border-slate-200 bg-slate-50 hover:border-slate-300'
+                      ? 'border-pine-300 bg-pine-50/20'
+                      : 'border-linen-200 bg-linen-50 hover:border-taupe-200'
                   }`}
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div className="truncate pr-2">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-xs font-bold text-slate-900 truncate block">
+                        <span className="text-xs font-bold text-pine-900 truncate block">
                           {resume.name}
                         </span>
                         {isBest && (
-                          <span className="text-[9px] font-extrabold uppercase bg-emerald-600 text-white px-1.5 py-0.2 rounded shrink-0">
+                          <span className="text-[9px] font-extrabold uppercase bg-olive-600 text-white px-1.5 py-0.2 rounded shrink-0">
                             ★ Best Fit
                           </span>
                         )}
                       </div>
-                      <p className="text-[10px] text-slate-500">{resume.targetRole}</p>
+                      <p className="text-[10px] text-taupe-500">{resume.targetRole}</p>
                     </div>
 
                     <div className={`text-right shrink-0 font-black text-lg ${
-                      ats.score >= 80 ? 'text-emerald-600' : ats.score >= 60 ? 'text-blue-600' : 'text-amber-600'
+                      ats.score >= 80 ? 'text-olive-600' : ats.score >= 60 ? 'text-pine-600' : 'text-amber-600'
                     }`}>
                       {ats.score}%
                     </div>
                   </div>
 
-                  <div className="space-y-1.5 text-[11px] pt-2 border-t border-slate-200/60">
-                    <div className="flex justify-between text-slate-600">
+                  <div className="space-y-1.5 text-[11px] pt-2 border-t border-linen-200/60">
+                    <div className="flex justify-between text-taupe-600">
                       <span>Keywords Matched:</span>
-                      <strong className="text-emerald-700">{ats.matchedKeywords.length + ats.matchedSoftSkills.length}</strong>
+                      <strong className="text-olive-700">{ats.matchedKeywords.length + ats.matchedSoftSkills.length}</strong>
                     </div>
-                    <div className="flex justify-between text-slate-600">
+                    <div className="flex justify-between text-taupe-600">
                       <span>Keywords Missing:</span>
                       <strong className="text-rose-600">{ats.missingKeywords.length + ats.missingSoftSkills.length}</strong>
                     </div>
-                    <div className="flex justify-between text-slate-600">
+                    <div className="flex justify-between text-taupe-600">
                       <span>Rating:</span>
-                      <span className="font-semibold text-slate-800">{ats.rating}</span>
+                      <span className="font-semibold text-pine-800">{ats.rating}</span>
                     </div>
                   </div>
                 </div>
@@ -296,13 +296,13 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
         {/* Left Column: Selectors & Inputs (5 Cols) */}
         <div className="lg:col-span-6 space-y-4">
           {/* Resume Selector */}
-          <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs space-y-3">
+          <div className="bg-white p-4 rounded-xl border border-linen-200 shadow-xs space-y-3">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                <FileText className="w-4 h-4 text-blue-600" />
+              <label className="text-xs font-bold text-pine-900 flex items-center gap-1.5">
+                <FileText className="w-4 h-4 text-pine-600" />
                 Select Resume to Evaluate
               </label>
-              <span className="text-[10px] text-slate-400 font-semibold">
+              <span className="text-[10px] text-taupe-400 font-semibold">
                 {resumes.length} saved versions
               </span>
             </div>
@@ -310,7 +310,7 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
             <select
               value={selectedResumeId}
               onChange={(e) => setSelectedResumeId(e.target.value)}
-              className="w-full px-3 py-2 text-xs font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 text-xs font-bold text-pine-800 bg-linen-50 border border-linen-200 rounded-lg focus:outline-none focus:border-pine-500"
             >
               {resumes.map((r) => (
                 <option key={r.id} value={r.id}>
@@ -321,14 +321,14 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
 
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                <span className="text-[10px] font-bold text-taupe-500 uppercase tracking-wider">
                   Resume Content (Editable)
                 </span>
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] text-slate-400">
+                  <span className="text-[10px] text-taupe-400">
                     {atsResult.wordCountResume} words
                   </span>
-                  <label className="text-[11px] font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 cursor-pointer bg-blue-50 hover:bg-blue-100 px-2 py-0.5 rounded border border-blue-200 transition-colors">
+                  <label className="text-[11px] font-bold text-pine-600 hover:text-pine-800 flex items-center gap-1 cursor-pointer bg-pine-50 hover:bg-pine-100 px-2 py-0.5 rounded border border-pine-200 transition-colors">
                     {isParsingResume ? (
                       <Loader2 className="w-3 h-3 animate-spin" />
                     ) : (
@@ -345,7 +345,7 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
                 </div>
               </div>
               {uploadStatus && (
-                <p className="text-[10px] text-emerald-600 font-semibold mb-1 animate-fadeIn flex items-center gap-1">
+                <p className="text-[10px] text-olive-600 font-semibold mb-1 animate-fadeIn flex items-center gap-1">
                   <Check className="w-3 h-3" /> {uploadStatus}
                 </p>
               )}
@@ -354,16 +354,16 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
                 value={resumeText}
                 onChange={(e) => setResumeText(e.target.value)}
                 placeholder="Paste or edit resume text..."
-                className="w-full p-2.5 font-mono text-[11px] text-slate-800 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500 leading-relaxed"
+                className="w-full p-2.5 font-mono text-[11px] text-pine-800 bg-linen-50 border border-linen-200 rounded-lg focus:outline-none focus:border-pine-500 leading-relaxed"
               />
             </div>
           </div>
 
           {/* Job Description Selector */}
-          <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs space-y-3">
+          <div className="bg-white p-4 rounded-xl border border-linen-200 shadow-xs space-y-3">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                <Briefcase className="w-4 h-4 text-indigo-600" />
+              <label className="text-xs font-bold text-pine-900 flex items-center gap-1.5">
+                <Briefcase className="w-4 h-4 text-pine-600" />
                 Target Job Application / Description
               </label>
             </div>
@@ -372,7 +372,7 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
               <select
                 value={selectedJobId}
                 onChange={(e) => setSelectedJobId(e.target.value)}
-                className="w-full px-3 py-2 text-xs font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 text-xs font-bold text-pine-800 bg-linen-50 border border-linen-200 rounded-lg focus:outline-none focus:border-pine-500"
               >
                 <option value="custom">-- Custom Job Description --</option>
                 {jobs.map((j) => (
@@ -387,16 +387,16 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
                 placeholder="Role Title (e.g. Senior Frontend Eng)"
                 value={jobRoleTitle}
                 onChange={(e) => setJobRoleTitle(e.target.value)}
-                className="w-full px-3 py-2 text-xs font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500"
+                className="w-full px-3 py-2 text-xs font-bold text-pine-800 bg-linen-50 border border-linen-200 rounded-lg focus:outline-none focus:border-pine-500"
               />
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-1">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                <span className="text-[10px] font-bold text-taupe-400 uppercase tracking-wider">
                   Job Description Requirements
                 </span>
-                <span className="text-[10px] text-slate-400">
+                <span className="text-[10px] text-taupe-400">
                   {atsResult.wordCountJob} words
                 </span>
               </div>
@@ -405,7 +405,7 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
                 value={jobDescriptionText}
                 onChange={(e) => setJobDescriptionText(e.target.value)}
                 placeholder="Paste the full job description or requirements here..."
-                className="w-full p-2.5 font-mono text-[11px] text-slate-800 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-indigo-500 leading-relaxed"
+                className="w-full p-2.5 font-mono text-[11px] text-pine-800 bg-linen-50 border border-linen-200 rounded-lg focus:outline-none focus:border-pine-500 leading-relaxed"
               />
             </div>
 
@@ -414,13 +414,13 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
               <div className="pt-2 flex items-center justify-between">
                 <button
                   onClick={handleSaveToJob}
-                  className="flex items-center gap-1.5 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-lg shadow-xs transition-colors"
+                  className="flex items-center gap-1.5 px-4 py-2 bg-pine-600 hover:bg-pine-700 text-white font-bold text-xs rounded-lg shadow-xs transition-colors"
                 >
                   <Save className="w-3.5 h-3.5" />
                   <span>Save ATS Score & CV Link to {currentJob.company}</span>
                 </button>
                 {saveSuccessMsg && (
-                  <span className="text-xs font-bold text-emerald-600 flex items-center gap-1">
+                  <span className="text-xs font-bold text-olive-600 flex items-center gap-1">
                     <CheckCircle2 className="w-3.5 h-3.5" />
                     Updated job profile!
                   </span>
@@ -433,18 +433,18 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
         {/* Right Column: ATS Match Score & Analytics Breakdown (6 Cols) */}
         <div className="lg:col-span-6 space-y-4">
           {/* Main Score Gauge Card */}
-          <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+          <div className="bg-white p-5 rounded-xl border border-linen-200 shadow-xs">
+            <div className="flex items-center justify-between pb-4 border-b border-linen-100">
               <div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                <span className="text-[10px] font-bold text-taupe-400 uppercase tracking-wider">
                   Overall ATS Compatibility Score
                 </span>
                 <div className="flex items-baseline gap-2 mt-0.5">
                   <h3 className={`text-3xl font-black ${
                     atsResult.score >= 85
-                      ? 'text-emerald-600'
+                      ? 'text-olive-600'
                       : atsResult.score >= 70
-                      ? 'text-blue-600'
+                      ? 'text-pine-600'
                       : atsResult.score >= 50
                       ? 'text-amber-600'
                       : 'text-rose-600'
@@ -453,9 +453,9 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
                   </h3>
                   <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${
                     atsResult.score >= 85
-                      ? 'bg-emerald-100 text-emerald-800'
+                      ? 'bg-olive-100 text-olive-800'
                       : atsResult.score >= 70
-                      ? 'bg-blue-100 text-blue-800'
+                      ? 'bg-pine-100 text-pine-800'
                       : atsResult.score >= 50
                       ? 'bg-amber-100 text-amber-800'
                       : 'bg-rose-100 text-rose-800'
@@ -466,13 +466,13 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
               </div>
 
               {/* Mini progress ring or meter */}
-              <div className="w-24 h-4 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
+              <div className="w-24 h-4 bg-linen-100 rounded-full overflow-hidden border border-linen-200">
                 <div
                   className={`h-full transition-all duration-500 ${
                     atsResult.score >= 85
-                      ? 'bg-emerald-500'
+                      ? 'bg-olive-500'
                       : atsResult.score >= 70
-                      ? 'bg-blue-500'
+                      ? 'bg-pine-500'
                       : atsResult.score >= 50
                       ? 'bg-amber-500'
                       : 'bg-rose-500'
@@ -483,16 +483,16 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
             </div>
 
             {/* Keyword Match Stats */}
-            <div className="grid grid-cols-2 gap-3 py-3 border-b border-slate-100 text-xs">
-              <div className="p-2.5 bg-emerald-50/60 rounded-lg border border-emerald-100">
-                <div className="flex items-center justify-between text-emerald-800 font-bold mb-1">
+            <div className="grid grid-cols-2 gap-3 py-3 border-b border-linen-100 text-xs">
+              <div className="p-2.5 bg-olive-50/60 rounded-lg border border-olive-100">
+                <div className="flex items-center justify-between text-olive-800 font-bold mb-1">
                   <span className="flex items-center gap-1">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-olive-600" />
                     Matched Keywords
                   </span>
                   <span>{atsResult.matchedKeywords.length + atsResult.matchedSoftSkills.length}</span>
                 </div>
-                <p className="text-[10px] text-emerald-600">
+                <p className="text-[10px] text-olive-600">
                   Directly verified in your resume
                 </p>
               </div>
@@ -512,8 +512,8 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
             </div>
 
             {/* Matched Keywords Tags */}
-            <div className="py-3 border-b border-slate-100">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-2">
+            <div className="py-3 border-b border-linen-100">
+              <span className="text-[10px] font-bold text-taupe-400 uppercase tracking-wider block mb-2">
                 Matched Technical Keywords ({atsResult.matchedKeywords.length + atsResult.matchedSoftSkills.length})
               </span>
               {atsResult.matchedKeywords.length > 0 || atsResult.matchedSoftSkills.length > 0 ? (
@@ -521,25 +521,25 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
                   {[...atsResult.matchedKeywords, ...atsResult.matchedSoftSkills].map((kw, i) => (
                     <span
                       key={i}
-                      className="text-[11px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded-md flex items-center gap-1"
+                      className="text-[11px] font-bold bg-olive-50 text-olive-800 border border-olive-200 px-2 py-0.5 rounded-md flex items-center gap-1"
                     >
-                      <Check className="w-3 h-3 text-emerald-600" />
+                      <Check className="w-3 h-3 text-olive-600" />
                       {kw}
                     </span>
                   ))}
                 </div>
               ) : (
-                <p className="text-xs text-slate-400 italic">No direct hard skill matches detected yet.</p>
+                <p className="text-xs text-taupe-400 italic">No direct hard skill matches detected yet.</p>
               )}
             </div>
 
             {/* Missing Keywords Tags (with one-click add) */}
-            <div className="py-3 border-b border-slate-100">
+            <div className="py-3 border-b border-linen-100">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                <span className="text-[10px] font-bold text-taupe-400 uppercase tracking-wider">
                   Missing Keywords from Job ({atsResult.missingKeywords.length + atsResult.missingSoftSkills.length})
                 </span>
-                <span className="text-[10px] text-slate-400">Click + to append to CV</span>
+                <span className="text-[10px] text-taupe-400">Click + to append to CV</span>
               </div>
               {atsResult.missingKeywords.length > 0 || atsResult.missingSoftSkills.length > 0 ? (
                 <div className="flex flex-wrap gap-1.5">
@@ -556,7 +556,7 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
                   ))}
                 </div>
               ) : (
-                <p className="text-xs text-emerald-600 font-semibold flex items-center gap-1">
+                <p className="text-xs text-olive-600 font-semibold flex items-center gap-1">
                   <CheckCircle2 className="w-3.5 h-3.5" />
                   All top job description keywords are present in your resume!
                 </p>
@@ -564,43 +564,43 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
             </div>
 
             {/* ATS Section Structure Audit */}
-            <div className="py-3 border-b border-slate-100">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-2">
+            <div className="py-3 border-b border-linen-100">
+              <span className="text-[10px] font-bold text-taupe-400 uppercase tracking-wider block mb-2">
                 ATS Document Structure Check
               </span>
               <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 text-[10px] font-bold">
                 <div className={`p-1.5 rounded text-center border ${
                   atsResult.sectionsFound.experience
-                    ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
-                    : 'bg-slate-50 text-slate-400 border-slate-200'
+                    ? 'bg-olive-50 text-olive-800 border-olive-200'
+                    : 'bg-linen-50 text-taupe-400 border-linen-200'
                 }`}>
                   {atsResult.sectionsFound.experience ? '✓ Experience' : '✕ Experience'}
                 </div>
                 <div className={`p-1.5 rounded text-center border ${
                   atsResult.sectionsFound.skills
-                    ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
-                    : 'bg-slate-50 text-slate-400 border-slate-200'
+                    ? 'bg-olive-50 text-olive-800 border-olive-200'
+                    : 'bg-linen-50 text-taupe-400 border-linen-200'
                 }`}>
                   {atsResult.sectionsFound.skills ? '✓ Skills' : '✕ Skills'}
                 </div>
                 <div className={`p-1.5 rounded text-center border ${
                   atsResult.sectionsFound.education
-                    ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
-                    : 'bg-slate-50 text-slate-400 border-slate-200'
+                    ? 'bg-olive-50 text-olive-800 border-olive-200'
+                    : 'bg-linen-50 text-taupe-400 border-linen-200'
                 }`}>
                   {atsResult.sectionsFound.education ? '✓ Education' : '✕ Education'}
                 </div>
                 <div className={`p-1.5 rounded text-center border ${
                   atsResult.sectionsFound.projects
-                    ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
-                    : 'bg-slate-50 text-slate-400 border-slate-200'
+                    ? 'bg-olive-50 text-olive-800 border-olive-200'
+                    : 'bg-linen-50 text-taupe-400 border-linen-200'
                 }`}>
                   {atsResult.sectionsFound.projects ? '✓ Projects' : '✕ Projects'}
                 </div>
                 <div className={`p-1.5 rounded text-center border ${
                   atsResult.sectionsFound.contact
-                    ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
-                    : 'bg-slate-50 text-slate-400 border-slate-200'
+                    ? 'bg-olive-50 text-olive-800 border-olive-200'
+                    : 'bg-linen-50 text-taupe-400 border-linen-200'
                 }`}>
                   {atsResult.sectionsFound.contact ? '✓ Contact' : '✕ Contact'}
                 </div>
@@ -609,14 +609,14 @@ export const AtsCalculatorView: React.FC<AtsCalculatorViewProps> = ({
 
             {/* Recommendations */}
             <div className="pt-3">
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-2 flex items-center gap-1">
+              <span className="text-[10px] font-bold text-taupe-400 uppercase tracking-wider block mb-2 flex items-center gap-1">
                 <Sparkles className="w-3 h-3 text-amber-500" />
                 Actionable Optimization Tips
               </span>
-              <ul className="space-y-1.5 text-xs text-slate-700">
+              <ul className="space-y-1.5 text-xs text-taupe-700">
                 {atsResult.recommendations.map((rec, idx) => (
-                  <li key={idx} className="flex items-start gap-2 bg-slate-50 p-2 rounded-lg border border-slate-100">
-                    <span className="w-4 h-4 rounded-full bg-blue-100 text-blue-700 font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">
+                  <li key={idx} className="flex items-start gap-2 bg-linen-50 p-2 rounded-lg border border-linen-100">
+                    <span className="w-4 h-4 rounded-full bg-pine-100 text-pine-700 font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">
                       {idx + 1}
                     </span>
                     <span>{rec}</span>

@@ -114,14 +114,14 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <div className="bg-white border-b border-slate-200 shrink-0">
+    <div className="bg-white border-b border-linen-200 shrink-0">
       {/* Top Navbar */}
-      <div className="h-16 px-4 lg:px-8 flex items-center justify-between gap-4 border-b border-slate-100">
+      <div className="h-16 px-4 lg:px-8 flex items-center justify-between gap-4 border-b border-linen-100">
         <div className="flex items-center gap-3 flex-1 max-w-md">
           {/* Mobile Menu Toggle */}
           <button
             onClick={onToggleMobileSidebar}
-            className="p-2 -ml-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 lg:hidden focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-hidden"
+            className="p-2 -ml-2 rounded-lg text-taupe-500 hover:text-pine-800 hover:bg-linen-100 lg:hidden focus-visible:ring-2 focus-visible:ring-olive-500 focus-visible:outline-hidden"
             aria-label="Open Navigation"
           >
             <Menu className="w-5 h-5" />
@@ -136,7 +136,7 @@ export const Header: React.FC<HeaderProps> = ({
                 placeholder="Search by role, company, or location..."
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
-                className="w-full bg-slate-50 hover:bg-slate-100/70 focus:bg-white text-xs text-slate-900 placeholder:text-slate-400 pl-9 pr-3 py-2 rounded-lg border border-slate-200 focus:border-[#003B36] focus:ring-2 focus:ring-[#003B36]/15 transition-all focus-visible:outline-hidden"
+                className="w-full bg-linen-50 hover:bg-linen-100/70 focus:bg-white text-xs text-pine-900 placeholder:text-taupe-400 pl-9 pr-3 py-2 rounded-lg border border-linen-200 focus:border-[#003B36] focus:ring-2 focus:ring-[#003B36]/15 transition-all focus-visible:outline-hidden"
               />
             </div>
           )}
@@ -148,7 +148,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="relative">
             <button
               onClick={() => setShowDataMenu(!showDataMenu)}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#003B36] bg-white hover:bg-[#F3E8EE]/50 border border-slate-200 rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-[#003B36] focus-visible:outline-hidden"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#003B36] bg-white hover:bg-[#F3E8EE]/50 border border-linen-200 rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-[#003B36] focus-visible:outline-hidden"
               aria-label="Data Options"
             >
               <Download className="w-3.5 h-3.5 text-[#917C78]" />
@@ -158,7 +158,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             {showDataMenu && (
               <div 
-                className="absolute right-0 mt-1.5 w-48 bg-white rounded-lg shadow-lg border border-slate-200 py-1 z-40 text-xs font-medium text-slate-700"
+                className="absolute right-0 mt-1.5 w-48 bg-white rounded-lg shadow-lg border border-linen-200 py-1 z-40 text-xs font-medium text-taupe-700"
                 onMouseLeave={() => setShowDataMenu(false)}
               >
                 <button
@@ -166,7 +166,7 @@ export const Header: React.FC<HeaderProps> = ({
                     exportJobsToJson(jobs);
                     setShowDataMenu(false);
                   }}
-                  className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2 text-slate-800"
+                  className="w-full px-3.5 py-2 text-left hover:bg-linen-50 flex items-center gap-2 text-pine-800"
                 >
                   <Download className="w-3.5 h-3.5 text-[#003B36]" />
                   <span>Export as JSON</span>
@@ -177,13 +177,13 @@ export const Header: React.FC<HeaderProps> = ({
                     exportJobsToCsv(jobs);
                     setShowDataMenu(false);
                   }}
-                  className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2 text-slate-800"
+                  className="w-full px-3.5 py-2 text-left hover:bg-linen-50 flex items-center gap-2 text-pine-800"
                 >
                   <FileSpreadsheet className="w-3.5 h-3.5 text-[#90A955]" />
                   <span>Export as Excel (CSV)</span>
                 </button>
 
-                <label className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2 cursor-pointer text-slate-800">
+                <label className="w-full px-3.5 py-2 text-left hover:bg-linen-50 flex items-center gap-2 cursor-pointer text-pine-800">
                   <Upload className="w-3.5 h-3.5 text-[#917C78]" />
                   <span>Import Backup</span>
                   <input
@@ -194,7 +194,7 @@ export const Header: React.FC<HeaderProps> = ({
                   />
                 </label>
 
-                <div className="my-1 border-t border-slate-100" />
+                <div className="my-1 border-t border-linen-100" />
 
                 <button
                   onClick={() => {
@@ -227,21 +227,21 @@ export const Header: React.FC<HeaderProps> = ({
 
             {showNotifications && (
               <div 
-                className="absolute right-0 mt-1.5 w-72 bg-white rounded-lg shadow-lg border border-slate-200 p-3 z-40 text-xs"
+                className="absolute right-0 mt-1.5 w-72 bg-white rounded-lg shadow-lg border border-linen-200 p-3 z-40 text-xs"
                 onMouseLeave={() => setShowNotifications(false)}
               >
-                <div className="font-bold text-slate-900 mb-1.5 flex items-center justify-between">
+                <div className="font-bold text-pine-900 mb-1.5 flex items-center justify-between">
                   <span>Upcoming Reminders</span>
                   <span className="text-[10px] font-semibold text-[#003B36] bg-[#F3E8EE] px-1.5 py-0.5 rounded border border-[#917C78]/30">
                     {interviewCount} Active
                   </span>
                 </div>
                 {interviewCount > 0 ? (
-                  <p className="text-slate-600 text-[11px] leading-relaxed">
-                    You have <span className="font-semibold text-slate-900">{interviewCount} interview rounds</span> in progress. Check the interview panel for schedules.
+                  <p className="text-taupe-600 text-[11px] leading-relaxed">
+                    You have <span className="font-semibold text-pine-900">{interviewCount} interview rounds</span> in progress. Check the interview panel for schedules.
                   </p>
                 ) : (
-                  <p className="text-slate-500 text-[11px]">
+                  <p className="text-taupe-500 text-[11px]">
                     No urgent reminders. Everything is up to date.
                   </p>
                 )}
@@ -271,10 +271,10 @@ export const Header: React.FC<HeaderProps> = ({
 
             {showProfileMenu && (
               <div 
-                className="absolute right-0 mt-1.5 w-52 bg-white rounded-lg shadow-lg border border-slate-200 py-1.5 z-50 text-xs"
+                className="absolute right-0 mt-1.5 w-52 bg-white rounded-lg shadow-lg border border-linen-200 py-1.5 z-50 text-xs"
                 onMouseLeave={() => setShowProfileMenu(false)}
               >
-                <div className="px-3.5 py-2 border-b border-slate-100">
+                <div className="px-3.5 py-2 border-b border-linen-100">
                   <p className="font-bold text-[#003B36] truncate">{profile.name}</p>
                   <p className="text-[11px] text-[#917C78] truncate">{profile.email}</p>
                 </div>
@@ -283,7 +283,7 @@ export const Header: React.FC<HeaderProps> = ({
                     setShowProfileMenu(false);
                     onOpenProfileModal();
                   }}
-                  className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2 text-slate-700"
+                  className="w-full px-3.5 py-2 text-left hover:bg-linen-50 flex items-center gap-2 text-taupe-700"
                 >
                   <User className="w-3.5 h-3.5 text-[#917C78]" />
                   <span>Profile & Bio</span>
@@ -293,12 +293,12 @@ export const Header: React.FC<HeaderProps> = ({
                     setShowProfileMenu(false);
                     onOpenGoalsModal();
                   }}
-                  className="w-full px-3.5 py-2 text-left hover:bg-slate-50 flex items-center gap-2 text-slate-700"
+                  className="w-full px-3.5 py-2 text-left hover:bg-linen-50 flex items-center gap-2 text-taupe-700"
                 >
                   <Target className="w-3.5 h-3.5 text-[#90A955]" />
                   <span>Application Goals</span>
                 </button>
-                <div className="my-1 border-t border-slate-100" />
+                <div className="my-1 border-t border-linen-100" />
                 <button
                   onClick={() => {
                     setShowProfileMenu(false);
@@ -329,9 +329,9 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center gap-2.5 self-start sm:self-auto">
           <button
             onClick={onOpenNewJobModal}
-            className="flex items-center justify-center gap-1.5 px-3.5 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-lg text-xs font-semibold shadow-2xs transition-colors cursor-pointer"
+            className="flex items-center justify-center gap-1.5 px-3.5 py-2 bg-olive-50 hover:bg-olive-100 text-olive-800 border border-olive-300 rounded-lg text-xs font-semibold shadow-2xs transition-colors cursor-pointer"
           >
-            <Sparkles className="w-4 h-4 text-emerald-700 animate-pulse" />
+            <Sparkles className="w-4 h-4 text-olive-700 animate-pulse" />
             <span>Auto-Fill from URL</span>
           </button>
           <button

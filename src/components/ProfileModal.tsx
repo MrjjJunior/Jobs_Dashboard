@@ -222,11 +222,11 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
     .slice(0, 2);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-pine-900/60 backdrop-blur-xs animate-fadeIn">
       <div 
         className={`rounded-2xl shadow-2xl border w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh] transition-colors ${
           mode === 'profile'
-            ? 'bg-white border-slate-200 text-slate-900'
+            ? 'bg-white border-linen-200 text-pine-900'
             : 'bg-[#003B36] border-[#917C78]/40 text-[#F3E8EE]'
         }`}
         onClick={(e) => e.stopPropagation()}
@@ -304,22 +304,22 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
           {mode === 'profile' ? (
             <form onSubmit={handleSaveProfile} className="space-y-5">
               {/* Profile Photo Section */}
-              <div className="flex items-center gap-5 p-4 bg-slate-50 rounded-2xl border border-slate-200/80">
+              <div className="flex items-center gap-5 p-4 bg-linen-50 rounded-2xl border border-linen-200/80">
                 <div className="relative group shrink-0">
                   {avatarUrl ? (
                     <img
                       src={avatarUrl}
                       alt={name}
-                      className="w-20 h-20 rounded-full object-cover border-2 border-white shadow-md ring-2 ring-blue-500/20"
+                      className="w-20 h-20 rounded-full object-cover border-2 border-white shadow-md ring-2 ring-pine-500/20"
                     />
                   ) : (
-                    <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-extrabold text-2xl flex items-center justify-center border-2 border-white shadow-md ring-2 ring-blue-500/20">
+                    <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-pine-600 to-pine-600 text-white font-extrabold text-2xl flex items-center justify-center border-2 border-white shadow-md ring-2 ring-pine-500/20">
                       {initials}
                     </div>
                   )}
 
                   <label 
-                    className="absolute inset-0 bg-slate-900/60 text-white rounded-full flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-[10px] font-semibold"
+                    className="absolute inset-0 bg-pine-900/60 text-white rounded-full flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-[10px] font-semibold"
                     title="Change profile photo"
                   >
                     <Camera className="w-5 h-5 mb-0.5" />
@@ -335,15 +335,15 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <div className="font-bold text-slate-900 text-sm mb-0.5">Profile Photo</div>
-                  <p className="text-xs text-slate-500 mb-2.5">
+                  <div className="font-bold text-pine-900 text-sm mb-0.5">Profile Photo</div>
+                  <p className="text-xs text-taupe-500 mb-2.5">
                     Upload your picture (PNG, JPG, or WebP). Displayed on headers, resumes, and reports.
                   </p>
                   <div className="flex items-center gap-2">
                     <button
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
-                      className="px-3 py-1.5 text-xs font-semibold bg-white text-blue-600 border border-blue-200 hover:bg-blue-50 rounded-lg shadow-2xs flex items-center gap-1.5 transition-colors"
+                      className="px-3 py-1.5 text-xs font-semibold bg-white text-pine-600 border border-pine-200 hover:bg-pine-50 rounded-lg shadow-2xs flex items-center gap-1.5 transition-colors"
                     >
                       <Upload className="w-3.5 h-3.5" />
                       <span>{avatarUrl ? 'Change Photo' : 'Upload Photo'}</span>
@@ -367,35 +367,35 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
               <div className="space-y-3.5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                    <label className="block text-xs font-bold text-taupe-700 mb-1">
                       Full Name *
                     </label>
                     <div className="relative">
-                      <User className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
+                      <User className="w-3.5 h-3.5 absolute left-3 top-2.5 text-taupe-400" />
                       <input
                         type="text"
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Alex Rivera"
-                        className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                        className="w-full pl-8 pr-3 py-1.5 text-xs border border-linen-200 rounded-lg font-medium text-pine-900 focus:outline-hidden focus:ring-2 focus:ring-pine-500"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                    <label className="block text-xs font-bold text-taupe-700 mb-1">
                       Email Address *
                     </label>
                     <div className="relative">
-                      <Mail className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
+                      <Mail className="w-3.5 h-3.5 absolute left-3 top-2.5 text-taupe-400" />
                       <input
                         type="email"
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="alex@example.com"
-                        className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                        className="w-full pl-8 pr-3 py-1.5 text-xs border border-linen-200 rounded-lg font-medium text-pine-900 focus:outline-hidden focus:ring-2 focus:ring-pine-500"
                       />
                     </div>
                   </div>
@@ -403,33 +403,33 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                    <label className="block text-xs font-bold text-taupe-700 mb-1">
                       Professional Headline / Role
                     </label>
                     <div className="relative">
-                      <Briefcase className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
+                      <Briefcase className="w-3.5 h-3.5 absolute left-3 top-2.5 text-taupe-400" />
                       <input
                         type="text"
                         value={role}
                         onChange={(e) => setRole(e.target.value)}
                         placeholder="Senior Full-Stack Engineer"
-                        className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                        className="w-full pl-8 pr-3 py-1.5 text-xs border border-linen-200 rounded-lg font-medium text-pine-900 focus:outline-hidden focus:ring-2 focus:ring-pine-500"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                    <label className="block text-xs font-bold text-taupe-700 mb-1">
                       Location
                     </label>
                     <div className="relative">
-                      <MapPin className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
+                      <MapPin className="w-3.5 h-3.5 absolute left-3 top-2.5 text-taupe-400" />
                       <input
                         type="text"
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
                         placeholder="San Francisco, CA (or Remote)"
-                        className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                        className="w-full pl-8 pr-3 py-1.5 text-xs border border-linen-200 rounded-lg font-medium text-pine-900 focus:outline-hidden focus:ring-2 focus:ring-pine-500"
                       />
                     </div>
                   </div>
@@ -437,40 +437,40 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                    <label className="block text-xs font-bold text-taupe-700 mb-1">
                       Phone Number
                     </label>
                     <div className="relative">
-                      <Phone className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
+                      <Phone className="w-3.5 h-3.5 absolute left-3 top-2.5 text-taupe-400" />
                       <input
                         type="text"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="+1 (555) 000-0000"
-                        className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                        className="w-full pl-8 pr-3 py-1.5 text-xs border border-linen-200 rounded-lg font-medium text-pine-900 focus:outline-hidden focus:ring-2 focus:ring-pine-500"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                    <label className="block text-xs font-bold text-taupe-700 mb-1">
                       LinkedIn Profile
                     </label>
                     <div className="relative">
-                      <Linkedin className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
+                      <Linkedin className="w-3.5 h-3.5 absolute left-3 top-2.5 text-taupe-400" />
                       <input
                         type="text"
                         value={linkedin}
                         onChange={(e) => setLinkedin(e.target.value)}
                         placeholder="linkedin.com/in/username"
-                        className="w-full pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg font-medium text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                        className="w-full pl-8 pr-3 py-1.5 text-xs border border-linen-200 rounded-lg font-medium text-pine-900 focus:outline-hidden focus:ring-2 focus:ring-pine-500"
                       />
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-taupe-700 mb-1">
                     Bio / Search Summary
                   </label>
                   <textarea
@@ -478,7 +478,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                     value={bio}
                     onChange={(e) => setBio(e.target.value)}
                     placeholder="Brief career highlight or technical specialization..."
-                    className="w-full p-2.5 text-xs border border-slate-200 rounded-lg text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-500 resize-none"
+                    className="w-full p-2.5 text-xs border border-linen-200 rounded-lg text-pine-900 focus:outline-hidden focus:ring-2 focus:ring-pine-500 resize-none"
                   />
                 </div>
               </div>
@@ -492,19 +492,19 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                       onClose();
                       onOpenGoalsModal();
                     }}
-                    className="w-full py-2 px-3 bg-slate-100 hover:bg-slate-200/80 rounded-xl text-xs font-semibold text-slate-700 flex items-center justify-between transition-colors"
+                    className="w-full py-2 px-3 bg-linen-100 hover:bg-linen-200/80 rounded-xl text-xs font-semibold text-taupe-700 flex items-center justify-between transition-colors"
                   >
                     <div className="flex items-center gap-2">
-                      <Target className="w-4 h-4 text-blue-600" />
+                      <Target className="w-4 h-4 text-pine-600" />
                       <span>Configure Search Targets & Monthly Goals</span>
                     </div>
-                    <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
+                    <ArrowRight className="w-3.5 h-3.5 text-taupe-400" />
                   </button>
                 </div>
               )}
 
               {/* Submit Buttons */}
-              <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <div className="pt-4 border-t border-linen-100 flex items-center justify-between">
                 <button
                   type="button"
                   onClick={handleLogoutClick}
@@ -518,14 +518,14 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                   <button
                     type="button"
                     onClick={onClose}
-                    className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+                    className="px-4 py-2 text-xs font-semibold text-taupe-600 hover:bg-linen-100 rounded-lg transition-colors"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     className={`px-5 py-2 text-xs font-bold text-white rounded-lg shadow-xs transition-all flex items-center gap-1.5 ${
-                      savedSuccess ? 'bg-emerald-600' : 'bg-blue-600 hover:bg-blue-700'
+                      savedSuccess ? 'bg-olive-600' : 'bg-pine-600 hover:bg-pine-700'
                     }`}
                   >
                     {savedSuccess ? (

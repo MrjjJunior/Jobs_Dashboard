@@ -164,43 +164,43 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
   const currentMonthName = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(new Date());
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-xs animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-pine-900/40 backdrop-blur-xs animate-fadeIn">
       <div 
-        className="bg-white rounded-2xl shadow-xl border border-slate-200/90 w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]"
+        className="bg-white rounded-2xl shadow-xl border border-linen-200/90 w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Minimal Header */}
-        <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between shrink-0">
+        <div className="px-6 py-4 border-b border-linen-100 flex items-center justify-between shrink-0">
           <div>
-            <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
+            <h2 className="text-base font-bold text-pine-900 flex items-center gap-2">
               Monthly Targets
-              <span className="text-xs font-normal text-slate-400">· {currentMonthName}</span>
+              <span className="text-xs font-normal text-taupe-400">· {currentMonthName}</span>
             </h2>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-taupe-500 mt-0.5">
               Set application volume, pipeline milestones, and compensation goals.
             </p>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors"
+            className="p-1.5 text-taupe-400 hover:text-taupe-700 rounded-lg hover:bg-linen-100 transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Minimal Progress Bar Summary */}
-        <div className="bg-slate-50/70 border-b border-slate-100 px-6 py-3">
-          <div className="flex items-center justify-between text-xs text-slate-600 mb-1.5">
+        <div className="bg-linen-50/70 border-b border-linen-100 px-6 py-3">
+          <div className="flex items-center justify-between text-xs text-taupe-600 mb-1.5">
             <span className="font-medium">
-              Applications: <strong className="text-slate-900 font-semibold">{appliedCount}</strong> / {monthlyApps}
+              Applications: <strong className="text-pine-900 font-semibold">{appliedCount}</strong> / {monthlyApps}
             </span>
-            <span className="text-slate-400">
-              Interviews: <strong className="text-slate-700 font-semibold">{interviewCount}</strong>/{monthlyInterviews} · Offers: <strong className="text-slate-700 font-semibold">{offerCount}</strong>/{monthlyOffers}
+            <span className="text-taupe-400">
+              Interviews: <strong className="text-taupe-700 font-semibold">{interviewCount}</strong>/{monthlyInterviews} · Offers: <strong className="text-taupe-700 font-semibold">{offerCount}</strong>/{monthlyOffers}
             </span>
           </div>
-          <div className="w-full bg-slate-200/80 h-1.5 rounded-full overflow-hidden">
+          <div className="w-full bg-linen-200/80 h-1.5 rounded-full overflow-hidden">
             <div 
-              className={`h-full rounded-full transition-all duration-300 ${appsProgress >= 100 ? 'bg-emerald-500' : 'bg-blue-600'}`}
+              className={`h-full rounded-full transition-all duration-300 ${appsProgress >= 100 ? 'bg-olive-500' : 'bg-pine-600'}`}
               style={{ width: `${appsProgress}%` }}
             />
           </div>
@@ -211,10 +211,10 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
           {/* Monthly Applications Target */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="text-xs font-semibold text-slate-700">
+              <label className="text-xs font-semibold text-taupe-700">
                 Monthly Applications Target
               </label>
-              <span className="text-xs font-bold text-slate-900">
+              <span className="text-xs font-bold text-pine-900">
                 {monthlyApps} apps / mo
               </span>
             </div>
@@ -231,8 +231,8 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
                   }}
                   className={`flex-1 py-1 text-xs font-medium rounded-lg border transition-all ${
                     monthlyApps === presetVal
-                      ? 'bg-slate-900 text-white border-slate-900 font-semibold'
-                      : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
+                      ? 'bg-pine-900 text-white border-pine-900 font-semibold'
+                      : 'bg-white text-taupe-600 border-linen-200 hover:bg-linen-50'
                   }`}
                 >
                   {presetVal}
@@ -253,7 +253,7 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
                   setMonthlyApps(val);
                   setWeeklyApps(Math.max(1, Math.round(val / 4)));
                 }}
-                className="flex-1 accent-slate-900 h-1.5 bg-slate-200 rounded-lg cursor-pointer"
+                className="flex-1 accent-pine-900 h-1.5 bg-linen-200 rounded-lg cursor-pointer"
               />
               <input
                 type="number"
@@ -265,15 +265,15 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
                   setMonthlyApps(val);
                   if (val > 0) setWeeklyApps(Math.max(1, Math.round(val / 4)));
                 }}
-                className="w-16 px-2 py-1 text-center font-bold text-slate-900 border border-slate-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-slate-900 text-xs"
+                className="w-16 px-2 py-1 text-center font-bold text-pine-900 border border-linen-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-pine-900 text-xs"
               />
             </div>
           </div>
 
           {/* Pipeline Milestones: 3 Clean Inputs */}
-          <div className="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100">
+          <div className="grid grid-cols-3 gap-3 pt-3 border-t border-linen-100">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="block text-xs font-semibold text-taupe-700 mb-1">
                 Weekly Target
               </label>
               <input
@@ -282,12 +282,12 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
                 max="50"
                 value={weeklyApps}
                 onChange={(e) => setWeeklyApps(Number(e.target.value))}
-                className="w-full px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-semibold text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-slate-900"
+                className="w-full px-3 py-1.5 border border-linen-200 rounded-lg text-xs font-semibold text-pine-900 focus:outline-hidden focus:ring-2 focus:ring-pine-900"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="block text-xs font-semibold text-taupe-700 mb-1">
                 Interviews
               </label>
               <input
@@ -296,12 +296,12 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
                 max="30"
                 value={monthlyInterviews}
                 onChange={(e) => setMonthlyInterviews(Number(e.target.value))}
-                className="w-full px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-semibold text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-slate-900"
+                className="w-full px-3 py-1.5 border border-linen-200 rounded-lg text-xs font-semibold text-pine-900 focus:outline-hidden focus:ring-2 focus:ring-pine-900"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
+              <label className="block text-xs font-semibold text-taupe-700 mb-1">
                 Offers
               </label>
               <input
@@ -310,18 +310,18 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
                 max="10"
                 value={monthlyOffers}
                 onChange={(e) => setMonthlyOffers(Number(e.target.value))}
-                className="w-full px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-semibold text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-slate-900"
+                className="w-full px-3 py-1.5 border border-linen-200 rounded-lg text-xs font-semibold text-pine-900 focus:outline-hidden focus:ring-2 focus:ring-pine-900"
               />
             </div>
           </div>
 
           {/* Minimal Target Salary & Currency */}
-          <div className="pt-3 border-t border-slate-100 space-y-2.5">
+          <div className="pt-3 border-t border-linen-100 space-y-2.5">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-semibold text-slate-700">
+              <label className="text-xs font-semibold text-taupe-700">
                 Target Minimum Base Salary
               </label>
-              <span className="text-xs font-bold text-emerald-700 font-mono">
+              <span className="text-xs font-bold text-olive-700 font-mono">
                 {formatSalaryNum(minSalary || 0, salaryCurrency)} / yr
               </span>
             </div>
@@ -332,7 +332,7 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
                 <select
                   value={salaryCurrency}
                   onChange={(e) => handleCurrencyChange(e.target.value)}
-                  className="w-full px-2.5 py-1.5 text-xs font-medium bg-white border border-slate-200 rounded-lg text-slate-800 focus:outline-hidden focus:ring-2 focus:ring-slate-900"
+                  className="w-full px-2.5 py-1.5 text-xs font-medium bg-white border border-linen-200 rounded-lg text-pine-800 focus:outline-hidden focus:ring-2 focus:ring-pine-900"
                 >
                   <option value="ZAR">🇿🇦 ZAR (R) - Rand</option>
                   <option value="USD">🇺🇸 USD ($) - US Dollar</option>
@@ -352,7 +352,7 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
               </div>
 
               <div className="sm:col-span-2 relative">
-                <div className="absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-xs font-mono font-bold text-slate-500">
+                <div className="absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-xs font-mono font-bold text-taupe-500">
                   {getCurrencySymbol(salaryCurrency).trim() || salaryCurrency}
                 </div>
                 <input
@@ -362,14 +362,14 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
                   value={minSalary !== undefined ? minSalary : ''}
                   onChange={(e) => setMinSalary(Number(e.target.value))}
                   placeholder={salaryCurrency === 'ZAR' ? '650000' : '140000'}
-                  className="w-full pl-9 pr-3 py-1.5 border border-slate-200 rounded-lg text-xs font-bold text-slate-900 font-mono focus:outline-hidden focus:ring-2 focus:ring-slate-900"
+                  className="w-full pl-9 pr-3 py-1.5 border border-linen-200 rounded-lg text-xs font-bold text-pine-900 font-mono focus:outline-hidden focus:ring-2 focus:ring-pine-900"
                 />
               </div>
             </div>
 
             {/* Quick Benchmark Pills */}
             <div className="flex items-center gap-1.5 overflow-x-auto py-0.5">
-              <span className="text-[11px] text-slate-400 shrink-0">Presets:</span>
+              <span className="text-[11px] text-taupe-400 shrink-0">Presets:</span>
               {getSalaryPresets().map((preset) => (
                 <button
                   key={preset.label}
@@ -377,8 +377,8 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
                   onClick={() => setMinSalary(preset.value)}
                   className={`px-2 py-0.5 text-[11px] rounded-md font-mono transition-colors border ${
                     minSalary === preset.value
-                      ? 'bg-slate-900 text-white border-slate-900 font-semibold'
-                      : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                      ? 'bg-pine-900 text-white border-pine-900 font-semibold'
+                      : 'bg-white border-linen-200 text-taupe-600 hover:bg-linen-50'
                   }`}
                 >
                   {preset.label}
@@ -388,25 +388,25 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
           </div>
 
           {/* Strategic Search Focus */}
-          <div className="pt-3 border-t border-slate-100">
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
-              Search Focus & Notes <span className="font-normal text-slate-400">(optional)</span>
+          <div className="pt-3 border-t border-linen-100">
+            <label className="block text-xs font-semibold text-taupe-700 mb-1">
+              Search Focus & Notes <span className="font-normal text-taupe-400">(optional)</span>
             </label>
             <textarea
               rows={2}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Key requirements, preferred tech stacks, or search priorities..."
-              className="w-full p-2.5 border border-slate-200 rounded-lg text-slate-900 text-xs focus:outline-hidden focus:ring-2 focus:ring-slate-900 resize-none"
+              className="w-full p-2.5 border border-linen-200 rounded-lg text-pine-900 text-xs focus:outline-hidden focus:ring-2 focus:ring-pine-900 resize-none"
             />
           </div>
 
           {/* Minimal Footer Actions */}
-          <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+          <div className="pt-3 border-t border-linen-100 flex items-center justify-between">
             <button
               type="button"
               onClick={handleResetDefaults}
-              className="text-xs text-slate-400 hover:text-slate-700 flex items-center gap-1 transition-colors"
+              className="text-xs text-taupe-400 hover:text-taupe-700 flex items-center gap-1 transition-colors"
             >
               <RotateCcw className="w-3 h-3" />
               <span>Reset</span>
@@ -416,14 +416,14 @@ export const GoalsModal: React.FC<GoalsModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-3.5 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+                className="px-3.5 py-1.5 text-xs font-semibold text-taupe-600 hover:bg-linen-100 rounded-lg transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 className={`px-4 py-1.5 text-xs font-semibold text-white rounded-lg transition-all flex items-center gap-1.5 ${
-                  saveSuccess ? 'bg-emerald-600' : 'bg-slate-900 hover:bg-slate-800'
+                  saveSuccess ? 'bg-olive-600' : 'bg-pine-900 hover:bg-pine-800'
                 }`}
               >
                 {saveSuccess ? (

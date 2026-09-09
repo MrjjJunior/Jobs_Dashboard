@@ -64,9 +64,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
   ];
 
   const sidebarContent = (
-    <div className="flex flex-col h-full bg-white border-r border-slate-200 select-none text-slate-800">
+    <div className="flex flex-col h-full bg-white border-r border-linen-200 select-none text-pine-800">
       {/* Brand Header */}
-      <div className="h-16 px-5 flex items-center justify-between border-b border-slate-100 shrink-0">
+      <div className="h-16 px-5 flex items-center justify-between border-b border-linen-100 shrink-0">
         <div 
           className="flex items-center gap-2.5 cursor-pointer hover:opacity-80 transition-opacity"
           onClick={onNavigateToLanding}
@@ -87,7 +87,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {mobileOpen && onCloseMobile && (
           <button
             onClick={onCloseMobile}
-            className="p-1 rounded-md text-slate-400 hover:text-slate-600 hover:bg-slate-100 lg:hidden focus-visible:ring-2 focus-visible:ring-[#003B36]"
+            className="p-1 rounded-md text-taupe-400 hover:text-taupe-600 hover:bg-linen-100 lg:hidden focus-visible:ring-2 focus-visible:ring-[#003B36]"
             aria-label="Close navigation"
           >
             <X className="w-5 h-5" />
@@ -127,7 +127,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-medium transition-colors text-left focus-visible:ring-2 focus-visible:ring-[#003B36] focus-visible:outline-hidden ${
                   isActive
                     ? 'bg-[#003B36]/10 text-[#003B36] font-bold border-l-2 border-[#003B36]'
-                    : 'text-slate-600 hover:bg-[#F3E8EE]/60 hover:text-[#003B36]'
+                    : 'text-taupe-600 hover:bg-[#F3E8EE]/60 hover:text-[#003B36]'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
@@ -152,7 +152,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
         {/* Email Helper Action */}
         {onOpenAiDraftModal && (
-          <div className="pt-4 mt-4 border-t border-slate-100">
+          <div className="pt-4 mt-4 border-t border-linen-100">
             <button
               id="sidebar-coach-btn"
               onClick={() => {
@@ -172,13 +172,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Goal Summary */}
-      <div className="p-3 border-t border-slate-100 bg-[#F3E8EE]/40">
+      <div className="p-3 border-t border-linen-100 bg-[#F3E8EE]/40">
         <button
           onClick={onOpenGoalsModal}
           className="w-full p-2.5 text-left rounded-lg bg-white border border-[#917C78]/20 hover:border-[#917C78]/50 transition-colors focus-visible:ring-2 focus-visible:ring-[#003B36] focus-visible:outline-hidden"
           title="Click to view & edit your application goals"
         >
-          <div className="flex items-center justify-between text-[11px] font-semibold text-slate-600 mb-1">
+          <div className="flex items-center justify-between text-[11px] font-semibold text-taupe-600 mb-1">
             <span className="flex items-center gap-1.5">
               <Target className="w-3.5 h-3.5 text-[#90A955]" />
               <span>Target Goal</span>
@@ -199,10 +199,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Profile Footer */}
-      <div className="p-3 border-t border-slate-100 flex items-center justify-between">
+      <div className="p-3 border-t border-linen-100 flex items-center justify-between">
         <button
           onClick={onOpenProfileModal}
-          className="flex items-center gap-2.5 min-w-0 p-1 rounded-lg hover:bg-slate-100 text-left transition-colors focus-visible:ring-2 focus-visible:ring-[#003B36] focus-visible:outline-hidden flex-1"
+          className="flex items-center gap-2.5 min-w-0 p-1 rounded-lg hover:bg-linen-100 text-left transition-colors focus-visible:ring-2 focus-visible:ring-[#003B36] focus-visible:outline-hidden flex-1"
         >
           <div className="w-7 h-7 rounded-full bg-[#F3E8EE] text-[#003B36] flex items-center justify-center font-bold text-xs shrink-0 overflow-hidden border border-[#917C78]/40">
             {userProfile?.avatarUrl ? (
@@ -222,7 +222,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </button>
         <button
           onClick={onOpenGoalsModal}
-          className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-md focus-visible:ring-2 focus-visible:ring-emerald-500"
+          className="p-1.5 text-taupe-400 hover:text-taupe-600 hover:bg-linen-100 rounded-md focus-visible:ring-2 focus-visible:ring-olive-500"
           title="Settings & Targets"
           aria-label="Settings"
         >
@@ -241,7 +241,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {mobileOpen && (
         <div className="fixed inset-0 z-50 lg:hidden flex">
           <div 
-            className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs transition-opacity" 
+            className="fixed inset-0 bg-pine-900/40 backdrop-blur-xs transition-opacity" 
             onClick={onCloseMobile}
             aria-hidden="true"
           />
