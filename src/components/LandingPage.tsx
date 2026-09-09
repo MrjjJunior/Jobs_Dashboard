@@ -120,12 +120,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#ADFCF9]/10 blur-[130px] rounded-full pointer-events-none" />
         <div className="absolute top-1/3 left-1/4 w-[400px] h-[250px] bg-[#90A955]/15 blur-[110px] rounded-full pointer-events-none" />
 
-        {/* Hero Pill */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#002824] border border-[#917C78]/50 text-xs text-[#ADFCF9] font-semibold mb-6 shadow-inner">
-          <Sparkles className="w-3.5 h-3.5 text-[#ADFCF9] animate-pulse" />
-          <span>Smart Career Management & ATS Match Intelligence</span>
-        </div>
-
         {/* Hero Headline */}
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#F3E8EE] tracking-tight max-w-4xl leading-[1.15] mb-6">
           Take control of your job search.{' '}
