@@ -7,7 +7,7 @@ export const PrivacyPolicy: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       <button onClick={onBack} className="flex items-center gap-2 text-[#ADFCF9] font-bold mb-8 hover:underline transition-colors cursor-pointer">
         <ArrowLeft className="w-4 h-4" /> Back to Home
       </button>
-      <div className="max-w-3xl mx-auto bg-[#002824] p-8 sm:p-12 rounded-2xl shadow-xl border border-[#917C78]/30">
+      <div className="max-w-3xl mx-auto pt-4 pb-12">
         <h1 className="text-3xl font-extrabold text-[#F3E8EE] mb-6 tracking-tight">Privacy Policy</h1>
         <p className="text-sm text-[#917C78] mb-6">Last updated: September 2026</p>
         
