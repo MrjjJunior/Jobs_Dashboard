@@ -189,21 +189,23 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
           email: authEmail.trim(),
           password: authPassword,
         });
-        onSaveProfile(res.user);
+        onSaveProfile({ ...res.user, isLoggedIn: true });
         setSavedSuccess(true);
         setTimeout(() => {
           onClose();
-        }, 500);
+            window.location.href = '/dashboard';
+          }, 500);
       } else {
         const res = await api.login({
           email: authEmail.trim(),
           password: authPassword,
         });
-        onSaveProfile(res.user);
+        onSaveProfile({ ...res.user, isLoggedIn: true });
         setSavedSuccess(true);
         setTimeout(() => {
           onClose();
-        }, 500);
+            window.location.href = '/dashboard';
+          }, 500);
       }
     } catch (err: any) {
       setAuthError(err.message || 'Authentication failed. Please check your credentials.');
