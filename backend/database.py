@@ -498,7 +498,7 @@ def delete_account_and_data(user_id: str) -> bool:
             cursor.execute("DELETE FROM jobs WHERE user_id = ?", (user_id,))
             cursor.execute("DELETE FROM resumes WHERE user_id = ?", (user_id,))
             cursor.execute("DELETE FROM user_goals WHERE user_id = ?", (user_id,))
-            cursor.execute("DELETE FROM user_profiles WHERE id = ?", (user_id,))
+            cursor.execute("DELETE FROM user_profile WHERE id = ?", (user_id,))
             conn.commit()
             return cursor.rowcount > 0 or True # Return true since the user might not have all rows
     except sqlite3.Error as e:

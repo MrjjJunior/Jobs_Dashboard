@@ -9,4 +9,6 @@ coverage/
 __pycache__/
 *.pyc
 *.db
-
+*.pem
+.vscode/
+bun.lock
