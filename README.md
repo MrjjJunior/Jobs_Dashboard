@@ -1,11 +1,8 @@
 # Jobs Dashboard & ATS Tracker
 
 A full-stack career management dashboard, ATS keyword match calculator, and AI-assisted application tracker built with **Python FastAPI** and **React + Tailwind CSS**.
-
 ---
-
 ## 🏗️ Architecture
-
 ```text
 Jobs_Dashboard/
 ├── backend/                  # Python FastAPI Backend
