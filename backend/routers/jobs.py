@@ -48,8 +48,8 @@ def create_or_update_job(
     # Input sanitization for rich text
     if job.notes:
         job.notes = bleach.clean(job.notes, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br', 'strong', 'em', 'u', 'h1', 'h2', 'ul', 'ol', 'li'])
-    if job.description:
-        job.description = bleach.clean(job.description, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br', 'strong', 'em', 'u', 'h1', 'h2', 'ul', 'ol', 'li'])
+    if job.jobDescription:
+        job.jobDescription = bleach.clean(job.jobDescription, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br', 'strong', 'em', 'u', 'h1', 'h2', 'ul', 'ol', 'li'])
     
     return db.upsert_job(job, user_id=x_user_id or job.userId)
 
