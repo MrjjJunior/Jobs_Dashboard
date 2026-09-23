@@ -55,7 +55,36 @@ npm install
 
 ```bash
 cp .env.example .env
-# Edit .env with your GEMINI_API_KEY and other settings
+# Edit .env with your GEMINI_API_KEY, DATABASE_URL, and other settings
+```
+
+#### Database Setup (PostgreSQL or SQLite)
+The application operates in **hybrid database mode**:
+- **PostgreSQL**: Set `DATABASE_URL` in `.env` (e.g. Neon, Supabase, AWS RDS, or local Docker).
+  ```bash
+  # Example for Neon / Supabase / Cloud Postgres:
+  DATABASE_URL="postgresql://user:password@host:5432/dbname?sslmode=require"
+  ```
+- **SQLite Fallback**: If `DATABASE_URL` is omitted or empty, the backend automatically uses the local SQLite database (`backend/jobs_dashboard.db`).
+
+#### Local PostgreSQL with Docker (Optional)
+If you want to run PostgreSQL locally using Docker:
+```bash
+docker compose up -d
+```
+Then set in your `.env`:
+```bash
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/jobs_dashboard"
+```
+
+#### Migrate Existing SQLite Data to PostgreSQL
+To migrate all your existing job applications, resumes, user profiles, and goals from SQLite to PostgreSQL:
+```bash
+# Preview what will be migrated without making changes:
+python scripts/migrate_sqlite_to_postgres.py --dry-run
+
+# Run the live migration:
+python scripts/migrate_sqlite_to_postgres.py
 ```
 
 ### 3. Run the System

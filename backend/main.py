@@ -7,14 +7,16 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-from .database import init_db
+from .database import init_db, close_db, get_db_info
 from .routers import jobs, resumes, profile, ats, ai
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Initialize SQLite database on startup
+    # Initialize database on startup (PostgreSQL if DATABASE_URL is set, else SQLite)
     init_db()
     yield
+    # Cleanup database connection pool on shutdown
+    close_db()
 
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
@@ -52,7 +54,8 @@ def health_check():
     return {
         "status": "online",
         "service": "Jobs Dashboard Python Backend",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "database": get_db_info()
     }
 
 if __name__ == "__main__":
