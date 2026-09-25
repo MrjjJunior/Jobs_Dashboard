@@ -7,6 +7,14 @@ Cyber Tracking code: WTC-S597GLFW
 
 A full-stack career management dashboard, ATS keyword match calculator, and AI-assisted application tracker built with **Python FastAPI** and **React + Tailwind CSS**.
 ---
+
+---
+
+[![Watch the video](https://youtube.com)](https://youtu.be/7bC8mowHgSw)
+
+---
+
+
 ## 🏗️ Architecture
 ```text
 Jobs_Dashboard/
